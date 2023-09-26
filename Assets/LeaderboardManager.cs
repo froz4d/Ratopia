@@ -6,22 +6,6 @@ using UnityEngine;
 
 public class LeaderboardManager : MonoBehaviour
 {
-    [SerializeField] private AudioClip PickUpSound;
-    [SerializeField] private AudioSource _audioSource;
-
-    public void Play_pickUpSound()
-    {
-        _audioSource.PlayOneShot(PickUpSound);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        
-        if (other.gameObject.tag == "item")
-        {
-            Destroy(other.gameObject);
-        }
-    }
 
     private static List<Player> PlayersOnServer = new List<Player>();
 
@@ -42,7 +26,6 @@ public class LeaderboardManager : MonoBehaviour
         
         CreateLeaderboard();
         
-        Play_pickUpSound();
     }
 
     // Update is called once per frame
