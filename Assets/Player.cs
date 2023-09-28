@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+[System.Serializable]
 public class Player
 {
-    public string PlayerName { get; set; }
-    public Sprite PlayerProfile { get; set; }
-    public int PlayerScore { get; set; }
+    public string PlayerName;
+    public Sprite PlayerProfile;
+    public int PlayerScore;
 
     public Player(string playerName , int playerScore)
     {
