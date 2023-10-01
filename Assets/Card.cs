@@ -8,7 +8,7 @@ public class Card : ScriptableObject
 {
     public string cardName;
 
-    public Image cardImage;
+    public Sprite cardImage;
     
     [TextArea]
     public string description;

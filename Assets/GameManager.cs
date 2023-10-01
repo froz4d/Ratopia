@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = System.Random;
 
 public class GameManager : MonoBehaviour
@@ -60,8 +61,10 @@ public class GameManager : MonoBehaviour
     
     private Queue<Card> _displayCard = new Queue<Card>(); //Q ของ การ์ดที่จะ Show ใน Turn นั้น
     private static Card CurrentDisplayCard;
-
+    
+    
     [SerializeField] private GameObject cardFoundation;
+    public GameObject cardParent;
 
     [Header("setting")]
     
@@ -189,8 +192,15 @@ public class GameManager : MonoBehaviour
     {
         CurrentDisplayCard = card;
         Debug.Log("currentDisplayCard : " + CurrentDisplayCard.cardName);
-        //Instantiate แล้วใส่ script .create? หรือวางที่ไว้เลยไม่ต้อง Instantiate??? ให้ป๋อมแป๋ม♥ ดีไซด์ ละกานนนนนนนนนน
-        CardFoundation cardGameObject = Instantiate(cardFoundation).GetComponent<CardFoundation>();
+        GameObject cardObject = Instantiate(cardFoundation);
+        CardFoundation cardFoundationScript = cardObject.GetComponent<CardFoundation>();
+        cardFoundationScript.cardData = card;
+        cardFoundationScript.ShowCardDisplay(card);
+        //tranform
+        cardObject.transform.SetParent(cardParent.transform);
+        cardObject.transform.position = cardFoundation.transform.position;
+        cardObject.transform.rotation = cardFoundation.transform.rotation;
+        cardObject.transform.localScale = cardFoundation.transform.localScale;
     }
 
     private void AddCardToHoldOn(int numberCardToRandom)
