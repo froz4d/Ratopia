@@ -51,4 +51,6 @@ public class Card : ScriptableObject
         set { rightExcuteChain = Mathf.Clamp(value, 1, 24); }
     }
     
+    //Possible Outcome? %? Fix?
+    
 }
