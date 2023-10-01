@@ -50,8 +50,13 @@ public class GameManager : MonoBehaviour
             Card = card;
             TurnLeftToExcute = 0;
         }
+        public CardsHoldOn(Card card,int turn)
+        {
+            Card = card;
+            TurnLeftToExcute = turn;
+        }
     }
-    private List<CardsHoldOn> _cardHoldOn = new List<CardsHoldOn>(); //ChainEvent หรือการ์ดที่จะโผล่ตามมา int = จำนวนเทิร์น
+    private static List<CardsHoldOn> _cardHoldOn = new List<CardsHoldOn>(); //ChainEvent หรือการ์ดที่จะโผล่ตามมา int = จำนวนเทิร์น
     
     private Queue<Card> _displayCard = new Queue<Card>(); //Q ของ การ์ดที่จะ Show ใน Turn นั้น
     private static Card CurrentDisplayCard;
@@ -158,7 +163,7 @@ public class GameManager : MonoBehaviour
         StartTurn();
     }
 
-    public static void UpdateResource(int money, int happy, int power, int stability,Card chainEvent)
+    public static void UpdateResource(int money, int happy, int power, int stability,Card chainEvent,int excuteTurn)
     {
         Debug.Log($"UpdateResourceFor : {CurrentMoney} : {CurrentHappiness} : {CurrentPower} : {CurrentStability}");
         //รับค่าเป็น +-
@@ -175,7 +180,8 @@ public class GameManager : MonoBehaviour
         //Card
         if (chainEvent != null)
         {
-            //ChainEvent เก็บไว้
+            CardsHoldOn newcard = new CardsHoldOn(chainEvent,excuteTurn);
+            _cardHoldOn.Insert(0,newcard);
         }
     }
 
@@ -199,7 +205,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Warning!! Card In Desk Is Out");
                 break;
             }
-            int randomIndex = random.Next(0, CardsInDeck.Count);
+            int randomIndex = random.Next(0, CardsInDeck.Count-1);
             
             Debug.Log("random number : " + randomIndex);
 
@@ -210,7 +216,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("add newcard : " + newcard.Card.cardName);
             
             //อย่าลืม Remove ใน List ออก
-            CardsInDeck.Remove(CardsInDeck[randomIndex]);
+            CardsInDeck.RemoveAt(randomIndex);
         }
     }
     
@@ -234,7 +240,7 @@ public class GameManager : MonoBehaviour
     public void LeftChoiceSelect()
     {
         Debug.Log("Excute " + CurrentDisplayCard.cardName + " LeftChoice");
-        UpdateResource(CurrentDisplayCard.leftMoney,CurrentDisplayCard.leftMoney,CurrentDisplayCard.leftPower,CurrentDisplayCard.leftStability,CurrentDisplayCard.leftChainCard);
+        UpdateResource(CurrentDisplayCard.leftMoney,CurrentDisplayCard.leftMoney,CurrentDisplayCard.leftPower,CurrentDisplayCard.leftStability,CurrentDisplayCard.leftChainCard,CurrentDisplayCard.left_ExcuteChainCardIn);
         NextCard();
     }
 
@@ -242,7 +248,7 @@ public class GameManager : MonoBehaviour
     public void RightChoiceSelect()
     {
         Debug.Log("Excute " + CurrentDisplayCard.cardName + " RightChoice");
-        UpdateResource(CurrentDisplayCard.rightMoney,CurrentDisplayCard.rightMoney,CurrentDisplayCard.rightPower,CurrentDisplayCard.rightStability,CurrentDisplayCard.rightChainCard);
+        UpdateResource(CurrentDisplayCard.rightMoney,CurrentDisplayCard.rightMoney,CurrentDisplayCard.rightPower,CurrentDisplayCard.rightStability,CurrentDisplayCard.rightChainCard,CurrentDisplayCard.right_ExcuteChainCardIn);
         NextCard();
     }
 }
