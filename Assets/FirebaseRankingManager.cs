@@ -57,7 +57,7 @@ public class FirebaseRankingManager : MonoBehaviour
         string urlData = $"{url}/PlayerData.json?auth={secret}";
         RestClient.Put<Ranking>(urlData, ranking).Then(testData =>
         {
-            Debug.Log("Upload Data Complete");
+            //Debug.Log("Upload Data Complete");
         }).Catch(error =>
         {
             Debug.Log("error on server?");
@@ -72,13 +72,13 @@ public class FirebaseRankingManager : MonoBehaviour
 
         RestClient.Get(urlData).Then(response =>
         {
-            Debug.Log(response.Text);
+            //Debug.Log(response.Text);
 
             #region test
 
             JSONNode jsonNode = JSONNode.Parse(response.Text);
             testnum = jsonNode["num"];
-            Debug.Log(testnum);
+            //Debug.Log(testnum);
 
             #endregion
 

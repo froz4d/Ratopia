@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78e66eb0491786340a4a68bcd74b683e, type: 3}
+  m_Name: NewAge
+  m_EditorClassIdentifier: 
+  cardName: New Age
+  cardImage: {fileID: 0}
+  description: After the Coup RATTA nation began restore what have lost to New Age
+    that light the way to glory.
+  paragraph: After the Coup RATTA nation began restore what have lost to New Age
+    that light the way to glory.
+  leftParagraph: Focus On Military
+  leftDescription: 
+  leftMoney: -1
+  leftHappiness: -2
+  leftPower: 3
+  leftStability: 1
+  leftChainCard: {fileID: 0}
+  leftExcuteChain: 1
+  rightParagraph: Focus On Civil
+  rightDescription: 
+  rightMoney: 1
+  rightHappiness: 2
+  rightPower: -2
+  rightStability: 0
+  rightChainCard: {fileID: 0}
+  rightExcuteChain: 45

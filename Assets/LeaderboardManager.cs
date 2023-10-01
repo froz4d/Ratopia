@@ -18,7 +18,6 @@ public class LeaderboardManager : MonoBehaviour
     {
         PlayersData = FindObjectOfType<FirebaseRankingManager>().ranking.PlayersData;
         CreateLeaderboard();
-        
     }
 
     // Update is called once per frame
