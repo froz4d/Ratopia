@@ -261,4 +261,20 @@ public class GameManager : MonoBehaviour
         UpdateResource(CurrentDisplayCard.rightMoney,CurrentDisplayCard.rightMoney,CurrentDisplayCard.rightPower,CurrentDisplayCard.rightStability,CurrentDisplayCard.rightChainCard,CurrentDisplayCard.right_ExcuteChainCardIn);
         NextCard();
     }
+
+
+    public static void DisplayLeftChoice()
+    {
+        Debug.Log("กำลังโชว์ฝั่งซ้าย");
+    }
+    
+    public static void DisplayRightChoice()
+    {
+        Debug.Log("กำลังโชว์ฝั่งขวา");
+    }
+
+    public static void DisplayCloseAllDetail()
+    {
+        Debug.Log("ปิด display หมด");
+    }
 }
