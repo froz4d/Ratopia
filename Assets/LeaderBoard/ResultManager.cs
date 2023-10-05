@@ -12,6 +12,8 @@ public class ResultManager : MonoBehaviour
     public List<PlayerData> playerData = new List<PlayerData>();
     public List<GameObject> createdPlayerData = new List<GameObject>();
 
+    public ResultData yourResultData;
+
 
 
     private void Start()

@@ -55,6 +55,12 @@ public class FireBaseResultManager : MonoBehaviour
         
     }
 
+    public void FindYourDataInRanking()
+    {
+        resultManager.yourResultData.playerData = ranking.playerData
+            .Where(data => data.playerName == currantPlayerData.playerName).FirstOrDefault();
+        resultManager.yourResultData.UpdateData();
+    }
     public void DebugSetupWithLocalData()
     {
         ranking.playerData = resultManager.playerData;
@@ -142,12 +148,25 @@ public class FireBaseResultManager : MonoBehaviour
         {
             Debug.Log(response.Text);
             JSONNode jsonNode = JSONNode.Parse(response.Text);
+
+            ranking = new Ranking();
+            ranking.playerData = new List<PlayerData>();
+            for (int i = 0; i < jsonNode.Count; i++)
+            {
+                ranking.playerData.Add(new PlayerData(jsonNode[i]["noNumber"],
+                    jsonNode[i]["playerName"], jsonNode[i]["survivalWeek"],
+                    jsonNode[i]["conditionEnd"]));
+            }
+            ranking.playerData.Add(currantPlayerData);
+            CalculateRankFromWeek();
             
             string urlPlayerData = $"{url}/ranking/playerData/{jsonNode.Count}.json?auth={secret}";
-
             RestClient.Put<PlayerData>(urlPlayerData, currantPlayerData).Then(response =>
             {
                 Debug.Log("Upload Data Complete");
+                resultManager.playerData = ranking.playerData;
+                resultManager.ReloadRankData();
+                FindYourDataInRanking();
             }).Catch(error =>
             {
                 Debug.Log("Error On Set to Server");
@@ -161,7 +180,6 @@ public class FireBaseResultManager : MonoBehaviour
     public void ReloadSortingData()
     {
         string urlData = $"{url}/ranking/playerData.json?auth={secret}";
-        
         RestClient.Get(urlData).Then(response =>
         {
             Debug.Log(response.Text);
@@ -175,7 +193,6 @@ public class FireBaseResultManager : MonoBehaviour
                     jsonNode[i]["playerName"], jsonNode[i]["survivalWeek"],
                     jsonNode[i]["conditionEnd"]));
             }
-
             CalculateRankFromWeek();
 
             string urlPlayerData = $"{url}/ranking.json?auth={secret}";
@@ -185,7 +202,7 @@ public class FireBaseResultManager : MonoBehaviour
                 Debug.Log("Upload Data Complete");
                 resultManager.playerData = ranking.playerData;
                 resultManager.ReloadRankData();
-                //FindYourDataInRanking();
+                FindYourDataInRanking();
 ;           }).Catch(error =>
             {
                 Debug.Log("Error On Set to Server");
@@ -195,4 +212,40 @@ public class FireBaseResultManager : MonoBehaviour
             Debug.Log("Error ");
         });
     }
+    public void AddDataWithSorting()
+    {
+        string urlData = $"{url}/ranking/playerData.json?auth={secret}";
+        RestClient.Get(urlData).Then(response =>
+        {
+            Debug.Log(response.Text);
+            JSONNode jsonNode = JSONNode.Parse(response.Text);
+            
+            ranking = new Ranking();
+            ranking.playerData = new List<PlayerData>();
+            for (int i = 0; i < jsonNode.Count; i++)
+            {
+                ranking.playerData.Add(new PlayerData(jsonNode[i]["noNumber"],
+                    jsonNode[i]["playerName"], jsonNode[i]["survivalWeek"],
+                    jsonNode[i]["conditionEnd"]));
+            }
+            ranking.playerData.Add(currantPlayerData);
+            CalculateRankFromWeek();
+
+            string urlPlayerData = $"{url}/ranking/.json?auth={secret}";
+            RestClient.Put<PlayerData>(urlPlayerData, ranking).Then(response =>
+            {
+                Debug.Log("Upload Data Complete");
+                resultManager.playerData = ranking.playerData;
+                resultManager.ReloadRankData();
+                FindYourDataInRanking();
+            }).Catch(error =>
+            {
+                Debug.Log("Error On Set to Server");
+            });
+        }).Catch(error =>
+        {
+            Debug.Log("error");
+        });
+    }
+
 }
