@@ -8,10 +8,10 @@ public class PlayerData
 {
    public string playerName;
    public int noNumber;
-   public string survivalWeek;
+   public int survivalWeek;
    public string conditionEnd;
 
-   public PlayerData(int noNumber, string playerName, string survivalWeek, string conditionEnd)
+   public PlayerData(int noNumber, string playerName, int survivalWeek, string conditionEnd)
    {
       this.noNumber = noNumber;
       this.playerName = playerName;
@@ -19,7 +19,7 @@ public class PlayerData
       this.conditionEnd = conditionEnd;
    }
    
-   public PlayerData(string playerName, string survivalWeek, string conditionEnd)
+   public PlayerData(string playerName, int survivalWeek, string conditionEnd)
    {
       this.playerName = playerName;
       this.survivalWeek = survivalWeek;
@@ -42,7 +42,7 @@ public class ResultData : MonoBehaviour
    {
       noText.text = playerData.noNumber.ToString();
       nameText.text = playerData.playerName;
-      week.text = playerData.survivalWeek;
+      week.text = playerData.survivalWeek.ToString();
       condition.text = playerData.conditionEnd;
    }
    
