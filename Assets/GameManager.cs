@@ -7,11 +7,15 @@ using Random = System.Random;
 
 public class GameManager : MonoBehaviour
 {
+    #region Setting & Current Status
+
+    //ใส่เกินได้ ใน Inspector เดี่ยวมันปรับให้เอง
     public static int CurrentTurn = 0;
+
     public static int CurrentMoney
     {
         get { return _currentMoney; }
-        set { _currentMoney = Math.Max(0, Math.Min(10, value)); }
+        set { _currentMoney = Math.Max(-10, Math.Min(10, value)); }
     }
 
     private static int _currentMoney;
@@ -19,7 +23,7 @@ public class GameManager : MonoBehaviour
     public static int CurrentHappiness
     {
         get { return _currentHappiness; }
-        set { _currentHappiness = Math.Max(0, Math.Min(10, value)); }
+        set { _currentHappiness = Math.Max(-10, Math.Min(10, value)); }
     }
 
     private static int _currentHappiness;
@@ -27,7 +31,7 @@ public class GameManager : MonoBehaviour
     public static int CurrentPower
     {
         get { return _currentPower; }
-        set { _currentPower = Math.Max(0, Math.Min(10, value)); }
+        set { _currentPower = Math.Max(-10, Math.Min(10, value)); }
     }
 
     private static int _currentPower;
@@ -35,7 +39,7 @@ public class GameManager : MonoBehaviour
     public static int CurrentStability
     {
         get { return _currentStability; }
-        set { _currentStability = Math.Max(0, Math.Min(10, value)); }
+        set { _currentStability = Math.Max(-10, Math.Min(10, value)); }
     }
 
     private static int _currentStability;
@@ -66,11 +70,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject cardFoundation;
     public GameObject cardParent;
 
-    [Header("setting")]
-    
+    [field: Header("setting")] 
     [SerializeField]
-    private int _Maxturn;
-    
+    private int _MaxTurn;
+    public static int MaxTurn;
+
     [SerializeField][Tooltip("0-10")]
     private int _startMoney;
 
@@ -107,12 +111,15 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int RandomCardPerTurn;
 
+    #endregion
+
     void Start()
     {
         CurrentMoney = StartMoney;
         CurrentHappiness = StartHappiness;
         CurrentPower = StartPower;
         CurrentStability = StartStability;
+        MaxTurn = _MaxTurn;
         
         Card[] cards = Resources.LoadAll<Card>("FixEvent");
         CardsInDeck.AddRange(cards);
@@ -128,7 +135,7 @@ public class GameManager : MonoBehaviour
     {
         CurrentTurn++;
         
-        Debug.Log("StartTurn : " + CurrentTurn);
+        Debug.Log("StartTurn : " + CurrentTurn + " / " + MaxTurn);
         //foreach checkCard Turn = 0 ให้ display Card
         if (_cardHoldOn.Count > 0)
         {
@@ -161,32 +168,12 @@ public class GameManager : MonoBehaviour
         }
 
         //สุ่มการ์ดใหม่
-        AddCardToHoldOn(RandomCardPerTurn);
+        RandomCardInDeckToHoldOn(RandomCardPerTurn);
         
         StartTurn();
     }
 
-    public static void UpdateResource(int money, int happy, int power, int stability,Card chainEvent,int excuteTurn)
-    {
-        Debug.Log($"UpdateResourceFor : {CurrentMoney} : {CurrentHappiness} : {CurrentPower} : {CurrentStability}");
-        //รับค่าเป็น +-
-        CurrentMoney += money;
-        CurrentHappiness += happy;
-        CurrentPower += power;
-        CurrentStability += stability;
-        
-        Debug.Log($"UpdateResource : {money} : {happy} : {power} : {stability}");
-        Debug.Log($"UpdateResourceTo : {CurrentMoney} : {CurrentHappiness} : {CurrentPower} : {CurrentStability}");
-        
-        //เขียน Debug.Log เพราะเพื่อไปเขียน History ไว้
-        
-        //Card
-        if (chainEvent != null)
-        {
-            CardsHoldOn newcard = new CardsHoldOn(chainEvent,excuteTurn);
-            _cardHoldOn.Insert(0,newcard);
-        }
-    }
+    #region Display
 
     private void DisplayCard(Card card)
     {
@@ -202,8 +189,53 @@ public class GameManager : MonoBehaviour
         cardObject.transform.rotation = cardFoundation.transform.rotation;
         cardObject.transform.localScale = cardFoundation.transform.localScale;
     }
+    
+    //Display ถ้าเป็นNotifyCard ให้โชว์เหมือนกัน
+    
+    public static void DisplayLeftChoice()
+    {
+        Debug.Log("กำลังโชว์ฝั่งซ้าย");
+    }
+    
+    public static void DisplayRightChoice()
+    {
+        Debug.Log("กำลังโชว์ฝั่งขวา");
+    }
 
-    private void AddCardToHoldOn(int numberCardToRandom)
+    public static void DisplayCloseAllDetail()
+    {
+        Debug.Log("ปิด display หมด");
+    }
+
+    #endregion
+    
+    public static void UpdateResource(int money, int happy, int power, int stability)
+    {
+        Debug.Log($"UpdateResourceFor : {CurrentMoney} : {CurrentHappiness} : {CurrentPower} : {CurrentStability}");
+        //รับค่าเป็น +-
+        CurrentMoney += money;
+        CurrentHappiness += happy;
+        CurrentPower += power;
+        CurrentStability += stability;
+        
+        Debug.Log($"UpdateResource : {money} : {happy} : {power} : {stability}");
+        Debug.Log($"UpdateResourceTo : {CurrentMoney} : {CurrentHappiness} : {CurrentPower} : {CurrentStability}");
+        
+        //เขียน Debug.Log เพราะเพื่อไปเขียน History ไว้
+        
+        //Card
+    }
+
+    public static void AddCardsHoldOn(Card chainEvent, int excuteTurn)
+    {
+        if (chainEvent != null)
+        {
+            CardsHoldOn newcard = new CardsHoldOn(chainEvent,excuteTurn);
+            _cardHoldOn.Insert(0,newcard);
+        }
+    }
+
+    private void RandomCardInDeckToHoldOn(int numberCardToRandom)
     {
         //Random In Range มา ใน CardInDesk
         Random random = new Random();
@@ -249,32 +281,16 @@ public class GameManager : MonoBehaviour
     [ContextMenu("Execute LeftChoiceMethod")]
     public void LeftChoiceSelect()
     {
-        Debug.Log("Excute " + CurrentDisplayCard.cardName + " LeftChoice");
-        UpdateResource(CurrentDisplayCard.leftMoney,CurrentDisplayCard.leftMoney,CurrentDisplayCard.leftPower,CurrentDisplayCard.leftStability,CurrentDisplayCard.leftChainCard,CurrentDisplayCard.left_ExcuteChainCardIn);
-        NextCard();
+        //คำนวน possible out come
+        //update Resource
+        //เก็บ ChainCard
     }
 
     [ContextMenu("Execute RightChoiceMethod")]
     public void RightChoiceSelect()
     {
-        Debug.Log("Excute " + CurrentDisplayCard.cardName + " RightChoice");
-        UpdateResource(CurrentDisplayCard.rightMoney,CurrentDisplayCard.rightMoney,CurrentDisplayCard.rightPower,CurrentDisplayCard.rightStability,CurrentDisplayCard.rightChainCard,CurrentDisplayCard.right_ExcuteChainCardIn);
-        NextCard();
-    }
-
-
-    public static void DisplayLeftChoice()
-    {
-        Debug.Log("กำลังโชว์ฝั่งซ้าย");
-    }
-    
-    public static void DisplayRightChoice()
-    {
-        Debug.Log("กำลังโชว์ฝั่งขวา");
-    }
-
-    public static void DisplayCloseAllDetail()
-    {
-        Debug.Log("ปิด display หมด");
+        //คำนวน possible out come
+        //update Resource
+        //เก็บ ChainCard
     }
 }
