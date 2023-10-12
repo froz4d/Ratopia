@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     }
     private static List<CardsHoldOn> _cardHoldOn = new List<CardsHoldOn>(); //ChainEvent หรือการ์ดที่จะโผล่ตามมา int = จำนวนเทิร์น
     
-    private Queue<Card> _displayCard = new Queue<Card>(); //Q ของ การ์ดที่จะ Show ใน Turn นั้น
+    private static Queue<Card> _displayCard = new Queue<Card>(); //Q ของ การ์ดที่จะ Show ใน Turn นั้น
     private static Card CurrentDisplayCard;
     
     
@@ -228,10 +228,15 @@ public class GameManager : MonoBehaviour
 
     public static void AddCardsHoldOn(Card chainEvent, int excuteTurn)
     {
-        if (chainEvent != null)
+        if (chainEvent != null && excuteTurn != 0)
         {
             CardsHoldOn newcard = new CardsHoldOn(chainEvent,excuteTurn);
             _cardHoldOn.Insert(0,newcard);
+        }
+
+        else if (chainEvent != null && excuteTurn == 0)
+        {
+            _displayCard.Enqueue(chainEvent);
         }
     }
 
@@ -249,7 +254,7 @@ public class GameManager : MonoBehaviour
             }
             int randomIndex = random.Next(0, CardsInDeck.Count-1);
             
-            Debug.Log("random number : " + randomIndex);
+            //Debug.Log("random number : " + randomIndex);
 
             //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
             CardsHoldOn newcard = new CardsHoldOn(CardsInDeck[randomIndex]);
@@ -281,16 +286,70 @@ public class GameManager : MonoBehaviour
     [ContextMenu("Execute LeftChoiceMethod")]
     public void LeftChoiceSelect()
     {
-        //คำนวน possible out come
-        //update Resource
-        //เก็บ ChainCard
+        Debug.Log("Excute LeftChoiceMethod");
+        if (CurrentDisplayCard is DefaultCard)
+        {
+            DefaultCard ThisCard = CurrentDisplayCard as DefaultCard;
+            //Update Resource ทันที
+            UpdateResource(ThisCard.leftMoney,ThisCard.leftHappiness,ThisCard.leftPower,ThisCard.leftStability);
+
+            //คำนวน Possible Event
+           CalculatePossibility(ThisCard.leftPossibleChainCards);
+        }
+        else
+        {
+            NotifyCard ThisCard = CurrentDisplayCard as NotifyCard;
+            UpdateResource(ThisCard.Money,ThisCard.Happiness,ThisCard.Power,ThisCard.Stability);
+            //คำนวน Possible Event
+            CalculatePossibility(ThisCard.possibleChainCards);
+        }
+
+        NextCard();
     }
 
     [ContextMenu("Execute RightChoiceMethod")]
     public void RightChoiceSelect()
     {
-        //คำนวน possible out come
-        //update Resource
-        //เก็บ ChainCard
+        Debug.Log("Excute RightChoiceMethod");
+        if (CurrentDisplayCard is DefaultCard)
+        {
+            DefaultCard ThisCard = CurrentDisplayCard as DefaultCard;
+            //Update Resource ทันที
+            UpdateResource(ThisCard.rightMoney,ThisCard.rightHappiness,ThisCard.rightPower,ThisCard.rightStability);
+
+            //คำนวน Possible Event
+            CalculatePossibility(ThisCard.rightPossibleChainCards);
+        }
+        else
+        {
+            NotifyCard ThisCard = CurrentDisplayCard as NotifyCard;
+            UpdateResource(ThisCard.Money,ThisCard.Happiness,ThisCard.Power,ThisCard.Stability);
+            //คำนวน Possible Event
+            CalculatePossibility(ThisCard.possibleChainCards);
+        }
+        
+        NextCard();
     }
+
+    private void CalculatePossibility(List<Card.PossibleChainCard> Cards)
+    {
+        Random random = new Random();
+        int randomNumber = random.Next(1, 101);
+        
+        int previousPossibleOutcome = 0;
+        foreach (var VARIABLE in Cards)
+        {
+            if (randomNumber > VARIABLE.PossibleOutcome+previousPossibleOutcome)
+            {
+                previousPossibleOutcome += VARIABLE.PossibleOutcome;
+                continue;
+            }
+            else
+            {
+                AddCardsHoldOn(VARIABLE.ChainCard,VARIABLE.ExcuteChainCardIn);
+                break;
+            }
+        }
+    }
+    
 }

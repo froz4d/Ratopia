@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78e66eb0491786340a4a68bcd74b683e, type: 3}
-  m_Name: test3
+  m_Script: {fileID: 11500000, guid: efb9b58b54ce81a49b3945fa81fb1174, type: 3}
+  m_Name: New CardInfo
   m_EditorClassIdentifier: 
-  cardName: test3
-  cardImage: {fileID: 21300000, guid: 8ec0ab5aa8d8b444a984352b8bb1418a, type: 3}
+  cardName: 
+  cardImage: {fileID: 0}
   description: 
   paragraph: 
   leftParagraph: 
@@ -22,13 +22,4 @@ MonoBehaviour:
   leftHappiness: 0
   leftPower: 0
   leftStability: 0
-  leftChainCard: {fileID: 0}
-  leftExcuteChain: 1
-  rightParagraph: 
-  rightDescription: 
-  rightMoney: 0
-  rightHappiness: 0
-  rightPower: 0
-  rightStability: 0
-  rightChainCard: {fileID: 0}
-  rightExcuteChain: 1
+  possibleChainCards: []
