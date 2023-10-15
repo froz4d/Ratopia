@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     private History _history;
 
     //ไว้โชว์ Devlog
-    public static bool ShowDevLog = false;
+    public static bool ShowDevLog = true;
     
     //ใส่เกินได้ ใน Inspector เดี่ยวมันปรับให้เอง
     public static int CurrentTurn = 0;
@@ -175,6 +175,7 @@ public class GameManager : MonoBehaviour
 
         //สุ่มการ์ดใหม่
         RandomCardInDeckToHoldOn(RandomCardPerTurn);
+        CheckCondition();
         
         StartTurn();
     }
@@ -357,5 +358,13 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    
+
+    #region ConditionEvent
+
+    private void CheckCondition()
+    {
+        //ถ้า ถึงเท่านี้ๆ ให้ขึ้นเตือนก่อน ถ้าเทิร์นต่อไปยังอยู่อีกให้สุ่ม Event ร้ายมา
+    }
+
+    #endregion
 }
