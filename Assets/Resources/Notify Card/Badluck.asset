@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb9b58b54ce81a49b3945fa81fb1174, type: 3}
   m_Name: Badluck
   m_EditorClassIdentifier: 
-  cardName: "\u0E04\u0E27\u0E32\u0E22\u0E42\u0E0A\u0E04\u0E23\u0E49\u0E32\u0E22"
+  cardName: badluck
   cardImage: {fileID: 0}
   description: 
   paragraph: 

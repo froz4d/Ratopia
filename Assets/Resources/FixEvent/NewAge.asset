@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78e66eb0491786340a4a68bcd74b683e, type: 3}
+  m_Script: {fileID: 11500000, guid: 361d8e23158228a41828d93716eeaeae, type: 3}
   m_Name: NewAge
   m_EditorClassIdentifier: 
   cardName: New Age
@@ -24,13 +24,11 @@ MonoBehaviour:
   leftHappiness: -2
   leftPower: 3
   leftStability: 1
-  leftChainCard: {fileID: 0}
-  leftExcuteChain: 1
+  leftPossibleChainCards: []
   rightParagraph: Focus On Civil
   rightDescription: 
   rightMoney: 1
   rightHappiness: 2
   rightPower: -2
   rightStability: 0
-  rightChainCard: {fileID: 0}
-  rightExcuteChain: 45
+  rightPossibleChainCards: []

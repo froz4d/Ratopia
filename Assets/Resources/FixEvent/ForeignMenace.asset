@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78e66eb0491786340a4a68bcd74b683e, type: 3}
+  m_Script: {fileID: 11500000, guid: 361d8e23158228a41828d93716eeaeae, type: 3}
   m_Name: ForeignMenace
   m_EditorClassIdentifier: 
   cardName: ForeignMenace
@@ -22,13 +22,14 @@ MonoBehaviour:
   leftHappiness: 0
   leftPower: 0
   leftStability: -1
-  leftChainCard: {fileID: 0}
-  leftExcuteChain: 1
+  leftPossibleChainCards: []
   rightParagraph: Take it
   rightDescription: 
   rightMoney: 2
   rightHappiness: 0
   rightPower: 0
   rightStability: -1
-  rightChainCard: {fileID: 11400000, guid: 0c50f8f26dfa3164ab14b5cd9c2c2c38, type: 2}
-  rightExcuteChain: 2
+  rightPossibleChainCards:
+  - ChainCard: {fileID: 11400000, guid: 0c50f8f26dfa3164ab14b5cd9c2c2c38, type: 2}
+    possibleOutcome: 100
+    excuteChainIn: 1

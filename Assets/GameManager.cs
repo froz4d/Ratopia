@@ -9,6 +9,11 @@ public class GameManager : MonoBehaviour
 {
     #region Setting & Current Status
 
+    private History _history;
+
+    //ไว้โชว์ Devlog
+    public static bool ShowDevLog = false;
+    
     //ใส่เกินได้ ใน Inspector เดี่ยวมันปรับให้เอง
     public static int CurrentTurn = 0;
 
@@ -115,6 +120,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        _history = FindObjectOfType<History>();
         CurrentMoney = StartMoney;
         CurrentHappiness = StartHappiness;
         CurrentPower = StartPower;
@@ -135,7 +141,7 @@ public class GameManager : MonoBehaviour
     {
         CurrentTurn++;
         
-        Debug.Log("StartTurn : " + CurrentTurn + " / " + MaxTurn);
+        _history.Record("StartTurn : " + CurrentTurn + " / " + MaxTurn);
         //foreach checkCard Turn = 0 ให้ display Card
         if (_cardHoldOn.Count > 0)
         {
@@ -178,7 +184,7 @@ public class GameManager : MonoBehaviour
     private void DisplayCard(Card card)
     {
         CurrentDisplayCard = card;
-        Debug.Log("currentDisplayCard : " + CurrentDisplayCard.cardName);
+        _history.DevRecord("currentDisplayCard : " + CurrentDisplayCard.cardName);
         GameObject cardObject = Instantiate(cardFoundation);
         CardFoundation cardFoundationScript = cardObject.GetComponent<CardFoundation>();
         cardFoundationScript.cardData = card;
@@ -286,7 +292,7 @@ public class GameManager : MonoBehaviour
     [ContextMenu("Execute LeftChoiceMethod")]
     public void LeftChoiceSelect()
     {
-        Debug.Log("Excute LeftChoiceMethod");
+        _history.Record("Excute <color=red>LeftChoiceMethod</color> Of <b>" + CurrentDisplayCard.cardName + "</b>");
         if (CurrentDisplayCard is DefaultCard)
         {
             DefaultCard ThisCard = CurrentDisplayCard as DefaultCard;
@@ -310,7 +316,7 @@ public class GameManager : MonoBehaviour
     [ContextMenu("Execute RightChoiceMethod")]
     public void RightChoiceSelect()
     {
-        Debug.Log("Excute RightChoiceMethod");
+        _history.Record("Excute <color=green>RightChoiceMethod</color> Of <b>" + CurrentDisplayCard.cardName + "</b>");
         if (CurrentDisplayCard is DefaultCard)
         {
             DefaultCard ThisCard = CurrentDisplayCard as DefaultCard;
