@@ -990,7 +990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInput: {fileID: 366783338}
-  touchDragSpeed: 10
+  touchDragSpeed: 0.5
   SpawnCardPosition: {fileID: 0}
   currentDraggedObject: {fileID: 0}
 --- !u!4 &366783340
@@ -1001,7 +1001,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 366783337}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2452.618, y: 582.9397, z: -39.419094}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1915,9 +1915,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1040935708}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: GameObject
-  m_TagString: card
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2052,11 +2052,11 @@ RectTransform:
   m_Father: {fileID: 1040935708}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1617.127, y: 1935.469}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 1512.66, y: 2133}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1239454685
 MonoBehaviour:
   m_ObjectHideFlags: 0

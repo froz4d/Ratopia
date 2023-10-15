@@ -7,18 +7,18 @@
             "actions": [
                 {
                     "name": "Touchpress",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "b4449a98-53fc-493d-909e-f6a6d9c0a172",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "TouchPosition",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "9873787b-d8a0-40c6-86ad-5c6a35a82fdb",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -37,7 +37,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "One Modifier",
+                    "name": "TouchPosition",
                     "id": "4a4f29b7-6201-4d14-a989-6190db4b0a01",
                     "path": "OneModifier",
                     "interactions": "",
