@@ -36,7 +36,7 @@ RectTransform:
   - {fileID: 3144396677916172156}
   - {fileID: 8501980660362268771}
   - {fileID: 1616756583}
-  m_Father: {fileID: 7266282341826413601}
+  m_Father: {fileID: 897334177293817724}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1262,7 +1262,7 @@ RectTransform:
   - {fileID: 8159146835681911407}
   - {fileID: 6387693968592349445}
   - {fileID: 1570900933063619832}
-  m_Father: {fileID: 7266282341826413601}
+  m_Father: {fileID: 897334177293817724}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1774,7 +1774,7 @@ RectTransform:
   m_Children:
   - {fileID: 4254320641249587092}
   - {fileID: 2335536161037210375}
-  m_Father: {fileID: 7266282341826413601}
+  m_Father: {fileID: 897334177293817724}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2548,7 +2548,7 @@ RectTransform:
   - {fileID: 617938155514203290}
   - {fileID: 4793788090772364939}
   - {fileID: 6764917309843463573}
-  m_Father: {fileID: 7266282341826413601}
+  m_Father: {fileID: 897334177293817724}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2764,7 +2764,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7266282341826413601}
+  - component: {fileID: 897334177293817724}
   - component: {fileID: -4381989329909207744}
   m_Layer: 5
   m_Name: Card
@@ -2773,15 +2773,15 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7266282341826413601
-Transform:
+--- !u!224 &897334177293817724
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6899340000184937898}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 920, y: 1270, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2792,6 +2792,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 920, y: 1270}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &-4381989329909207744
 MonoBehaviour:
   m_ObjectHideFlags: 0
