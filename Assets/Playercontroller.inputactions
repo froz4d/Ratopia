@@ -9,7 +9,7 @@
                     "name": "Touchpress",
                     "type": "PassThrough",
                     "id": "b4449a98-53fc-493d-909e-f6a6d9c0a172",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false

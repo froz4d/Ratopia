@@ -8,16 +8,14 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private float touchDragSpeed = 1.0f;
-    
-
+    [SerializeField] private Transform SpawnCardPosition;
     private InputAction touchPressAction;
     private InputAction touchPositionAction;
     private InputActionMap touchmaMap;
 
-    private Camera mainCamera;
     private RectTransform canvasRectTransform;
 
-    private GameObject currentDraggedObject;
+    public GameObject currentDraggedObject;
     private Vector2 touchOffset;
 
     private void Awake()
@@ -25,8 +23,6 @@ public class PlayerController : MonoBehaviour
         touchPressAction = _playerInput.actions["Touchpress"];
         touchPositionAction = _playerInput.actions["TouchPosition"];
         touchmaMap = _playerInput.actions.FindActionMap("TouchSwapLR");
-
-        mainCamera = Camera.main;
     }
 
     private void OnEnable()
@@ -70,16 +66,15 @@ public class PlayerController : MonoBehaviour
             if (results.Count > 0)
             {
                 GameObject clickedObject = results[0].gameObject;
-
-                // Check if the clicked UI object has the "card" tag
-                if (clickedObject.CompareTag("card"))
+                
+                if (clickedObject.CompareTag("card") && LayerMask.LayerToName(clickedObject.layer) == "card")
                 {
                     currentDraggedObject = clickedObject;
 
                     // Calculate the touch offset relative to the UI element's position
                     Vector2 localPoint;
-                    RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                        canvasRectTransform, position, mainCamera, out localPoint);
+                    Debug.LogWarning("kuy");
+                    RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, position, null, out localPoint);
                     touchOffset = (Vector2)currentDraggedObject.transform.localPosition - localPoint;
                 }
             }
@@ -88,21 +83,34 @@ public class PlayerController : MonoBehaviour
 
     private void TouchReleased(InputAction.CallbackContext context)
     {
-        currentDraggedObject = null;
+        if (currentDraggedObject != null)
+        {
+            // Set the card's position to the original position
+            currentDraggedObject.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+
+            currentDraggedObject = null;
+        }
     }
+
 
     private void Update()
     {
         if (currentDraggedObject != null)
         {
             Vector2 position = touchPositionAction.ReadValue<Vector2>();
+         
+            Debug.LogWarning(position);
+            Debug.LogWarning(touchOffset);
+            Vector2 newPosition = position;
+            Vector2 deltaPosition = newPosition - (Vector2)currentDraggedObject.GetComponent<RectTransform>().anchoredPosition;
+            float moveDistance = deltaPosition.x;  // Only consider the X component
 
-            // Convert the screen position to canvas space
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                canvasRectTransform, position, mainCamera, out Vector2 localPoint);
-
-            // Set the anchored position of the UI element with the touch offset
-            currentDraggedObject.GetComponent<RectTransform>().anchoredPosition = localPoint + touchOffset;
+            // Apply drag speed here
+            float dragFactor = Mathf.Min(1.0f, touchDragSpeed * Time.deltaTime);
+            Vector2 finalPosition = (Vector2)currentDraggedObject.GetComponent<RectTransform>().anchoredPosition; 
+            finalPosition.x += moveDistance * dragFactor;  // Update only the X position
+            currentDraggedObject.GetComponent<RectTransform>().anchoredPosition = finalPosition;
         }
     }
+
 }
