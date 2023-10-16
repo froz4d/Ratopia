@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class NewPlayerController : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHandler
 {
     private Vector3 _initialPosition;
+   private Vector3 _initialRotation ;
     private float _distanceMoved;
     private bool _swipeLeft;
 
@@ -26,6 +27,7 @@ public class NewPlayerController : MonoBehaviour,IDragHandler,IBeginDragHandler,
     public void OnBeginDrag(PointerEventData eventData)
     {
         _initialPosition = transform.localPosition;
+        _initialRotation = transform.localEulerAngles;
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -33,8 +35,7 @@ public class NewPlayerController : MonoBehaviour,IDragHandler,IBeginDragHandler,
         _distanceMoved = Mathf.Abs(transform.localPosition.x - _initialPosition.x);
         if(_distanceMoved<0.4*Screen.width)
         {
-            transform.localPosition = _initialPosition;
-            transform.localEulerAngles = Vector3.zero;
+            StartCoroutine(ReturnToInitialPosition());
         }
         else
         {
@@ -72,4 +73,25 @@ public class NewPlayerController : MonoBehaviour,IDragHandler,IBeginDragHandler,
         }
         Destroy(gameObject);
     }
+    private IEnumerator ReturnToInitialPosition()
+    {
+        float duration = 0.5f; // Adjust the duration as needed for the desired smoothness.
+        float elapsedTime = 0f;
+
+        Quaternion initialRotation = Quaternion.Euler(_initialRotation);
+
+        while (elapsedTime < duration)
+        {
+            transform.localPosition = Vector3.Lerp(transform.localPosition, _initialPosition, elapsedTime / duration);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, initialRotation, elapsedTime / duration);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure the card ends up exactly at the initial position and rotation.
+        transform.localPosition = _initialPosition;
+        transform.localRotation = initialRotation;
+    }
+
 }
