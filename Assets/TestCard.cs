@@ -25,14 +25,33 @@ public class TestCard : MonoBehaviour
         // Check the z-rotation of the object.
         float zRotation = transform.rotation.eulerAngles.z;
 
-        // Determine whether to show info on the right or left based on the rotation.
-        if (zRotation >= -6 )
+        // If zRotation is negative, add 360 to bring it into the range [0, 360).
+        if (zRotation < 0)
         {
-           Debug.LogWarning("right");
+            zRotation += 360;
         }
-        if (zRotation >= 7)
+
+        Debug.LogWarning(zRotation.ToString());
+
+        // Determine whether to show info on the right or left based on the rotation.
+        if (zRotation <= 180 - 6)
         {
-            Debug.LogWarning("left");
+            Debug.LogWarning("left info");
+            if (zRotation <= 180 - 20)
+            {
+                Debug.LogWarning("left choose");
+            }
+        }
+        else if (zRotation >= 180 + 7)
+        {
+            Debug.LogWarning("right info");
+            if (zRotation <= 180 + 20)
+            {
+                Debug.LogWarning("right choose");
+            }
+           
         }
     }
+
+
 }
