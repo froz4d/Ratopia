@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,9 +15,20 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
     private float _distanceMoved;
     private bool _swipeLeft;
     float duration = 0.5f; // Adjust the duration as needed for the desired smoothness.
-    public float elapsedTime = 0f;
+    private float elapsedTime = 0f;
     private StateCard currenState = StateCard.None;
-    public float time = 0;
+    private float time = 0;
+    
+    public string TitleCard;
+    public string ParagraphText;
+    public TextMeshProUGUI titleCard;
+    public TextMeshProUGUI paragraphText;
+    void Start()
+    {
+        titleCard.text = TitleCard;
+        paragraphText.text = ParagraphText;
+    }
+    
     public void OnDrag(PointerEventData eventData)
     {
         currenState = StateCard.None;
@@ -167,10 +179,16 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
         if (transform.localPosition.x > Rightinfo.x && transform.localPosition.x > leftinfo.x)
         {
             Debug.LogWarning("Show info Right");
+            GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.gray, Time.deltaTime);
         }
-        if (transform.localPosition.x < leftinfo.x && transform.localPosition.x < Rightinfo.x)
+        else if (transform.localPosition.x < leftinfo.x && transform.localPosition.x < Rightinfo.x)
         {
             Debug.LogWarning("Show info Left");
+            GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.gray, Time.deltaTime);
+        }
+        else
+        {
+          //  GetComponent<Image>().color = Color.white;
         }
         Debug.LogWarning(currenState.ToString());
         switch (currenState)

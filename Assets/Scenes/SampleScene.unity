@@ -1156,6 +1156,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b44036685b83b2438933fd1522925d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TitleCard: 
+  ParagraphText: 
+  titleCard: {fileID: 0}
+  paragraphText: {fileID: 0}
 --- !u!1 &397326647
 GameObject:
   m_ObjectHideFlags: 0
@@ -2080,7 +2084,7 @@ RectTransform:
   m_GameObject: {fileID: 1040935707}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3262298, y: 1.3262298, z: 1.3262298}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1239454684}
@@ -2089,7 +2093,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.05428619}
   m_AnchorMax: {x: 1, y: 0.806352}
-  m_AnchoredPosition: {x: 0, y: 14.5}
+  m_AnchoredPosition: {x: 0, y: -1}
   m_SizeDelta: {x: 0, y: 29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1040935709
@@ -2297,6 +2301,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b44036685b83b2438933fd1522925d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TitleCard: kuy
+  ParagraphText: kys
+  titleCard: {fileID: 1418947049}
+  paragraphText: {fileID: 20804473}
 --- !u!1 &1349548905
 GameObject:
   m_ObjectHideFlags: 0
