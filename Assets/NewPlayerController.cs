@@ -23,6 +23,8 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
     public string ParagraphText;
     public TextMeshProUGUI titleCard;
     public TextMeshProUGUI paragraphText;
+
+    public event Action cardMoved;
     void Start()
     {
         titleCard.text = TitleCard;
@@ -71,7 +73,6 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
             {
                 _swipeLeft = true;
             }
-
             currenState = StateCard.CardMove;
         }
     }
@@ -128,6 +129,7 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
         }
         else
         {
+            cardMoved?.Invoke();
             Destroy(gameObject);
         }
 
