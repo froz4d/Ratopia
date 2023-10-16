@@ -13,28 +13,32 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
     private Vector3 _initialRotation;
     private float _distanceMoved;
     private bool _swipeLeft;
+    float duration = 0.5f; // Adjust the duration as needed for the desired smoothness.
+    public float elapsedTime = 0f;
     private StateCard currenState = StateCard.None;
-
+    public float time = 0;
     public void OnDrag(PointerEventData eventData)
     {
-        transform.localPosition = new Vector2(transform.localPosition.x + eventData.delta.x, transform.localPosition.y);
-        if (transform.localPosition.x - _initialPosition.x > 0)
-        {
-            transform.localEulerAngles = new Vector3(0, 0,
-                Mathf.LerpAngle(0, -10, (_initialPosition.x + transform.localPosition.x) / (Screen.width / 2)));
-        }
-        else
-        {
-            transform.localEulerAngles = new Vector3(0, 0,
-                Mathf.LerpAngle(0, 10, (_initialPosition.x - transform.localPosition.x) / (Screen.width / 2)));
-        }
+        currenState = StateCard.None;
+            transform.localPosition =
+                new Vector2(transform.localPosition.x + eventData.delta.x, transform.localPosition.y);
+            if (transform.localPosition.x - _initialPosition.x > 0)
+            {
+                transform.localEulerAngles = new Vector3(0, 0,
+                    Mathf.LerpAngle(0, -10, (_initialPosition.x + transform.localPosition.x) / (Screen.width / 2)));
+            }
+            else
+            {
+                transform.localEulerAngles = new Vector3(0, 0,
+                    Mathf.LerpAngle(0, 10, (_initialPosition.x - transform.localPosition.x) / (Screen.width / 2)));
+            }
+        
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         _initialPosition = transform.localPosition;
         _initialRotation = transform.localEulerAngles;
-
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -42,6 +46,7 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
         _distanceMoved = Mathf.Abs(transform.localPosition.x - _initialPosition.x);
         if (_distanceMoved < 0.4 * Screen.width)
         {
+            elapsedTime = 0;
             currenState = StateCard.ReturnCard;
         }
         else
@@ -88,8 +93,8 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
 
     private void MoveCard()
     {
-        float time = 0;
-        while (time < 0.2f)
+     
+        if (time < 0.2f)
         {
             time += Time.deltaTime;
 
@@ -109,31 +114,32 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
             //  GetComponent<Image>().color = new Color(1, 1, 1, Mathf.SmoothStep(1, 0, 4 * time));
 
         }
-
-        Destroy(gameObject);
+        else
+        {
+            Destroy(gameObject);
+        }
 
     }
 
     private void ReturnCardToPosition()
     {
-        float duration = 0.5f; // Adjust the duration as needed for the desired smoothness.
-        float elapsedTime = 0f;
+        Quaternion initialRotation = Quaternion.Euler(new Vector3(0, 0, 0)); // Set the initial rotation to zero degrees around the z-axis
 
-        Quaternion initialRotation = Quaternion.Euler(_initialRotation);
-
-        while (elapsedTime < duration)
+        if (elapsedTime < duration)
         {
-            transform.localPosition = Vector3.Slerp(transform.localPosition, new Vector3(0,0,0), elapsedTime / duration);
+            transform.localPosition = Vector3.Slerp(transform.localPosition, new Vector3(0, 0, 0), elapsedTime / duration);
             transform.localRotation = Quaternion.Slerp(transform.localRotation, initialRotation, elapsedTime / duration);
 
             elapsedTime += Time.deltaTime;
         }
-
-        // Ensure the card ends up exactly at the initial position and rotation.
-        transform.localPosition = new Vector3(0,0,0);
-        transform.localRotation = initialRotation;
-        currenState = StateCard.None;
+        else
+        {
+            transform.localPosition = new Vector3(0, 0, 0);
+            transform.localRotation = initialRotation;
+            currenState = StateCard.None;
+        }
     }
+
 
     private IEnumerator ReturnToInitialPosition()
     {
@@ -166,7 +172,7 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
         {
             Debug.LogWarning("Show info Left");
         }
-
+        Debug.LogWarning(currenState.ToString());
         switch (currenState)
         {
             case StateCard.None:
