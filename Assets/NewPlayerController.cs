@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,6 +8,8 @@ using UnityEngine.UI;
 public class NewPlayerController : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHandler
 {
     private Vector3 _initialPosition;
+    private Vector3 leftinfo = new Vector3(140,0,0);
+    private Vector3 Rightinfo = new Vector3(-140,0,0);
    private Vector3 _initialRotation ;
     private float _distanceMoved;
     private bool _swipeLeft;
@@ -28,6 +31,7 @@ public class NewPlayerController : MonoBehaviour,IDragHandler,IBeginDragHandler,
     {
         _initialPosition = transform.localPosition;
         _initialRotation = transform.localEulerAngles;
+        
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -42,7 +46,6 @@ public class NewPlayerController : MonoBehaviour,IDragHandler,IBeginDragHandler,
             if (transform.localPosition.x > _initialPosition.x)
             {
                 _swipeLeft = false;
-
             }
             else
             {
@@ -55,24 +58,30 @@ public class NewPlayerController : MonoBehaviour,IDragHandler,IBeginDragHandler,
     private IEnumerator MovedCard()
     {
         float time = 0;
-        while (GetComponent<Image>().color != new Color(1, 1, 1, 0))
+        while (time < 0.1f)
         {
             time += Time.deltaTime;
+
             if (_swipeLeft)
             {
                 transform.localPosition = new Vector3(Mathf.SmoothStep(transform.localPosition.x,
-                    transform.localPosition.x-Screen.width,time),transform.localPosition.y,0);
+                    transform.localPosition.x - Screen.width, time), transform.localPosition.y, 0);
+                GetComponent<Image>().color = Color.Lerp(Color.white, Color.red, Mathf.SmoothStep(1, 0, 4 * time));
             }
             else
             {
                 transform.localPosition = new Vector3(Mathf.SmoothStep(transform.localPosition.x,
-                    transform.localPosition.x+Screen.width,time),transform.localPosition.y,0);
+                    transform.localPosition.x + Screen.width, time), transform.localPosition.y, 0);
+                GetComponent<Image>().color = Color.Lerp(Color.white, Color.green, Mathf.SmoothStep(1, 0, 4 * time));
             }
-            GetComponent<Image>().color = new Color(1,1,1,Mathf.SmoothStep(1,0,4*time));
+
+          //  GetComponent<Image>().color = new Color(1, 1, 1, Mathf.SmoothStep(1, 0, 4 * time));
             yield return null;
         }
+
         Destroy(gameObject);
     }
+
     private IEnumerator ReturnToInitialPosition()
     {
         float duration = 0.5f; // Adjust the duration as needed for the desired smoothness.
@@ -82,7 +91,7 @@ public class NewPlayerController : MonoBehaviour,IDragHandler,IBeginDragHandler,
 
         while (elapsedTime < duration)
         {
-            transform.localPosition = Vector3.Lerp(transform.localPosition, _initialPosition, elapsedTime / duration);
+            transform.localPosition = Vector3.Slerp(transform.localPosition, _initialPosition, elapsedTime / duration);
             transform.localRotation = Quaternion.Slerp(transform.localRotation, initialRotation, elapsedTime / duration);
 
             elapsedTime += Time.deltaTime;
@@ -90,8 +99,19 @@ public class NewPlayerController : MonoBehaviour,IDragHandler,IBeginDragHandler,
         }
 
         // Ensure the card ends up exactly at the initial position and rotation.
-        transform.localPosition = _initialPosition;
+        transform.localPosition = new Vector3(0,0,0);
         transform.localRotation = initialRotation;
     }
 
+    private void Update()
+    {
+        if (transform.localPosition.x > Rightinfo.x && transform.localPosition.x > leftinfo.x)
+        {
+            Debug.LogWarning("Show info Right");
+        }
+        if (transform.localPosition.x < leftinfo.x && transform.localPosition.x < Rightinfo.x)
+        {
+            Debug.LogWarning("Show info Left");
+        }
+    }
 }
