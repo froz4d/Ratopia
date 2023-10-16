@@ -188,7 +188,7 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
         }
         else
         {
-          //  GetComponent<Image>().color = Color.white;
+            GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.white, Time.deltaTime);
         }
         Debug.LogWarning(currenState.ToString());
         switch (currenState)
