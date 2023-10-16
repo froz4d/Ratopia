@@ -1,59 +1,75 @@
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class NewPlayerController : MonoBehaviour
+public class NewPlayerController : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHandler
 {
-    private Vector2 touchStartPos;
-    private Vector2 touchEndPos;
-    private float swipeThreshold = 100f;
-    private RectTransform cardRectTransform;
-    private InputAction swipeAction;
+    private Vector3 _initialPosition;
+    private float _distanceMoved;
+    private bool _swipeLeft;
 
-    private void Start()
+    public void OnDrag(PointerEventData eventData)
     {
-        cardRectTransform = GetComponent<RectTransform>();
-        
-        // Create a new InputAction for swipe
-        swipeAction = new InputAction("Swipe", binding: "<Pointer>/position");
-        swipeAction.Enable();
-        swipeAction.performed += OnSwipePerformed;
-    }
-
-    private void OnSwipePerformed(InputAction.CallbackContext context)
-    {
-        Vector2 swipeDelta = context.ReadValue<Vector2>();
-        float swipeDistance = swipeDelta.magnitude;
-
-        if (swipeDistance > swipeThreshold)
+        transform.localPosition = new Vector2(transform.localPosition.x+eventData.delta.x,transform.localPosition.y);
+        if (transform.localPosition.x - _initialPosition.x > 0)
         {
-            float swipeDirection = Mathf.Sign(swipeDelta.x);
-            if (swipeDirection > 0) // Right swipe
-            {
-                SwipeRight();
-            }
-            else // Left swipe
-            {
-                SwipeLeft();
-            }
+            transform.localEulerAngles = new Vector3(0, 0, Mathf.LerpAngle(0, -10, (_initialPosition.x + transform.localPosition.x) / (Screen.width / 2)));
+        }
+        else
+        {
+            transform.localEulerAngles = new Vector3(0, 0, Mathf.LerpAngle(0, 10, (_initialPosition.x - transform.localPosition.x) / (Screen.width / 2)));
         }
     }
 
-    private void SwipeRight()
+    public void OnBeginDrag(PointerEventData eventData)
     {
-        // Handle right swipe action (like)
-        // You can add animations and logic for a successful swipe.
-        Debug.Log("Right Swipe");
+        _initialPosition = transform.localPosition;
     }
 
-    private void SwipeLeft()
+    public void OnEndDrag(PointerEventData eventData)
     {
-        // Handle left swipe action (dislike)
-        // You can add animations and logic for an unsuccessful swipe.
-        Debug.Log("Left Swipe");
+        _distanceMoved = Mathf.Abs(transform.localPosition.x - _initialPosition.x);
+        if(_distanceMoved<0.4*Screen.width)
+        {
+            transform.localPosition = _initialPosition;
+            transform.localEulerAngles = Vector3.zero;
+        }
+        else
+        {
+            if (transform.localPosition.x > _initialPosition.x)
+            {
+                _swipeLeft = false;
+
+            }
+            else
+            {
+                _swipeLeft = true;
+            }
+            StartCoroutine(MovedCard());
+        }
     }
 
-    private void OnDisable()
+    private IEnumerator MovedCard()
     {
-        swipeAction.Disable();
+        float time = 0;
+        while (GetComponent<Image>().color != new Color(1, 1, 1, 0))
+        {
+            time += Time.deltaTime;
+            if (_swipeLeft)
+            {
+                transform.localPosition = new Vector3(Mathf.SmoothStep(transform.localPosition.x,
+                    transform.localPosition.x-Screen.width,time),transform.localPosition.y,0);
+            }
+            else
+            {
+                transform.localPosition = new Vector3(Mathf.SmoothStep(transform.localPosition.x,
+                    transform.localPosition.x+Screen.width,time),transform.localPosition.y,0);
+            }
+            GetComponent<Image>().color = new Color(1,1,1,Mathf.SmoothStep(1,0,4*time));
+            yield return null;
+        }
+        Destroy(gameObject);
     }
 }
