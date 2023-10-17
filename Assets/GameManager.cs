@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
     {
         CurrentTurn++;
         
-        _history.Record("StartTurn : " + CurrentTurn + " / " + MaxTurn);
+            _history.Record("StartTurn : " + CurrentTurn + " / " + MaxTurn);
         //foreach checkCard Turn = 0 ให้ display Card
         if (_cardHoldOn.Count > 0)
         {

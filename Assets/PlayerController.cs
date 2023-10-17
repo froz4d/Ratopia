@@ -16,6 +16,10 @@ public class PlayerController : MonoBehaviour
     private RectTransform canvasRectTransform;
 
     public GameObject currentDraggedObject;
+    private GameObject tempDraggedObject;
+    private float resetDuration = 1.0f; // The duration for the reset animation
+    private float resetTimer = 0.0f; 
+    
     private Vector2 touchOffset;
 
     private void Awake()
@@ -51,31 +55,42 @@ public class PlayerController : MonoBehaviour
 
     private void TouchPressed(InputAction.CallbackContext context)
     {
+        
+        Debug.LogWarning("TP");
         Vector3 position = touchPositionAction.ReadValue<Vector2>();
 
         // Check if we are clicking on a UI element
         if (EventSystem.current.IsPointerOverGameObject())
         {
+            Debug.LogWarning("TP2");
             PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
             pointerEventData.position = position;
+            Debug.LogWarning(position.ToString());
+            Debug.LogWarning(pointerEventData.ToString());
 
             // Raycast into the UI system to find the clicked UI object
             List<RaycastResult> results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(pointerEventData, results);
-
+            
+            Debug.LogWarning("TP3");
             if (results.Count > 0)
             {
                 GameObject clickedObject = results[0].gameObject;
-                
+                Debug.LogWarning("TP4");
+                Debug.LogWarning(clickedObject.ToString());
                 if (clickedObject.CompareTag("card") && LayerMask.LayerToName(clickedObject.layer) == "card")
                 {
+                    Debug.LogWarning("TP5");
                     currentDraggedObject = clickedObject;
-
                     // Calculate the touch offset relative to the UI element's position
                     Vector2 localPoint;
                     Debug.LogWarning("kuy");
                     RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, position, null, out localPoint);
                     touchOffset = (Vector2)currentDraggedObject.transform.localPosition - localPoint;
+                }
+                else
+                {
+                    Debug.LogWarning("TP6");
                 }
             }
         }
@@ -85,32 +100,49 @@ public class PlayerController : MonoBehaviour
     {
         if (currentDraggedObject != null)
         {
-            // Set the card's position to the original position
-            currentDraggedObject.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
-
             currentDraggedObject = null;
         }
     }
+
 
 
     private void Update()
     {
         if (currentDraggedObject != null)
         {
+            tempDraggedObject = currentDraggedObject;
             Vector2 position = touchPositionAction.ReadValue<Vector2>();
-         
-            Debug.LogWarning(position);
-            Debug.LogWarning(touchOffset);
             Vector2 newPosition = position;
             Vector2 deltaPosition = newPosition - (Vector2)currentDraggedObject.GetComponent<RectTransform>().anchoredPosition;
-            float moveDistance = deltaPosition.x;  // Only consider the X component
 
-            // Apply drag speed here
-            float dragFactor = Mathf.Min(1.0f, touchDragSpeed * Time.deltaTime);
-            Vector2 finalPosition = (Vector2)currentDraggedObject.GetComponent<RectTransform>().anchoredPosition; 
-            finalPosition.x += moveDistance * dragFactor;  // Update only the X position
-            currentDraggedObject.GetComponent<RectTransform>().anchoredPosition = finalPosition;
+           
+            float pivotWidth = 20f;
+            float rotateAmount = deltaPosition.x * touchDragSpeed * Time.deltaTime;
+            
+            Vector3 pivotPosition = new Vector3(
+                currentDraggedObject.transform.localPosition.x - pivotWidth, currentDraggedObject.transform.localPosition.y, currentDraggedObject.transform.localPosition.z
+            );
+            
+            currentDraggedObject.transform.RotateAround(pivotPosition, Vector3.back, rotateAmount);
+            resetTimer = 0.0f; 
+        }
+        else if (tempDraggedObject != null)
+        {
+            // Calculate the interpolation factor based on time
+            float t = resetTimer / resetDuration;
+            
+            tempDraggedObject.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(tempDraggedObject.GetComponent<RectTransform>().anchoredPosition, Vector2.zero, t);
+            
+            tempDraggedObject.transform.localRotation = Quaternion.Slerp(tempDraggedObject.transform.localRotation, Quaternion.identity, t);
+            
+            resetTimer += Time.deltaTime;
+            
+            if (resetTimer >= resetDuration)
+            {
+                tempDraggedObject = null;
+            }
         }
     }
+
 
 }

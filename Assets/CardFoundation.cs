@@ -15,7 +15,6 @@ public class CardFoundation : MonoBehaviour
     public TextMeshProUGUI paragraphText;
     //public TextMeshProUGUI descriptionText;
     
-    
     public void ShowCardDisplay(Card card)
     {
         cardData = card;
@@ -31,4 +30,5 @@ public class CardFoundation : MonoBehaviour
             Debug.Log("Card data is null");
         }
     }
+    
 }
