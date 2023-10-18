@@ -185,30 +185,24 @@ public class GameManager : MonoBehaviour
     {
         CurrentDisplayCard = card;
         Debug.Log("currentDisplayCard : " + CurrentDisplayCard.cardName);
-        
-        RectTransform cardRect = cardFoundation.GetComponent<RectTransform>();
-        RectTransform parentRect = cardParent.GetComponent<RectTransform>();
 
-        // Directly assign the existing cardFoundation GameObject
         GameObject cardObject = Instantiate(cardFoundation, cardParent.transform, true);
         RectTransform cardObjectRect = cardObject.GetComponent<RectTransform>();
 
         CardFoundation cardFoundationScript = cardObject.GetComponent<CardFoundation>();
+        RectTransform cardFoundaRect = cardFoundation.GetComponent<RectTransform>();
         cardFoundationScript.cardData = card;
         cardFoundationScript.ShowCardDisplay(card);
 
+        //Set scale
         cardObject.transform.localScale = new Vector3(1, 1, 1);
         
-        // Set anchored position and size delta
-        cardObjectRect.anchoredPosition = cardRect.anchoredPosition;
-        cardObjectRect.sizeDelta = cardRect.sizeDelta;
-
-        // Optionally, you might also want to match the pivot and anchorMin/Max if needed
-        cardObjectRect.pivot = cardRect.pivot;
-        cardObjectRect.anchorMin = cardRect.anchorMin;
-        cardObjectRect.anchorMax = cardRect.anchorMax;
-
-
+        // Set RectTransform
+        cardObjectRect.anchoredPosition = cardFoundaRect.anchoredPosition;
+        cardObjectRect.sizeDelta = cardFoundaRect.sizeDelta;
+        cardObjectRect.pivot = cardFoundaRect.pivot;
+        cardObjectRect.anchorMin = cardFoundaRect.anchorMin;
+        cardObjectRect.anchorMax = cardFoundaRect.anchorMax;
     }
     
     //Display ถ้าเป็นNotifyCard ให้โชว์เหมือนกัน
