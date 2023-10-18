@@ -3824,9 +3824,8 @@ GameObject:
   - component: {fileID: 7141830115682657848}
   - component: {fileID: 7141830115682657851}
   - component: {fileID: 2915188280066579806}
-  - component: {fileID: -9207994601243072129}
   m_Layer: 7
-  m_Name: card
+  m_Name: Card
   m_TagString: card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3913,22 +3912,6 @@ MonoBehaviour:
   imageCard: {fileID: 7141830115682657851}
   paragraphText: {fileID: 7141830116894459551}
   descriptionText: {fileID: 2976398773781474775}
---- !u!114 &-9207994601243072129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7141830115682657853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b44036685b83b2438933fd1522925d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TitleCard: 
-  ParagraphText: 
-  titleCard: {fileID: 0}
-  paragraphText: {fileID: 0}
 --- !u!1 &7141830116894459537
 GameObject:
   m_ObjectHideFlags: 0

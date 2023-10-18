@@ -18,19 +18,10 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
     private float elapsedTime = 0f;
     private StateCard currenState = StateCard.None;
     private float time = 0;
-    public Image imageCard;
-    public Card cardData;
-    public string TitleCard;
-    public string ParagraphText;
-    public TextMeshProUGUI titleCard;
-    public TextMeshProUGUI paragraphText;
-
     public event Action cardMoved;
     void Start()
     {
-        titleCard.text = cardData.name;
-        paragraphText.text = cardData.description;
-        imageCard.sprite = cardData.cardImage;
+
     }
     
     public void OnDrag(PointerEventData eventData)
@@ -69,43 +60,17 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
         {
             if (transform.localPosition.x > _initialPosition.x)
             {
+                FindObjectOfType<GameManager>().RightChoiceSelect();
                 _swipeLeft = false;
             }
             else
             {
+                FindObjectOfType<GameManager>().LeftChoiceSelect();
                 _swipeLeft = true;
             }
             currenState = StateCard.CardMove;
         }
     }
-
-    private IEnumerator MovedCard()
-    {
-        float time = 0;
-        while (time < 0.1f)
-        {
-            time += Time.deltaTime;
-
-            if (_swipeLeft)
-            {
-                transform.localPosition = new Vector3(Mathf.SmoothStep(transform.localPosition.x,
-                    transform.localPosition.x - Screen.width, time), transform.localPosition.y, 0);
-                GetComponent<Image>().color = Color.Lerp(Color.white, Color.red, Mathf.SmoothStep(1, 0, 4 * time));
-            }
-            else
-            {
-                transform.localPosition = new Vector3(Mathf.SmoothStep(transform.localPosition.x,
-                    transform.localPosition.x + Screen.width, time), transform.localPosition.y, 0);
-                GetComponent<Image>().color = Color.Lerp(Color.white, Color.green, Mathf.SmoothStep(1, 0, 4 * time));
-            }
-
-            //  GetComponent<Image>().color = new Color(1, 1, 1, Mathf.SmoothStep(1, 0, 4 * time));
-            yield return null;
-        }
-
-        Destroy(gameObject);
-    }
-
     private void MoveCard()
     {
      
@@ -125,9 +90,7 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
                     transform.localPosition.x + Screen.width, time), transform.localPosition.y, 0);
                 GetComponent<Image>().color = Color.Lerp(Color.white, Color.green, Mathf.SmoothStep(1, 0, 4 * time));
             }
-
             //  GetComponent<Image>().color = new Color(1, 1, 1, Mathf.SmoothStep(1, 0, 4 * time));
-
         }
         else
         {
@@ -155,46 +118,24 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
             currenState = StateCard.None;
         }
     }
-
-
-    private IEnumerator ReturnToInitialPosition()
-    {
-        float duration = 0.2f; // Adjust the duration as needed for the desired smoothness.
-        float elapsedTime = 0f;
-
-        Quaternion initialRotation = Quaternion.Euler(_initialRotation);
-
-        while (elapsedTime < duration)
-        {
-            transform.localPosition = Vector3.Slerp(transform.localPosition, _initialPosition, elapsedTime / duration);
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, initialRotation, elapsedTime / duration);
-
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        // Ensure the card ends up exactly at the initial position and rotation.
-        transform.localPosition = new Vector3(0,0,0);
-        transform.localRotation = initialRotation;
-    }
-
+    
     private void Update()
     {
         if (transform.localPosition.x > Rightinfo.x && transform.localPosition.x > leftinfo.x)
         {
-            Debug.LogWarning("Show info Right");
+           // Debug.LogWarning("Show info Right");
             GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.gray, Time.deltaTime);
         }
         else if (transform.localPosition.x < leftinfo.x && transform.localPosition.x < Rightinfo.x)
         {
-            Debug.LogWarning("Show info Left");
+          //  Debug.LogWarning("Show info Left");
             GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.gray, Time.deltaTime);
         }
         else
         {
             GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.white, Time.deltaTime);
         }
-        Debug.LogWarning(currenState.ToString());
+        //Debug.LogWarning(currenState.ToString());
         switch (currenState)
         {
             case StateCard.None:
