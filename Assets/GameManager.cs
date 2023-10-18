@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
     {
         CurrentTurn++;
         
-            _history.Record("StartTurn : " + CurrentTurn + " / " + MaxTurn);
+            //_history.Record("StartTurn : " + CurrentTurn + " / " + MaxTurn);
         //foreach checkCard Turn = 0 ให้ display Card
         if (_cardHoldOn.Count > 0)
         {
@@ -184,16 +184,25 @@ public class GameManager : MonoBehaviour
     private void DisplayCard(Card card)
     {
         CurrentDisplayCard = card;
-        _history.DevRecord("currentDisplayCard : " + CurrentDisplayCard.cardName);
-        GameObject cardObject = Instantiate(cardFoundation);
+        Debug.Log("currentDisplayCard : " + CurrentDisplayCard.cardName);
+
+        GameObject cardObject = Instantiate(cardFoundation, cardParent.transform, true);
+        RectTransform cardObjectRect = cardObject.GetComponent<RectTransform>();
+
         CardFoundation cardFoundationScript = cardObject.GetComponent<CardFoundation>();
+        RectTransform cardFoundaRect = cardFoundation.GetComponent<RectTransform>();
         cardFoundationScript.cardData = card;
         cardFoundationScript.ShowCardDisplay(card);
-        //tranform
-        cardObject.transform.SetParent(cardParent.transform);
-        cardObject.transform.position = cardFoundation.transform.position;
-        cardObject.transform.rotation = cardFoundation.transform.rotation;
-        cardObject.transform.localScale = cardFoundation.transform.localScale;
+
+        //Set scale
+        cardObject.transform.localScale = new Vector3(1, 1, 1);
+        
+        // Set RectTransform
+        cardObjectRect.anchoredPosition = cardFoundaRect.anchoredPosition;
+        cardObjectRect.sizeDelta = cardFoundaRect.sizeDelta;
+        cardObjectRect.pivot = cardFoundaRect.pivot;
+        cardObjectRect.anchorMin = cardFoundaRect.anchorMin;
+        cardObjectRect.anchorMax = cardFoundaRect.anchorMax;
     }
     
     //Display ถ้าเป็นNotifyCard ให้โชว์เหมือนกัน

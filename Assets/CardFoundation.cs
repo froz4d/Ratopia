@@ -11,9 +11,10 @@ public class CardFoundation : MonoBehaviour
     public Card cardData;
     
     public TextMeshProUGUI titleCard;
+    public TextMeshProUGUI titleCardDes;
     public Image imageCard;
     public TextMeshProUGUI paragraphText;
-    //public TextMeshProUGUI descriptionText;
+    public TextMeshProUGUI descriptionText;
     
     public void ShowCardDisplay(Card card)
     {
@@ -23,12 +24,15 @@ public class CardFoundation : MonoBehaviour
             titleCard.text = cardData.cardName;
             imageCard.sprite = cardData.cardImage;
             paragraphText.text = cardData.paragraph;
-            //descriptionText.text = cardData.description;
+            descriptionText.text = cardData.description;
+            titleCardDes.text = cardData.cardName;
         }
         else
         {
             Debug.Log("Card data is null");
         }
     }
+    
+    
     
 }
