@@ -18,7 +18,8 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
     private float elapsedTime = 0f;
     private StateCard currenState = StateCard.None;
     private float time = 0;
-    
+    public Image imageCard;
+    public Card cardData;
     public string TitleCard;
     public string ParagraphText;
     public TextMeshProUGUI titleCard;
@@ -27,8 +28,9 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
     public event Action cardMoved;
     void Start()
     {
-        titleCard.text = TitleCard;
-        paragraphText.text = ParagraphText;
+        titleCard.text = cardData.name;
+        paragraphText.text = cardData.description;
+        imageCard.sprite = cardData.cardImage;
     }
     
     public void OnDrag(PointerEventData eventData)
