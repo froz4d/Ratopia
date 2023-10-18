@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
     {
         CurrentTurn++;
         
-            _history.Record("StartTurn : " + CurrentTurn + " / " + MaxTurn);
+            //_history.Record("StartTurn : " + CurrentTurn + " / " + MaxTurn);
         //foreach checkCard Turn = 0 ให้ display Card
         if (_cardHoldOn.Count > 0)
         {
@@ -184,16 +184,16 @@ public class GameManager : MonoBehaviour
     private void DisplayCard(Card card)
     {
         CurrentDisplayCard = card;
-        _history.DevRecord("currentDisplayCard : " + CurrentDisplayCard.cardName);
+        Debug.Log("currentDisplayCard : " + CurrentDisplayCard.cardName);
         GameObject cardObject = Instantiate(cardFoundation);
         CardFoundation cardFoundationScript = cardObject.GetComponent<CardFoundation>();
         cardFoundationScript.cardData = card;
         cardFoundationScript.ShowCardDisplay(card);
         //tranform
         cardObject.transform.SetParent(cardParent.transform);
-        cardObject.transform.position = cardFoundation.transform.position;
-        cardObject.transform.rotation = cardFoundation.transform.rotation;
-        cardObject.transform.localScale = cardFoundation.transform.localScale;
+        cardObject.transform.localPosition = new Vector3(0, 0, 0);
+        cardObject.transform.localRotation = Quaternion.identity;
+        
     }
     
     //Display ถ้าเป็นNotifyCard ให้โชว์เหมือนกัน
