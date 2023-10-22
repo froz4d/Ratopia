@@ -139,9 +139,10 @@ public class GameManager : MonoBehaviour
 
     private void StartTurn()
     {
+    //    Debug.LogWarning("StartTurn" + CardsInDeck.Count);
         CurrentTurn++;
         
-            _history.Record("StartTurn : " + CurrentTurn + " / " + MaxTurn);
+            //_history.Record("StartTurn : " + CurrentTurn + " / " + MaxTurn);
         //foreach checkCard Turn = 0 ให้ display Card
         if (_cardHoldOn.Count > 0)
         {
@@ -159,11 +160,13 @@ public class GameManager : MonoBehaviour
         if (_displayCard.Count > 0)
         { 
             DisplayCard(_displayCard.Dequeue());
+         //   NextDisplayCard(_displayCard.Dequeue());
         }
     }
 
     public void EndTurn()
     {
+     //   Debug.LogWarning("EndTurn" + CardsInDeck.Count);
         //ลดการ์ดที่มีอยู่
         if (_cardHoldOn.Count >= 0)
         {
@@ -185,16 +188,54 @@ public class GameManager : MonoBehaviour
     private void DisplayCard(Card card)
     {
         CurrentDisplayCard = card;
-        _history.DevRecord("currentDisplayCard : " + CurrentDisplayCard.cardName);
-        GameObject cardObject = Instantiate(cardFoundation);
+        Debug.Log("currentDisplayCard : " + CurrentDisplayCard.cardName);
+
+        GameObject cardObject = Instantiate(cardFoundation, cardParent.transform, false); // Change true to false
+        cardObject.transform.SetAsFirstSibling(); 
+        
+        RectTransform cardObjectRect = cardObject.GetComponent<RectTransform>();
+
         CardFoundation cardFoundationScript = cardObject.GetComponent<CardFoundation>();
+        RectTransform cardFoundaRect = cardFoundation.GetComponent<RectTransform>();
         cardFoundationScript.cardData = card;
         cardFoundationScript.ShowCardDisplay(card);
-        //tranform
-        cardObject.transform.SetParent(cardParent.transform);
-        cardObject.transform.position = cardFoundation.transform.position;
-        cardObject.transform.rotation = cardFoundation.transform.rotation;
-        cardObject.transform.localScale = cardFoundation.transform.localScale;
+        cardObject.AddComponent<NewPlayerController>();
+        //Set scale
+        cardObject.transform.localScale = new Vector3(1, 1, 1);
+        
+        // Set RectTransform
+        cardObjectRect.anchoredPosition = cardFoundaRect.anchoredPosition;
+        cardObjectRect.sizeDelta = cardFoundaRect.sizeDelta;
+        cardObjectRect.pivot = cardFoundaRect.pivot;
+        cardObjectRect.anchorMin = cardFoundaRect.anchorMin;
+        cardObjectRect.anchorMax = cardFoundaRect.anchorMax;
+    }
+    
+    private void NextDisplayCard(Card card)
+    {
+        CurrentDisplayCard = card;
+        Debug.Log("currentDisplayCard : " + CurrentDisplayCard.cardName);
+
+        GameObject cardObject = Instantiate(cardFoundation, cardParent.transform, false); // Change true to false
+        cardObject.transform.SetAsFirstSibling(); 
+        RectTransform cardObjectRect = cardObject.GetComponent<RectTransform>();
+
+        CardFoundation cardFoundationScript = cardObject.GetComponent<CardFoundation>();
+        RectTransform cardFoundaRect = cardFoundation.GetComponent<RectTransform>();
+        cardFoundationScript.cardData = card;
+        cardFoundationScript.ShowCardDisplay(card);
+
+        cardObject.AddComponent<NextCard>();
+        //Set scale
+        cardObject.transform.localScale = new Vector3(1, 1, 1);
+        
+        // Set RectTransform
+        cardObjectRect.anchoredPosition = cardFoundaRect.anchoredPosition;
+        cardObjectRect.sizeDelta = cardFoundaRect.sizeDelta;
+        cardObjectRect.pivot = cardFoundaRect.pivot;
+        cardObjectRect.anchorMin = cardFoundaRect.anchorMin;
+        cardObjectRect.anchorMax = cardFoundaRect.anchorMax;
+        
     }
     
     //Display ถ้าเป็นNotifyCard ให้โชว์เหมือนกัน
@@ -279,15 +320,19 @@ public class GameManager : MonoBehaviour
         if (_displayCard.Count == 0)
         {
             CurrentDisplayCard = null;
+            Debug.LogWarning(_displayCard.Count);
             Debug.Log("End Turn");
             EndTurn();
         }
         //ไว้ใช้ตอนเลือกเสร็จแล้ว
         else
         {
-            DisplayCard(_displayCard.Dequeue());
+            Debug.LogWarning(CurrentDisplayCard);
+            Debug.LogWarning(_displayCard.Count);
+            NextDisplayCard(_displayCard.Dequeue());
         }
 
+  //      NextDisplayCard(_displayCard.Dequeue());
     }
 
     [ContextMenu("Execute LeftChoiceMethod")]
@@ -310,8 +355,10 @@ public class GameManager : MonoBehaviour
             //คำนวน Possible Event
             CalculatePossibility(ThisCard.possibleChainCards);
         }
-
-        NextCard();
+        if(CardsInDeck.Count >= 0)
+        {
+            NextCard();
+        }
     }
 
     [ContextMenu("Execute RightChoiceMethod")]
@@ -334,8 +381,11 @@ public class GameManager : MonoBehaviour
             //คำนวน Possible Event
             CalculatePossibility(ThisCard.possibleChainCards);
         }
+        if(CardsInDeck.Count >= 0)
+        {
+            NextCard();
+        }
         
-        NextCard();
     }
 
     private void CalculatePossibility(List<Card.PossibleChainCard> Cards)
