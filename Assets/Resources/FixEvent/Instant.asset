@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: instant
   cardImage: {fileID: 21300000, guid: 8ec0ab5aa8d8b444a984352b8bb1418a, type: 3}
-  description: 
+  description: Description
   paragraph: 
   leftParagraph: 
   leftDescription: 
