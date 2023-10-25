@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efb9b58b54ce81a49b3945fa81fb1174, type: 3}
+  m_Name: Art Of Isolation
+  m_EditorClassIdentifier: 
+  cardName: Art Of Isolation
+  cardImage: {fileID: 0}
+  description: After carefully considering the loan offer presented by Banana Baron
+    Co.'s loan department, we made the decision to decline the offer. Little did
+    we know that this decision would have far-reaching consequences. Shortly after
+    declining the loan, a devastating event unfolded - the great banana famine. This
+    famine was a result of the overuse of pesticides by the company, which led to
+    the emergence of a new disease that caused the failure of all banana crops. The
+    fields were infected, and this ultimately resulted in a severe shortage of food
+    supply in the Banana Republic. In a desperate attempt to mitigate the effects
+    of this crisis, the Banana Republic approached us with a proposition. They offered
+    to purchase our cheese at a significantly higher price than the market value,
+    as they needed this additional food source to sustain themselves in the wake
+    of their own food loss. It was a difficult decision to make, but we agreed to
+    sell our cheese to the Banana Republic, as we understood the importance of supporting
+    one another during challenging times.
+  paragraph: The banana famine caused widespread chaos in the Banana Republic. However,
+    Cheeseburg, a neighboring country, managed to emerge unscathed from the crisis.
+    This was primarily due to their self-sufficient and isolated economy, which did
+    not heavily rely on trade with other nations. Despite the devastating effects
+    of the banana famine, Cheeseburg's ability to sustain itself internally allowed
+    it to mitigate the negative impact and maintain stability during this challenging
+    time.
+  Paragraph: National spirit
+  Description: Products rolling, cash flowing, and our hand milking for Cheese. A
+    golden time age for Cheeseburg has come to reality. We are experiencing a period
+    of exceptional success and growth in the production and distribution of our cheese
+    products. Our products are continuously being rolled out to meet the increasing
+    demand from our native customers and outside customers. The cash flow generated
+    from these sales is contributing to the financial well-being of our business.
+    Furthermore, This commitment to craftsmanship and tradition has made our Cheeseburg
+    brand synonymous with excellence in the industry. We are proud to be at the forefront
+    of this golden era for cheese industry.
+  Money: 2
+  Happiness: 2
+  Power: 2
+  Stability: 3
+  possibleChainCards: []

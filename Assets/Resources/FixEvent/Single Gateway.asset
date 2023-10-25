@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 361d8e23158228a41828d93716eeaeae, type: 3}
+  m_Name: Single Gateway
+  m_EditorClassIdentifier: 
+  cardName: Single Gateway
+  cardImage: {fileID: 21300000, guid: 8ec0ab5aa8d8b444a984352b8bb1418a, type: 3}
+  description: Our Government has initiated a new project and has brought together
+    a team of professionals to discuss and plan the direction of this project. The
+    objective is to thoroughly analyze the pros and cons of this project and determine
+    the best course of action. In order to make an informed decision, we need to
+    carefully consider various factors such as the potential benefits, risks, and
+    feasibility of the project. It is crucial to thoroughly assess all aspects and
+    gather input from experts in different fields to ensure a comprehensive evaluation.
+    By doing so, we can make well-informed and strategic decisions that will yield
+    positive outcomes for our Government and the project at hand.
+  paragraph: The 'single gateway' project aims to enhance internet security by requiring
+    individuals to go through government security measures before accessing the internet.
+    This initiative is intended to prevent criminal activities and strengthen overall
+    security.
+  leftParagraph: "Let\u2019s Start the Project"
+  leftDescription: This will create a reliable digital environment where individuals
+    can feel secure online, with their personal information protected in exchange
+    for their freedom.
+  leftMoney: -4
+  leftHappiness: -4
+  leftPower: 5
+  leftStability: 5
+  leftPossibleChainCards:
+  - ChainCard: {fileID: 11400000, guid: b546d3f93c804f54aae9af5b4c779874, type: 2}
+    possibleOutcome: 5
+    excuteChainIn: 1
+  - ChainCard: {fileID: 11400000, guid: b546d3f93c804f54aae9af5b4c779874, type: 2}
+    possibleOutcome: 10
+    excuteChainIn: 2
+  rightParagraph: "Not Worth It\u2026."
+  rightDescription: Declined single gateway project.
+  rightMoney: 0
+  rightHappiness: -1
+  rightPower: 0
+  rightStability: 0
+  rightPossibleChainCards: []

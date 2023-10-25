@@ -14,22 +14,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: ForeignMenace
   cardImage: {fileID: 21300000, guid: 8ec0ab5aa8d8b444a984352b8bb1418a, type: 3}
-  description: 
-  paragraph: Big Company Foreign investor seeking opportunities in your state.
-  leftParagraph: ' Refuse'
-  leftDescription: 
-  leftMoney: 2
-  leftHappiness: 0
-  leftPower: 0
-  leftStability: -1
-  leftPossibleChainCards: []
+  description: Banana Baron Co. is a well-established and prominent banana company
+    operating in the country known as Banana Republic, often referred to as BBC.
+    The primary focus of their business is the efficient production and transportation
+    of bananas, aiming to deliver them to the citizens of Banana Republic at the
+    most affordable prices possible. In order to support the development of Cheeseburg,
+    a thriving city within the country, Banana Baron Co. has offered you a loan opportunity
+    to invest in the necessary infrastructure. This offer is particularly enticing
+    due to the low fund requirement, availability of cheap labor, and favorable tax
+    conditions in this region. As a part of the agreement, Banana Baron Co. requests
+    exclusive rights to export bananas, allowing them to monopolize this aspect of
+    the market. By accepting this loan, not only will you contribute to the growth
+    of Cheeseburg, but you will also forge a strategic partnership with Banana Baron
+    Co., ensuring a mutually beneficial relationship for years to come.
+  paragraph: Banana Baron Co., an international company from Banana Republic, has
+    generously offered a loan to assist in the reconstruction of your war-torn nation.
+    While this opportunity is undoubtedly beneficial, it is essential to carefully
+    consider the terms and conditions of the loan, as they may have a significant
+    impact on your economy. Making a wise decision regarding the future of Cheeseburg,
+    your nation, is of utmost importance in order to ensure its long-term stability
+    and prosperity.
+  leftParagraph: 'Cheese only '
+  leftDescription: By consuming Made in Cheeseburg, the citizens of Cheeseburg contribute
+    to the vision of making Cheeseburg great again.
+  leftMoney: -3
+  leftHappiness: -2
+  leftPower: -1
+  leftStability: 0
+  leftPossibleChainCards:
+  - ChainCard: {fileID: 11400000, guid: 4b78bdbcb7bad1d4684e854f76d00462, type: 2}
+    possibleOutcome: 100
+    excuteChainIn: 8
   rightParagraph: Take it
-  rightDescription: 
-  rightMoney: 2
-  rightHappiness: 0
+  rightDescription: Here come the Money
+  rightMoney: 3
+  rightHappiness: 2
   rightPower: 0
   rightStability: -1
   rightPossibleChainCards:
   - ChainCard: {fileID: 11400000, guid: 0c50f8f26dfa3164ab14b5cd9c2c2c38, type: 2}
-    possibleOutcome: 100
-    excuteChainIn: 1
+    possibleOutcome: 80
+    excuteChainIn: 3
+  - ChainCard: {fileID: 11400000, guid: 44aed250d80adcd4a8c12914c91ee9c3, type: 2}
+    possibleOutcome: 5
+    excuteChainIn: 3

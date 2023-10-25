@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efb9b58b54ce81a49b3945fa81fb1174, type: 3}
+  m_Name: Prosperous business 1
+  m_EditorClassIdentifier: 
+  cardName: Prosperous business
+  cardImage: {fileID: 0}
+  description: Banana Baron Co. recently achieved a record-breaking sale, and as
+    a result, they are now planning to expand their banana field operations to your
+    country. This expansion will not only bring economic benefits to the local community
+    but also create more job opportunities. With their expertise in banana cultivation
+    and distribution, By expanding their operations to your country, Banana Baron
+    Co. is committed to promoting sustainable agriculture practices and contributing
+    to the growth of the agricultural sector.
+  paragraph: Banana business is a big success
+  Paragraph: Banana Banana? Banana
+  Description: Our nation develop to new era. The era of banana was a period characterized
+    by the widespread cultivation and consumption of bananas. Bananas became a staple
+    food in many regions, providing a cheap and accessible source of nutrition. This
+    era saw the rise of banana plantations, the development of new cultivation techniques,
+    and the establishment of banana trade networks. The popularity of bananas also
+    led to the creation of various banana-based recipes and the incorporation of
+    bananas into different culinary traditions. Overall, the era of banana had a
+    profound impact on agriculture, economy, and culture.
+  Money: 5
+  Happiness: 3
+  Power: 0
+  Stability: 0
+  possibleChainCards: []

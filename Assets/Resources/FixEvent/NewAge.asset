@@ -13,20 +13,26 @@ MonoBehaviour:
   m_Name: NewAge
   m_EditorClassIdentifier: 
   cardName: New Age
-  cardImage: {fileID: 21300000, guid: 8ec0ab5aa8d8b444a984352b8bb1418a, type: 3}
-  description: After the Coup RATTA nation began restore what have lost to New Age
-    that light the way to glory.
-  paragraph: After the Coup RATTA nation began restore what have lost to New Age
-    that light the way to glory.
+  cardImage: {fileID: 21300000, guid: 9d7054a8daae5bb4fba7d39a588e63b9, type: 3}
+  description: "Cheeseburg ,a country of Ratta\u2019ta land of Cheese, has been corrupt
+    by the evil Cheese-Eaters Alliance who win the last general election by landslide
+    due to The Cheese pledge policy that get attention by  Ratta\u2019ta people.
+    After 4 year the scheme had been found out by public that the Goverment couldn\u2019t
+    make profit of it and lost  billions money on it.The scandal spread like wildfire
+    and soon Ratta\u2019ta people lost faith in parliament to run the nation so the
+    millitary join the fray.They ceased control and declare the New Age.Your time
+    has come to light the way to glory days.    "
+  paragraph: Since the Coup by Rodent Rights Coalition, Cheeseburg nation has restored
+    what have lost in years to New Age that light the way to glory days.
   leftParagraph: Focus On Military
-  leftDescription: 
+  leftDescription: 'Power and strength will put us through tough time in your regime. '
   leftMoney: -1
   leftHappiness: -2
   leftPower: 3
   leftStability: 1
   leftPossibleChainCards: []
   rightParagraph: Focus On Civil
-  rightDescription: 
+  rightDescription: To conquer the nation you must conquer the citizen first.
   rightMoney: 1
   rightHappiness: 2
   rightPower: -2
