@@ -190,19 +190,17 @@ public class GameManager : MonoBehaviour
         RectTransform cardObjectRect = cardObject.GetComponent<RectTransform>();
 
         CardFoundation cardFoundationScript = cardObject.GetComponent<CardFoundation>();
-        RectTransform cardFoundaRect = cardFoundation.GetComponent<RectTransform>();
+        //RectTransform cardFoundaRect = cardFoundation.GetComponent<RectTransform>();
         cardFoundationScript.cardData = card;
         cardFoundationScript.ShowCardDisplay(card);
 
-        //Set scale
-        cardObject.transform.localScale = new Vector3(1, 1, 1);
-        
+        RectTransform cardParentRect = cardParent.GetComponent<RectTransform>();
+        cardObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         // Set RectTransform
-        cardObjectRect.anchoredPosition = cardFoundaRect.anchoredPosition;
-        cardObjectRect.sizeDelta = cardFoundaRect.sizeDelta;
-        cardObjectRect.pivot = cardFoundaRect.pivot;
-        cardObjectRect.anchorMin = cardFoundaRect.anchorMin;
-        cardObjectRect.anchorMax = cardFoundaRect.anchorMax;
+        cardObjectRect.sizeDelta = cardParentRect.sizeDelta;
+        cardObjectRect.anchoredPosition = cardParentRect.anchoredPosition;
+        cardObjectRect.pivot = cardParentRect.pivot;
+        
     }
     
     //Display ถ้าเป็นNotifyCard ให้โชว์เหมือนกัน
