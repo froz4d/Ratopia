@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 361d8e23158228a41828d93716eeaeae, type: 3}
+  m_Name: Protest
+  m_EditorClassIdentifier: 
+  cardName: Protest
+  cardImage: {fileID: 0}
+  description: The actions of your government have caused discontent among the people
+    who are unable to tolerate it any longer. As a result, they have taken to the
+    streets to voice their concerns and protest against the unjust policies. It is
+    hoped that the government will take notice of these protests and take necessary
+    actions to improve the situation and address the grievances of its citizens.
+  paragraph: The government's actions have sparked public discontent, leading to
+    street protests against unjust policies. It is hoped that these protests will
+    prompt the government to take necessary actions to address citizen grievances
+    and improve the situation.
+  leftParagraph: Disperse protestor by force
+  leftDescription: 
+  leftMoney: -2
+  leftHappiness: -2
+  leftPower: -1
+  leftStability: -1
+  leftPossibleChainCards:
+  - ChainCard: {fileID: 11400000, guid: 260a10df54781d94693d21c2a5906d61, type: 2}
+    possibleOutcome: 8
+    excuteChainIn: 0
+  rightParagraph: Do noting
+  rightDescription: 
+  rightMoney: 0
+  rightHappiness: 0
+  rightPower: 0
+  rightStability: -1
+  rightPossibleChainCards:
+  - ChainCard: {fileID: 11400000}
+    possibleOutcome: 11
+    excuteChainIn: 1

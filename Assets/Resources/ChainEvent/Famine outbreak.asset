@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 361d8e23158228a41828d93716eeaeae, type: 3}
+  m_Name: Famine outbreak
+  m_EditorClassIdentifier: 
+  cardName: Famine outbreak
+  cardImage: {fileID: 0}
+  description: The Cheeseburg nation is currently facing a severe banana famine outbreak,
+    which has greatly impacted our main product export, the banana corp. As a result,
+    our income has significantly decreased, leading to a shortage of food and resources.
+    This dire situation has put a strain on our nation's economy and the well-being
+    of our citizens.
+  paragraph: The Cheeseburg nation is currently facing a severe banana famine outbreak,
+    which has greatly impacted our main product export, the banana corp. This outbreak
+    has not only affected the availability of bananas but has also disrupted the
+    entire supply chain, from cultivation to distribution. As a result, our income
+    has significantly decreased, leading to a shortage of food and resources. The
+    scarcity of bananas, a staple in our nation's diet, has cut short and cause malnutrition
+    in Citizen of Cheeseburg. Additionally, the decrease income has led to a decrease
+    in government revenue, making it difficult to allocate sufficient funds for essential
+    services such as healthcare and education. This dire situation has not only affected
+    our nation's economy but also the well-being of our citizens, who are now struggling
+    to access basic necessities. It is crucial for us to address this crisis promptly
+    and implement measures to mitigate the impact on both our economy and the livelihoods
+    of our people.
+  leftParagraph: Declare martial law
+  leftDescription: 
+  leftMoney: 2
+  leftHappiness: -3
+  leftPower: 4
+  leftStability: 3
+  leftPossibleChainCards:
+  - ChainCard: {fileID: 0}
+    possibleOutcome: 40
+    excuteChainIn: 1
+  rightParagraph: Stable banana market price
+  rightDescription: 'Our Goverment have to stable banana market price unless it will
+    not sky rocket to the moon to survive this food crisis '
+  rightMoney: -8
+  rightHappiness: 2
+  rightPower: 0
+  rightStability: 1
+  rightPossibleChainCards:
+  - ChainCard: {fileID: 0}
+    possibleOutcome: 60
+    excuteChainIn: 1
