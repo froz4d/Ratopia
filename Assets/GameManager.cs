@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     private History _history;
 
     //ไว้โชว์ Devlog
-    public static bool ShowDevLog = false;
+    public static bool ShowDevLog = true;
     
     //ใส่เกินได้ ใน Inspector เดี่ยวมันปรับให้เอง
     public static int CurrentTurn = 0;
@@ -139,6 +139,7 @@ public class GameManager : MonoBehaviour
 
     private void StartTurn()
     {
+    //    Debug.LogWarning("StartTurn" + CardsInDeck.Count);
         CurrentTurn++;
         
             //_history.Record("StartTurn : " + CurrentTurn + " / " + MaxTurn);
@@ -159,11 +160,13 @@ public class GameManager : MonoBehaviour
         if (_displayCard.Count > 0)
         { 
             DisplayCard(_displayCard.Dequeue());
+         //   NextDisplayCard(_displayCard.Dequeue());
         }
     }
 
     public void EndTurn()
     {
+     //   Debug.LogWarning("EndTurn" + CardsInDeck.Count);
         //ลดการ์ดที่มีอยู่
         if (_cardHoldOn.Count >= 0)
         {
@@ -175,6 +178,7 @@ public class GameManager : MonoBehaviour
 
         //สุ่มการ์ดใหม่
         RandomCardInDeckToHoldOn(RandomCardPerTurn);
+        CheckCondition();
         
         StartTurn();
     }
@@ -186,20 +190,51 @@ public class GameManager : MonoBehaviour
         CurrentDisplayCard = card;
         Debug.Log("currentDisplayCard : " + CurrentDisplayCard.cardName);
 
-        GameObject cardObject = Instantiate(cardFoundation, cardParent.transform, true);
+        GameObject cardObject = Instantiate(cardFoundation, cardParent.transform, false); // Change true to false
+        cardObject.transform.SetAsFirstSibling(); 
+        
         RectTransform cardObjectRect = cardObject.GetComponent<RectTransform>();
 
         CardFoundation cardFoundationScript = cardObject.GetComponent<CardFoundation>();
-        //RectTransform cardFoundaRect = cardFoundation.GetComponent<RectTransform>();
+        RectTransform cardFoundaRect = cardFoundation.GetComponent<RectTransform>();
+        cardFoundationScript.cardData = card;
+        cardFoundationScript.ShowCardDisplay(card);
+        cardObject.AddComponent<NewPlayerController>();
+        //Set scale
+        cardObject.transform.localScale = new Vector3(1, 1, 1);
+        
+        // Set RectTransform
+        cardObjectRect.anchoredPosition = cardFoundaRect.anchoredPosition;
+        cardObjectRect.sizeDelta = cardFoundaRect.sizeDelta;
+        cardObjectRect.pivot = cardFoundaRect.pivot;
+        cardObjectRect.anchorMin = cardFoundaRect.anchorMin;
+        cardObjectRect.anchorMax = cardFoundaRect.anchorMax;
+    }
+    
+    private void NextDisplayCard(Card card)
+    {
+        CurrentDisplayCard = card;
+        Debug.Log("currentDisplayCard : " + CurrentDisplayCard.cardName);
+
+        GameObject cardObject = Instantiate(cardFoundation, cardParent.transform, false); // Change true to false
+        cardObject.transform.SetAsFirstSibling(); 
+        RectTransform cardObjectRect = cardObject.GetComponent<RectTransform>();
+
+        CardFoundation cardFoundationScript = cardObject.GetComponent<CardFoundation>();
+        RectTransform cardFoundaRect = cardFoundation.GetComponent<RectTransform>();
         cardFoundationScript.cardData = card;
         cardFoundationScript.ShowCardDisplay(card);
 
-        RectTransform cardParentRect = cardParent.GetComponent<RectTransform>();
-        cardObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        cardObject.AddComponent<NextCard>();
+        //Set scale
+        cardObject.transform.localScale = new Vector3(1, 1, 1);
+        
         // Set RectTransform
-        cardObjectRect.sizeDelta = cardParentRect.sizeDelta;
-        cardObjectRect.anchoredPosition = cardParentRect.anchoredPosition;
-        cardObjectRect.pivot = cardParentRect.pivot;
+        cardObjectRect.anchoredPosition = cardFoundaRect.anchoredPosition;
+        cardObjectRect.sizeDelta = cardFoundaRect.sizeDelta;
+        cardObjectRect.pivot = cardFoundaRect.pivot;
+        cardObjectRect.anchorMin = cardFoundaRect.anchorMin;
+        cardObjectRect.anchorMax = cardFoundaRect.anchorMax;
         
     }
     
@@ -285,15 +320,19 @@ public class GameManager : MonoBehaviour
         if (_displayCard.Count == 0)
         {
             CurrentDisplayCard = null;
+            Debug.LogWarning(_displayCard.Count);
             Debug.Log("End Turn");
             EndTurn();
         }
         //ไว้ใช้ตอนเลือกเสร็จแล้ว
         else
         {
-            DisplayCard(_displayCard.Dequeue());
+            Debug.LogWarning(CurrentDisplayCard);
+            Debug.LogWarning(_displayCard.Count);
+            NextDisplayCard(_displayCard.Dequeue());
         }
 
+  //      NextDisplayCard(_displayCard.Dequeue());
     }
 
     [ContextMenu("Execute LeftChoiceMethod")]
@@ -316,8 +355,10 @@ public class GameManager : MonoBehaviour
             //คำนวน Possible Event
             CalculatePossibility(ThisCard.possibleChainCards);
         }
-
-        NextCard();
+        if(CardsInDeck.Count >= 0)
+        {
+            NextCard();
+        }
     }
 
     [ContextMenu("Execute RightChoiceMethod")]
@@ -340,8 +381,11 @@ public class GameManager : MonoBehaviour
             //คำนวน Possible Event
             CalculatePossibility(ThisCard.possibleChainCards);
         }
+        if(CardsInDeck.Count >= 0)
+        {
+            NextCard();
+        }
         
-        NextCard();
     }
 
     private void CalculatePossibility(List<Card.PossibleChainCard> Cards)
@@ -364,5 +408,13 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    
+
+    #region ConditionEvent
+
+    private void CheckCondition()
+    {
+        //ถ้า ถึงเท่านี้ๆ ให้ขึ้นเตือนก่อน ถ้าเทิร์นต่อไปยังอยู่อีกให้สุ่ม Event ร้ายมา
+    }
+
+    #endregion
 }

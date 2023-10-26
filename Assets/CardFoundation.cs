@@ -11,11 +11,9 @@ public class CardFoundation : MonoBehaviour
     public Card cardData;
     
     public TextMeshProUGUI titleCard;
-    public TextMeshProUGUI titleCardDes;
     public Image imageCard;
     public TextMeshProUGUI paragraphText;
-    public TextMeshProUGUI descriptionText;
-    
+
     public void ShowCardDisplay(Card card)
     {
         cardData = card;
@@ -24,15 +22,17 @@ public class CardFoundation : MonoBehaviour
             titleCard.text = cardData.cardName;
             imageCard.sprite = cardData.cardImage;
             paragraphText.text = cardData.paragraph;
-            descriptionText.text = cardData.description;
-            titleCardDes.text = cardData.cardName;
         }
         else
         {
             Debug.Log("Card data is null");
         }
     }
-    
-    
+
+    public void DescriptionButton()
+    {
+        //show
+        FindObjectOfType<DescriptionDisplay>().ShowCard(cardData);
+    }
     
 }
