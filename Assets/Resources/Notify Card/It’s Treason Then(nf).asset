@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efb9b58b54ce81a49b3945fa81fb1174, type: 3}
-  m_Name: Natural Cause
+  m_Name: "It\u2019s Treason Then(nf)"
   m_EditorClassIdentifier: 
-  cardName: Natural Cause??
+  cardName: "It\u2019s Treason Then"
   cardImage: {fileID: 0}
   description: 
-  paragraph: 
+  paragraph: You Excute all member of the provisional government in the scence
   Paragraph: 
   Description: 
   Money: 0
-  Happiness: 0
-  Power: 0
+  Happiness: -5
+  Power: 5
   Stability: 0
   possibleChainCards: []

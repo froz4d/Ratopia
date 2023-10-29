@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 361d8e23158228a41828d93716eeaeae, type: 3}
-  m_Name: Instant
+  m_Name: Seeking Help
   m_EditorClassIdentifier: 
-  cardName: instant
+  cardName: Seeking Help
   cardImage: {fileID: 21300000, guid: 8ec0ab5aa8d8b444a984352b8bb1418a, type: 3}
   description: Description
   paragraph: 

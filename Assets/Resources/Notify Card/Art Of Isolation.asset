@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Art Of Isolation
   m_EditorClassIdentifier: 
   cardName: Art Of Isolation
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 21300000, guid: c446364198f228c4cbba196a031e9487, type: 3}
   description: After carefully considering the loan offer presented by Banana Baron
     Co.'s loan department, we made the decision to decline the offer. Little did
     we know that this decision would have far-reaching consequences. Shortly after
