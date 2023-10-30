@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class History : MonoBehaviour
 {
@@ -76,5 +77,20 @@ public class History : MonoBehaviour
             }
             
         }
+    }
+    
+    [SerializeField]private Toggle toggle;
+    [SerializeField]private GameObject targetObject;
+    [SerializeField]private GameObject targetObject2;
+
+    private void Start()
+    {
+        toggle.onValueChanged.AddListener(ToggleValueChanged);
+    }
+
+    private void ToggleValueChanged(bool isOn)
+    {
+        targetObject.SetActive(isOn);
+        targetObject2.SetActive(isOn);
     }
 }
