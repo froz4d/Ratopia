@@ -188,7 +188,7 @@ public class GameManager : MonoBehaviour
     private void DisplayCard(Card card)
     {
         CurrentDisplayCard = card;
-        Debug.Log("currentDisplayCard : " + CurrentDisplayCard.cardName);
+        _history.Record("currentDisplayCard : " + CurrentDisplayCard.cardName);
 
         GameObject cardObject = Instantiate(cardFoundation, cardParent.transform, false); // Change true to false
         cardObject.transform.SetAsFirstSibling(); 
@@ -214,7 +214,7 @@ public class GameManager : MonoBehaviour
     private void NextDisplayCard(Card card)
     {
         CurrentDisplayCard = card;
-        Debug.Log("currentDisplayCard : " + CurrentDisplayCard.cardName);
+        _history.Record("currentDisplayCard : " + CurrentDisplayCard.cardName);
 
         GameObject cardObject = Instantiate(cardFoundation, cardParent.transform, false); // Change true to false
         cardObject.transform.SetAsFirstSibling(); 

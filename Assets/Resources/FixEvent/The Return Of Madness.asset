@@ -37,9 +37,6 @@ MonoBehaviour:
   leftPower: 1
   leftStability: 1
   leftPossibleChainCards:
-  - ChainCard: {fileID: 0}
-    possibleOutcome: 100
-    excuteChainIn: 5
   - ChainCard: {fileID: 11400000, guid: 182746a0750e1c848a29cdabf7fdea90, type: 2}
     possibleOutcome: 90
     excuteChainIn: 3

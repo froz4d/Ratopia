@@ -48,6 +48,7 @@ public class History : MonoBehaviour
     {
         HistoryLog.Add(new LogEntry(LastAction,true));
         RefreshRecord();
+        //ต้องมาใส่ history
     }
 
     private void RefreshRecord()
