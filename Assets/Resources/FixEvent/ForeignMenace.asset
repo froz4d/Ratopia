@@ -44,7 +44,7 @@ MonoBehaviour:
   leftPossibleChainCards:
   - ChainCard: {fileID: 11400000, guid: 4b78bdbcb7bad1d4684e854f76d00462, type: 2}
     possibleOutcome: 100
-    excuteChainIn: 1
+    excuteChainIn: 0
   rightParagraph: Take it
   rightDescription: Here come the Money
   rightMoney: 3
