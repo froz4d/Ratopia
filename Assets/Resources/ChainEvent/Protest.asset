@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Protest
   m_EditorClassIdentifier: 
   cardName: Protest
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 21300000, guid: 8f21f4f7dc313a240bfd283fd44a1a0c, type: 3}
   description: The actions of your government have caused discontent among the people
     who are unable to tolerate it any longer. As a result, they have taken to the
     streets to voice their concerns and protest against the unjust policies. It is

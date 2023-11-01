@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efb9b58b54ce81a49b3945fa81fb1174, type: 3}
-  m_Name: Natural Cause
+  m_Name: Natural Cause(nf)
   m_EditorClassIdentifier: 
   cardName: Natural Cause??
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 21300000, guid: 8ec0ab5aa8d8b444a984352b8bb1418a, type: 3}
   description: 
   paragraph: 
   Paragraph: 
