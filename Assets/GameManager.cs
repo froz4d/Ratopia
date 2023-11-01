@@ -378,17 +378,16 @@ public class GameManager : MonoBehaviour
         {
             DefaultCard ThisCard = CurrentDisplayCard as DefaultCard;
             //Update Resource ทันที
-            StartCoroutine(UpdateResource());
             UpdateResource(ThisCard.leftMoney,ThisCard.leftHappiness,ThisCard.leftPower,ThisCard.leftStability);
-
+            StartCoroutine(UpdateResource());
             //คำนวน Possible Event
            CalculatePossibility(ThisCard.leftPossibleChainCards);
         }
         else
         {
             NotifyCard ThisCard = CurrentDisplayCard as NotifyCard;
-            StartCoroutine(UpdateResource());
             UpdateResource(ThisCard.Money,ThisCard.Happiness,ThisCard.Power,ThisCard.Stability);
+            StartCoroutine(UpdateResource());
             //คำนวน Possible Event
             CalculatePossibility(ThisCard.possibleChainCards);
         }
@@ -406,8 +405,8 @@ public class GameManager : MonoBehaviour
         {
             DefaultCard ThisCard = CurrentDisplayCard as DefaultCard;
             //Update Resource ทันที
-            StartCoroutine(UpdateResource());
             UpdateResource(ThisCard.rightMoney,ThisCard.rightHappiness,ThisCard.rightPower,ThisCard.rightStability);
+            StartCoroutine(UpdateResource());
 
             //คำนวน Possible Event
             CalculatePossibility(ThisCard.rightPossibleChainCards);
@@ -415,8 +414,8 @@ public class GameManager : MonoBehaviour
         else
         {
             NotifyCard ThisCard = CurrentDisplayCard as NotifyCard;
-            StartCoroutine(UpdateResource());
             UpdateResource(ThisCard.Money,ThisCard.Happiness,ThisCard.Power,ThisCard.Stability);
+            StartCoroutine(UpdateResource());
             //คำนวน Possible Event
             CalculatePossibility(ThisCard.possibleChainCards);
         }

@@ -30,8 +30,8 @@ MonoBehaviour:
     decision to make - what shall we do with him? It is crucial that we carefully
     consider all possible options and weigh the potential implications before reaching
     a conclusion. '
+  leftTitle: Take him custody
   leftParagraph: Take him custody
-  leftDescription: 
   leftMoney: -3
   leftHappiness: 1
   leftPower: 1
@@ -40,8 +40,8 @@ MonoBehaviour:
   - ChainCard: {fileID: 11400000, guid: 182746a0750e1c848a29cdabf7fdea90, type: 2}
     possibleOutcome: 90
     excuteChainIn: 3
+  rightTitle: Take him to cabinet
   rightParagraph: Take him to cabinet
-  rightDescription: 
   rightMoney: 0
   rightHappiness: 3
   rightPower: -3

@@ -6,8 +6,8 @@ using UnityEngine;
 public class DefaultCard : Card
 {
     [Header("Choice Left")]
+    public string leftTitle;
     public string leftParagraph;
-    public string leftDescription;
     public int leftMoney;
     public int leftHappiness;
     public int leftPower;
@@ -15,8 +15,8 @@ public class DefaultCard : Card
     public List<PossibleChainCard> leftPossibleChainCards;
 
     [Header("Choice Right")]
+    public string rightTitle;
     public string rightParagraph;
-    public string rightDescription;
     public int rightMoney;
     public int rightHappiness;
     public int rightPower;

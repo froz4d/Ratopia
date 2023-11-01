@@ -125,15 +125,23 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
         {
            // Debug.LogWarning("Show info Right");
             GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.gray, Time.deltaTime);
+            
+            FindObjectOfType<ChoiceDisplay>().ShowChoiceRight(GetComponent<CardFoundation>().cardData);
         }
         else if (transform.localPosition.x < leftinfo.x && transform.localPosition.x < Rightinfo.x)
         {
           //  Debug.LogWarning("Show info Left");
             GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.gray, Time.deltaTime);
+            
+            FindObjectOfType<ChoiceDisplay>().ShowChoiceLeft(GetComponent<CardFoundation>().cardData);
         }
         else
         {
+            //กลับมาที่เดิม
+            
             GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.white, Time.deltaTime);
+            
+            FindObjectOfType<ChoiceDisplay>().Close();
         }
         //Debug.LogWarning(currenState.ToString());
         switch (currenState)

@@ -24,15 +24,15 @@ MonoBehaviour:
     has come to light the way to glory days.    "
   paragraph: Since the Coup by Rodent Rights Coalition, Cheeseburg nation has restored
     what have lost in years to New Age that light the way to glory days.
+  leftTitle: Focus On Military
   leftParagraph: Focus On Military
-  leftDescription: 'Power and strength will put us through tough time in your regime. '
   leftMoney: -1
   leftHappiness: -2
   leftPower: 3
   leftStability: 1
   leftPossibleChainCards: []
+  rightTitle: Focus On Civil
   rightParagraph: Focus On Civil
-  rightDescription: To conquer the nation you must conquer the citizen first.
   rightMoney: 1
   rightHappiness: 2
   rightPower: -2

@@ -26,8 +26,8 @@ MonoBehaviour:
   paragraph: An unknown envoy, whose identity remained a mystery, arrived unexpectedly
     at the grand gate, leaving many curious onlookers wondering about the purpose
     of their visit.
+  leftTitle: Support the 2nd Banana republic
   leftParagraph: Support the 2nd Banana republic
-  leftDescription: 
   leftMoney: -3
   leftHappiness: -4
   leftPower: 3
@@ -39,8 +39,8 @@ MonoBehaviour:
   - ChainCard: {fileID: 0}
     possibleOutcome: 50
     excuteChainIn: 3
+  rightTitle: Chase them out
   rightParagraph: Chase them out
-  rightDescription: 
   rightMoney: -5
   rightHappiness: -5
   rightPower: -5
