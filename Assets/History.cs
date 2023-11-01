@@ -86,6 +86,7 @@ public class History : MonoBehaviour
     private void Start()
     {
         toggle.onValueChanged.AddListener(ToggleValueChanged);
+        
     }
 
     private void ToggleValueChanged(bool isOn)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = System.Random;
@@ -95,26 +96,33 @@ public class GameManager : MonoBehaviour
     public int StartMoney
     {
         get { return _startMoney; }
-        set { _startMoney = Mathf.Clamp(value, 0, 10); }
+        set { _startMoney = Mathf.Clamp(value, -10, 10); }
     }
     public int StartHappiness
     {
         get { return _startHappiness; }
-        set { _startHappiness = Mathf.Clamp(value, 0, 10); }
+        set { _startHappiness = Mathf.Clamp(value, -10, 10); }
     }
     public int StartPower
     {
         get { return _startPower; }
-        set { _startPower = Mathf.Clamp(value, 0, 10); }
+        set { _startPower = Mathf.Clamp(value, -10, 10); }
     }
     public int StartStability
     {
         get { return _startStability; }
-        set { _startStability = Mathf.Clamp(value, 0, 10); }
+        set { _startStability = Mathf.Clamp(value, -10, 10); }
     }
 
     [SerializeField]
     private int RandomCardPerTurn;
+
+    [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] private TextMeshProUGUI HappinessText;
+    [SerializeField] private TextMeshProUGUI PowerText;
+    [SerializeField] private TextMeshProUGUI StabilityText;
+    [SerializeField] private TextMeshProUGUI TurnText;
+    
 
     #endregion
 
@@ -162,6 +170,8 @@ public class GameManager : MonoBehaviour
             DisplayCard(_displayCard.Dequeue());
          //   NextDisplayCard(_displayCard.Dequeue());
         }
+
+        StartCoroutine(UpdateResource());
     }
 
     public void EndTurn()
@@ -256,9 +266,34 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
-    
-    public static void UpdateResource(int money, int happy, int power, int stability)
+
+    private IEnumerator UpdateResource()
     {
+        TurnText.color = Color.red;
+        moneyText.color = Color.red;
+        PowerText.color = Color.red;
+        StabilityText.color = Color.red;
+        HappinessText.color = Color.red;
+        
+        TurnText.text = CurrentTurn.ToString();
+        moneyText.text = CurrentMoney.ToString();
+        PowerText.text = CurrentPower.ToString();
+        StabilityText.text = CurrentStability.ToString();
+        HappinessText.text = CurrentHappiness.ToString();
+        
+        yield return new WaitForSeconds(1f);
+        
+        TurnText.color = Color.black;
+        moneyText.color = Color.black;
+        PowerText.color = Color.black;
+        StabilityText.color = Color.black;
+        HappinessText.color = Color.black;
+    }
+    
+
+    private static void UpdateResource(int money, int happy, int power, int stability)
+    {
+
         Debug.Log($"UpdateResourceFor : {CurrentMoney} : {CurrentHappiness} : {CurrentPower} : {CurrentStability}");
         //รับค่าเป็น +-
         CurrentMoney += money;
@@ -302,7 +337,7 @@ public class GameManager : MonoBehaviour
             }
             int randomIndex = random.Next(0, CardsInDeck.Count-1);
             
-            //Debug.Log("random number : " + randomIndex);
+            Debug.Log("random number : " + randomIndex);
 
             //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
             CardsHoldOn newcard = new CardsHoldOn(CardsInDeck[randomIndex]);
@@ -343,6 +378,7 @@ public class GameManager : MonoBehaviour
         {
             DefaultCard ThisCard = CurrentDisplayCard as DefaultCard;
             //Update Resource ทันที
+            StartCoroutine(UpdateResource());
             UpdateResource(ThisCard.leftMoney,ThisCard.leftHappiness,ThisCard.leftPower,ThisCard.leftStability);
 
             //คำนวน Possible Event
@@ -351,11 +387,12 @@ public class GameManager : MonoBehaviour
         else
         {
             NotifyCard ThisCard = CurrentDisplayCard as NotifyCard;
+            StartCoroutine(UpdateResource());
             UpdateResource(ThisCard.Money,ThisCard.Happiness,ThisCard.Power,ThisCard.Stability);
             //คำนวน Possible Event
             CalculatePossibility(ThisCard.possibleChainCards);
         }
-        if(CardsInDeck.Count >= 0)
+        if(_cardHoldOn.Count >= 0)
         {
             NextCard();
         }
@@ -369,6 +406,7 @@ public class GameManager : MonoBehaviour
         {
             DefaultCard ThisCard = CurrentDisplayCard as DefaultCard;
             //Update Resource ทันที
+            StartCoroutine(UpdateResource());
             UpdateResource(ThisCard.rightMoney,ThisCard.rightHappiness,ThisCard.rightPower,ThisCard.rightStability);
 
             //คำนวน Possible Event
@@ -377,11 +415,12 @@ public class GameManager : MonoBehaviour
         else
         {
             NotifyCard ThisCard = CurrentDisplayCard as NotifyCard;
+            StartCoroutine(UpdateResource());
             UpdateResource(ThisCard.Money,ThisCard.Happiness,ThisCard.Power,ThisCard.Stability);
             //คำนวน Possible Event
             CalculatePossibility(ThisCard.possibleChainCards);
         }
-        if(CardsInDeck.Count >= 0)
+        if(_cardHoldOn.Count >= 0)
         {
             NextCard();
         }
