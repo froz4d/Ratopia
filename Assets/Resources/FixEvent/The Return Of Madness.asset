@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: The Return Of Madness
   m_EditorClassIdentifier: 
   cardName: "\u0E17\u0E31\u0E01\u0E29\u0E34\u0E13\u0E01\u0E25\u0E31\u0E1A\u0E44\u0E17\u0E22"
-  cardImage: {fileID: 21300000, guid: baa1fce82d8ae3243a85489190aad223, type: 3}
+  cardImage: {fileID: 21300000, guid: 110cb7d5bd200234d8e108fa99ad0e89, type: 3}
   description: Raskin Furrywhisker, The Leader of the Cheese-Eaters Alliance and
     Former Prime Minister of Cheeseburg, was forced to flee the country amidst a
     public outcry caused by a massive scandal involving The Cheese pledge policy.

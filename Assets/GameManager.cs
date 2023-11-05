@@ -209,7 +209,7 @@ public class GameManager : MonoBehaviour
         RectTransform cardFoundaRect = cardFoundation.GetComponent<RectTransform>();
         cardFoundationScript.cardData = card;
         cardFoundationScript.ShowCardDisplay(card);
-        cardObject.AddComponent<NewPlayerController>();
+        cardObject.AddComponent<NewCardController>();
         //Set scale
         cardObject.transform.localScale = new Vector3(1, 1, 1);
         

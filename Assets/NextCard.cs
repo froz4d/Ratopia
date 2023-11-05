@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class NextCard : MonoBehaviour
 {
-    private NewPlayerController _newPlayerController;
+    private NewCardController _newCardController;
 
     private GameObject _firstCard;
     // Start is called before the first frame update
     void Start()
     {
-        _newPlayerController = FindObjectOfType<NewPlayerController>();
-        _firstCard = _newPlayerController.gameObject;
+        _newCardController = FindObjectOfType<NewCardController>();
+        _firstCard = _newCardController.gameObject;
         transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-        _newPlayerController.cardMoved += CardMoveFont;
+        _newCardController.cardMoved += CardMoveFont;
     }
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class NextCard : MonoBehaviour
 
     void CardMoveFont()
     {
-        gameObject.AddComponent<NewPlayerController>();
+        gameObject.AddComponent<NewCardController>();
         Destroy(this);
     }
 }

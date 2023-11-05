@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChoiceDisplay : MonoBehaviour
 {
@@ -19,6 +21,8 @@ public class ChoiceDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI plusPower;
     [SerializeField] private TextMeshProUGUI plusStability;
 
+    [Header("Setting")] public float timeToHold;
+    public bool choiceHoldOn = false;
 
     public void ShowChoiceLeft(Card inputCard)
     {
@@ -71,8 +75,20 @@ public class ChoiceDisplay : MonoBehaviour
         
     }
 
+    public void LockCardHoldOn()
+    {
+        choiceHoldOn = true;
+        panel.gameObject.GetComponent<Image>().raycastTarget = true;
+    }
+
+    public void UnlockCardHoldOn(bool yes)
+    {
+        choiceHoldOn = yes;
+    }
+
     public void Close()
     {
         panel.SetActive(false);
+        panel.gameObject.GetComponent<Image>().raycastTarget = false;
     }
 }

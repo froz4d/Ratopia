@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     private Vector3 _initialPosition;
     private Vector3 leftinfo = new Vector3(140, 0, 0);
@@ -16,23 +16,24 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
     private bool _swipeLeft;
     float duration = 0.5f; // Adjust the duration as needed for the desired smoothness.
     private float elapsedTime = 0f;
+    public static float cardHoldOnTime = 0f;
     private StateCard currenState = StateCard.None;
     private float time = 0;
-    public event Action cardMoved;
-    void Start()
-    {
 
-    }
+    public static float timeToLockCard = 1.8f;
     
+    public event Action cardMoved;
+
     public void OnDrag(PointerEventData eventData)
     {
         currenState = StateCard.None;
             transform.localPosition =
                 new Vector2(transform.localPosition.x + eventData.delta.x, transform.localPosition.y);
-            if (transform.localPosition.x - _initialPosition.x > 0)
+            if (transform.localPosition.x - _initialPosition.x > 0) //ไปทางขวา?
             {
                 transform.localEulerAngles = new Vector3(0, 0,
                     Mathf.LerpAngle(0, -10, (_initialPosition.x + transform.localPosition.x) / (Screen.width / 2)));
+                
             }
             else
             {
@@ -50,6 +51,7 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        cardHoldOnTime = 0f;
         _distanceMoved = Mathf.Abs(transform.localPosition.x - _initialPosition.x);
         if (_distanceMoved < 0.4 * Screen.width)
         {
@@ -118,45 +120,71 @@ public class NewPlayerController : MonoBehaviour, IDragHandler, IBeginDragHandle
             currenState = StateCard.None;
         }
     }
-    
+
     private void Update()
     {
-        if (transform.localPosition.x > Rightinfo.x && transform.localPosition.x > leftinfo.x)
+        if (!FindObjectOfType<ChoiceDisplay>().choiceHoldOn)
         {
-           // Debug.LogWarning("Show info Right");
-            GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.gray, Time.deltaTime);
-            
-            FindObjectOfType<ChoiceDisplay>().ShowChoiceRight(GetComponent<CardFoundation>().cardData);
-        }
-        else if (transform.localPosition.x < leftinfo.x && transform.localPosition.x < Rightinfo.x)
-        {
-          //  Debug.LogWarning("Show info Left");
-            GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.gray, Time.deltaTime);
-            
-            FindObjectOfType<ChoiceDisplay>().ShowChoiceLeft(GetComponent<CardFoundation>().cardData);
+            if (transform.localPosition.x > Rightinfo.x && transform.localPosition.x > leftinfo.x)
+            {
+                cardHoldOnTime += Time.deltaTime;
+                // Debug.LogWarning("Show info Right");
+                GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.gray, Time.deltaTime);
+
+                FindObjectOfType<ChoiceDisplay>().ShowChoiceRight(GetComponent<CardFoundation>().cardData);
+
+                if (cardHoldOnTime >= timeToLockCard)
+                {
+                    FindObjectOfType<ChoiceDisplay>().LockCardHoldOn();
+                }
+            }
+            else if (transform.localPosition.x < leftinfo.x && transform.localPosition.x < Rightinfo.x)
+            {
+                cardHoldOnTime += Time.deltaTime;
+                //  Debug.LogWarning("Show info Left");
+                GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.gray, Time.deltaTime);
+
+                FindObjectOfType<ChoiceDisplay>().ShowChoiceLeft(GetComponent<CardFoundation>().cardData);
+
+                if (cardHoldOnTime >= timeToLockCard)
+                {
+                    FindObjectOfType<ChoiceDisplay>().LockCardHoldOn();
+                }
+            }
+            else
+            {
+                //กลับมาที่เดิม
+                cardHoldOnTime = 0f;
+                GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.white, Time.deltaTime);
+
+                if (!FindObjectOfType<ChoiceDisplay>().choiceHoldOn)
+                {
+                    FindObjectOfType<ChoiceDisplay>().Close();
+                }
+            }
         }
         else
         {
-            //กลับมาที่เดิม
-            
-            GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.white, Time.deltaTime);
-            
-            FindObjectOfType<ChoiceDisplay>().Close();
+            ReturnCardToPosition();
         }
+
         //Debug.LogWarning(currenState.ToString());
         switch (currenState)
         {
             case StateCard.None:
-                
+
                 break;
             case StateCard.CardMove:
                 MoveCard();
+
                 break;
             case StateCard.ReturnCard:
                 ReturnCardToPosition();
                 break;
         }
+
     }
+
     private enum StateCard
     {
         None,
