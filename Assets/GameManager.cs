@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 {
     #region Setting & Current Status
 
-    private History _history;
+    private static History _history;
 
     //ไว้โชว์ Devlog
     public static bool ShowDevLog = true;
@@ -147,10 +147,10 @@ public class GameManager : MonoBehaviour
 
     private void StartTurn()
     {
-    //    Debug.LogWarning("StartTurn" + CardsInDeck.Count);
         CurrentTurn++;
-        
-            //_history.Record("StartTurn : " + CurrentTurn + " / " + MaxTurn);
+        _history.Record("StartTurn" + CurrentTurn);
+
+        //_history.Record("StartTurn : " + CurrentTurn + " / " + MaxTurn);
         //foreach checkCard Turn = 0 ให้ display Card
         if (_cardHoldOn.Count > 0)
         {
@@ -158,7 +158,7 @@ public class GameManager : MonoBehaviour
             {
                 if (_cardHoldOn[i].TurnLeftToExcute == 0)
                 {
-                    Debug.Log("CardHoldOn ReadyToExecute: " + _cardHoldOn[i].Card.cardName);
+                    _history.DevRecord("CardHoldOn For DeckCard ReadyToExecute: " + _cardHoldOn[i].Card.cardName);
                     _displayCard.Enqueue(_cardHoldOn[i].Card);
                     _cardHoldOn.RemoveAt(i);
                 }
@@ -170,12 +170,15 @@ public class GameManager : MonoBehaviour
             DisplayCard(_displayCard.Dequeue());
          //   NextDisplayCard(_displayCard.Dequeue());
         }
-
+        
+        _history.DevRecord("Have CardsIn Deck Left : " + CardsInDeck.Count);
+        
         StartCoroutine(UpdateResource());
     }
 
     public void EndTurn()
     {
+        _history.Record("End "+ CurrentTurn + "Turn");
      //   Debug.LogWarning("EndTurn" + CardsInDeck.Count);
         //ลดการ์ดที่มีอยู่
         if (_cardHoldOn.Count >= 0)
@@ -294,15 +297,14 @@ public class GameManager : MonoBehaviour
     private static void UpdateResource(int money, int happy, int power, int stability)
     {
 
-        Debug.Log($"UpdateResourceFor : {CurrentMoney} : {CurrentHappiness} : {CurrentPower} : {CurrentStability}");
+        _history.Record($"UpdateResourceFor : {CurrentMoney} : {CurrentHappiness} : {CurrentPower} : {CurrentStability}");
         //รับค่าเป็น +-
         CurrentMoney += money;
         CurrentHappiness += happy;
         CurrentPower += power;
         CurrentStability += stability;
         
-        Debug.Log($"UpdateResource : {money} : {happy} : {power} : {stability}");
-        Debug.Log($"UpdateResourceTo : {CurrentMoney} : {CurrentHappiness} : {CurrentPower} : {CurrentStability}");
+        _history.Record($"UpdateResourceTo : {CurrentMoney} : {CurrentHappiness} : {CurrentPower} : {CurrentStability}");
         
         //เขียน Debug.Log เพราะเพื่อไปเขียน History ไว้
         
@@ -314,7 +316,8 @@ public class GameManager : MonoBehaviour
         if (chainEvent != null && excuteTurn != 0)
         {
             CardsHoldOn newcard = new CardsHoldOn(chainEvent,excuteTurn);
-            _cardHoldOn.Insert(0,newcard);
+            _cardHoldOn.Insert(_cardHoldOn.Count-1,newcard);
+            _history.DevRecord("Add "+ newcard.Card.cardName + " To CardHoldOn and will Excute In " + newcard.TurnLeftToExcute);
         }
 
         else if (chainEvent != null && excuteTurn == 0)
@@ -343,7 +346,7 @@ public class GameManager : MonoBehaviour
             CardsHoldOn newcard = new CardsHoldOn(CardsInDeck[randomIndex]);
             _cardHoldOn.Add(newcard);
 
-            Debug.Log("add newcard : " + newcard.Card.cardName);
+            _history.DevRecord("add newCard For CardInDesk : " + newcard.Card.cardName);
             
             //อย่าลืม Remove ใน List ออก
             CardsInDeck.RemoveAt(randomIndex);

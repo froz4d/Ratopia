@@ -165,7 +165,7 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
         }
         else
         {
-            ReturnCardToPosition();
+            currenState = StateCard.ReturnCard;
         }
 
         //Debug.LogWarning(currenState.ToString());
