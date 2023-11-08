@@ -34,9 +34,8 @@ MonoBehaviour:
     impact on your economy. Making a wise decision regarding the future of Cheeseburg,
     your nation, is of utmost importance in order to ensure its long-term stability
     and prosperity.
+  leftTitle: 'Cheese only '
   leftParagraph: 'Cheese only '
-  leftDescription: By consuming Made in Cheeseburg, the citizens of Cheeseburg contribute
-    to the vision of making Cheeseburg great again.
   leftMoney: -3
   leftHappiness: -2
   leftPower: -1
@@ -45,8 +44,8 @@ MonoBehaviour:
   - ChainCard: {fileID: 11400000, guid: 4b78bdbcb7bad1d4684e854f76d00462, type: 2}
     possibleOutcome: 100
     excuteChainIn: 0
+  rightTitle: Take it
   rightParagraph: Take it
-  rightDescription: Here come the Money
   rightMoney: 3
   rightHappiness: 2
   rightPower: 0

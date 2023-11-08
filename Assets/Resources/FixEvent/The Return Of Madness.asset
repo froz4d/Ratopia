@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361d8e23158228a41828d93716eeaeae, type: 3}
   m_Name: The Return Of Madness
   m_EditorClassIdentifier: 
-  cardName: The Return Of Madness
-  cardImage: {fileID: 21300000, guid: 8ec0ab5aa8d8b444a984352b8bb1418a, type: 3}
+  cardName: "\u0E17\u0E31\u0E01\u0E29\u0E34\u0E13\u0E01\u0E25\u0E31\u0E1A\u0E44\u0E17\u0E22"
+  cardImage: {fileID: 21300000, guid: 110cb7d5bd200234d8e108fa99ad0e89, type: 3}
   description: Raskin Furrywhisker, The Leader of the Cheese-Eaters Alliance and
     Former Prime Minister of Cheeseburg, was forced to flee the country amidst a
     public outcry caused by a massive scandal involving The Cheese pledge policy.
@@ -30,8 +30,8 @@ MonoBehaviour:
     decision to make - what shall we do with him? It is crucial that we carefully
     consider all possible options and weigh the potential implications before reaching
     a conclusion. '
+  leftTitle: Take him custody
   leftParagraph: Take him custody
-  leftDescription: 
   leftMoney: -3
   leftHappiness: 1
   leftPower: 1
@@ -40,8 +40,8 @@ MonoBehaviour:
   - ChainCard: {fileID: 11400000, guid: 182746a0750e1c848a29cdabf7fdea90, type: 2}
     possibleOutcome: 90
     excuteChainIn: 3
+  rightTitle: Take him to cabinet
   rightParagraph: Take him to cabinet
-  rightDescription: 
   rightMoney: 0
   rightHappiness: 3
   rightPower: -3

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Welcome To The Banana Field
   m_EditorClassIdentifier: 
   cardName: Welcome To The Banana Field
-  cardImage: {fileID: 21300000, guid: 8ec0ab5aa8d8b444a984352b8bb1418a, type: 3}
+  cardImage: {fileID: 21300000, guid: 36cc28122c5f33a44b899f36786b507f, type: 3}
   description: The Banana famine has caused immense chaos in the Banana republic,
     as the scarcity of bananas has led to a division within the nation. The two factions,
     unable to agree on how to address the crisis, have split apart, resulting in
@@ -26,8 +26,8 @@ MonoBehaviour:
   paragraph: An unknown envoy, whose identity remained a mystery, arrived unexpectedly
     at the grand gate, leaving many curious onlookers wondering about the purpose
     of their visit.
+  leftTitle: Support the 2nd Banana republic
   leftParagraph: Support the 2nd Banana republic
-  leftDescription: 
   leftMoney: -3
   leftHappiness: -4
   leftPower: 3
@@ -39,8 +39,8 @@ MonoBehaviour:
   - ChainCard: {fileID: 0}
     possibleOutcome: 50
     excuteChainIn: 3
+  rightTitle: Chase them out
   rightParagraph: Chase them out
-  rightDescription: 
   rightMoney: -5
   rightHappiness: -5
   rightPower: -5

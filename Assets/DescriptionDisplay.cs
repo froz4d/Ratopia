@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class DescriptionDisplay : MonoBehaviour
 {
-    public TextMeshProUGUI titleCard;
-    public TextMeshProUGUI CardDescription;
-    public GameObject panel;
+    [SerializeField]private TextMeshProUGUI titleCard;
+    [SerializeField]private TextMeshProUGUI CardDescription;
+    [SerializeField]private GameObject panel;
     
     public void ShowCard(Card card)
     {

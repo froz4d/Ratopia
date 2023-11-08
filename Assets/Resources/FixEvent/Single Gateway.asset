@@ -27,10 +27,8 @@ MonoBehaviour:
     individuals to go through government security measures before accessing the internet.
     This initiative is intended to prevent criminal activities and strengthen overall
     security.
+  leftTitle: "Let\u2019s Start the Project"
   leftParagraph: "Let\u2019s Start the Project"
-  leftDescription: This will create a reliable digital environment where individuals
-    can feel secure online, with their personal information protected in exchange
-    for their freedom.
   leftMoney: -4
   leftHappiness: -4
   leftPower: 5
@@ -42,8 +40,8 @@ MonoBehaviour:
   - ChainCard: {fileID: 11400000, guid: b546d3f93c804f54aae9af5b4c779874, type: 2}
     possibleOutcome: 10
     excuteChainIn: 2
+  rightTitle: "Not Worth It\u2026."
   rightParagraph: "Not Worth It\u2026."
-  rightDescription: Declined single gateway project.
   rightMoney: 0
   rightHappiness: -1
   rightPower: 0

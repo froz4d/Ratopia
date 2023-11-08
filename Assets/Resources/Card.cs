@@ -14,6 +14,7 @@ public abstract class Card : ScriptableObject
     [TextArea(minLines:1,maxLines:4)]
     public string paragraph;
 
+
     //Possible Outcome? %? Fix?
     
     [System.Serializable]
