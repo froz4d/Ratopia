@@ -143,6 +143,10 @@ public class GameManager : MonoBehaviour
         //////////////Test/////////////////////
         EndTurn();
         //////////////Test/////////////////////
+        ///
+        /// แม่งเอ้ยน่าเขียน Finite state Machine
+        /// แต่ขก ค่อย Optimize ล้ะกานนนนนนนนนนนนนนนนนนนนน
+        ///
     }
 
     private void StartTurn()
@@ -194,6 +198,8 @@ public class GameManager : MonoBehaviour
         CheckCondition();
         
         StartTurn();
+        
+        //ใส่ กรณี End LastTurn
     }
 
     #region Display
@@ -450,11 +456,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    #region ConditionEvent
+    #region ConditionEvent&Ending
 
     private void CheckCondition()
     {
         //ถ้า ถึงเท่านี้ๆ ให้ขึ้นเตือนก่อน ถ้าเทิร์นต่อไปยังอยู่อีกให้สุ่ม Event ร้ายมา
+    }
+
+    private void EndLastTurn()
+    {
+        //Show Ending Result ทั้งหมด
     }
 
     #endregion
