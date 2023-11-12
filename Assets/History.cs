@@ -52,7 +52,7 @@ public class History : MonoBehaviour
         //ต้องมาใส่ history
     }
 
-    private void RefreshRecord()
+    public void RefreshRecord()
     {
         //สำหรับ สร้าง Record
         
