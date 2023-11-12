@@ -7,7 +7,8 @@ public class SettingManager : MonoBehaviour
 {
     [SerializeField] private GameObject SettingPanel;
     [SerializeField] private GameObject Devlog;
-    [SerializeField] private Slider volune;
+    [SerializeField] private GameObject volune; 
+    [SerializeField] private GameObject AduioManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,14 @@ public class SettingManager : MonoBehaviour
         else
         {
             GameManager.ShowDevLog = false;
+        }
+        if (volune.GetComponent<Toggle>().isOn)
+        {
+            AduioManager.SetActive(true);
+        }
+        else
+        {
+            AduioManager.SetActive(false);
         }
     }
 
