@@ -34,5 +34,19 @@ public class CardFoundation : MonoBehaviour
         //show
         FindObjectOfType<DescriptionDisplay>().ShowCard(cardData);
     }
+
+    public void HideTilePanel()
+    {
+        GameObject[] uiPanels = GameObject.FindGameObjectsWithTag("UIpanel");
+        foreach (var VARIABLE in uiPanels)
+        {
+            VARIABLE.SetActive(false);
+        }
+    }
+
+    public void ShowTilePanel()
+    {
+        FindObjectOfType<UIPanel>().ShowTilePanel();
+    }
     
 }
