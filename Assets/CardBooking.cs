@@ -21,4 +21,9 @@ public class CardBooking : MonoBehaviour
     {
         
     }
+
+    public void SetCardBooking(Card inputCard)
+    {
+        
+    }
 }
