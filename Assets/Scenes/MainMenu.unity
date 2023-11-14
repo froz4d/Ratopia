@@ -7350,6 +7350,7 @@ MonoBehaviour:
   Devlog: {fileID: 427564835}
   volune: {fileID: 1032014617}
   AduioManager: {fileID: 874754314}
+  volunmbar: {fileID: 1925417273}
 --- !u!114 &1940638191
 MonoBehaviour:
   m_ObjectHideFlags: 0

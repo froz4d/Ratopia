@@ -9,6 +9,7 @@ public class SettingManager : MonoBehaviour
     [SerializeField] private GameObject Devlog;
     [SerializeField] private GameObject volune;
     [SerializeField] private GameObject AduioManager;
+    [SerializeField] private Slider volunmbar;
     
     void Start()
     {
@@ -28,12 +29,17 @@ public class SettingManager : MonoBehaviour
             Devlog.GetComponent<Toggle>().isOn = showDevLog;
             GameManager.ShowDevLog = showDevLog;
         }
-        
         if (volune != null)
         {
             bool audioManagerActive = PlayerPrefs.GetInt("AudioManagerActive", 1) == 1;
             volune.GetComponent<Toggle>().isOn = audioManagerActive;
             AduioManager.SetActive(audioManagerActive);
+        }
+        if (volunmbar != null)
+        {
+            float savedVolume = PlayerPrefs.GetFloat("Volume", 1f);
+            volunmbar.value = savedVolume;
+            AduioManager.GetComponent<AudioSource>().volume = volunmbar.value;
         }
     }
     
@@ -47,6 +53,10 @@ public class SettingManager : MonoBehaviour
         if (volune != null)
         {
             PlayerPrefs.SetInt("AudioManagerActive", volune.GetComponent<Toggle>().isOn ? 1 : 0);
+        }
+        if (volunmbar != null)
+        {
+            PlayerPrefs.SetFloat("Volume", volunmbar.value);
         }
 
         PlayerPrefs.Save();
