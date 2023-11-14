@@ -17,7 +17,7 @@ public class NextCard : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         float distanceMoce = _firstCard.transform.localPosition.x;
         if (Mathf.Abs(distanceMoce) > 0)
