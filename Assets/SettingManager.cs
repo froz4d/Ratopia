@@ -7,39 +7,59 @@ public class SettingManager : MonoBehaviour
 {
     [SerializeField] private GameObject SettingPanel;
     [SerializeField] private GameObject Devlog;
-    [SerializeField] private GameObject volune; 
+    [SerializeField] private GameObject volune;
     [SerializeField] private GameObject AduioManager;
-    // Start is called before the first frame update
+    
     void Start()
     {
-       
+        LoadSettings();
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        if (Devlog.GetComponent<Toggle>().isOn)
+     
+    }
+
+    void LoadSettings()
+    {
+        if (Devlog != null)
         {
-            GameManager.ShowDevLog = true;
+            bool showDevLog = PlayerPrefs.GetInt("ShowDevLog", 0) == 1;
+            Devlog.GetComponent<Toggle>().isOn = showDevLog;
+            GameManager.ShowDevLog = showDevLog;
         }
-        else
+        
+        if (volune != null)
         {
-            GameManager.ShowDevLog = false;
+            bool audioManagerActive = PlayerPrefs.GetInt("AudioManagerActive", 1) == 1;
+            volune.GetComponent<Toggle>().isOn = audioManagerActive;
+            AduioManager.SetActive(audioManagerActive);
         }
-        if (volune.GetComponent<Toggle>().isOn)
+    }
+    
+
+    public void SaveSettings()
+    {
+        if (Devlog != null)
         {
-            AduioManager.SetActive(true);
+            PlayerPrefs.SetInt("ShowDevLog", Devlog.GetComponent<Toggle>().isOn ? 1 : 0);
         }
-        else
+        if (volune != null)
         {
-            AduioManager.SetActive(false);
+            PlayerPrefs.SetInt("AudioManagerActive", volune.GetComponent<Toggle>().isOn ? 1 : 0);
         }
+
+        PlayerPrefs.Save();
+        LoadSettings(); 
     }
 
     public void closePanel()
     {
         SettingPanel.SetActive(false);
+        SaveSettings();
+        LoadSettings();
     }
+
     public void OpenPanel()
     {
         SettingPanel.SetActive(true);
