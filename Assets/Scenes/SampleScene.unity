@@ -7768,6 +7768,7 @@ GameObject:
   - component: {fileID: 1491184519}
   - component: {fileID: 1491184521}
   - component: {fileID: 1491184522}
+  - component: {fileID: 1491184523}
   m_Layer: 0
   m_Name: GameManger
   m_TagString: Untagged
@@ -7846,6 +7847,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SettingPanel: {fileID: 1925133884}
   MenuPanel: {fileID: 726920274}
+--- !u!114 &1491184523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491184518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5530ebcde8d28a49a9a65423c67af69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1498515852
 GameObject:
   m_ObjectHideFlags: 0
