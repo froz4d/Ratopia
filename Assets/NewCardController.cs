@@ -121,7 +121,7 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!FindObjectOfType<ChoiceDisplay>().choiceHoldOn)
         {
