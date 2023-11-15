@@ -9,11 +9,9 @@ public class CardBooking : MonoBehaviour
     public Card cardData;
     
     public TextMeshProUGUI titleCard;
-    public Image imageCard;
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -24,6 +22,8 @@ public class CardBooking : MonoBehaviour
 
     public void SetCardBooking(Card inputCard)
     {
-        
+        cardData = inputCard;
+        titleCard.text = inputCard.cardName;
+        GetComponent<Image>().sprite = inputCard.cardImage;
     }
 }

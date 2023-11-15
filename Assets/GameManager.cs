@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     #region Setting & Current Status
 
     private static History _history;
+    private static CardBook _cardBook;
 
     //ไว้โชว์ Devlog
     public static bool ShowDevLog = true;
@@ -130,11 +131,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _history = FindObjectOfType<History>();
+        _cardBook = FindObjectOfType<CardBook>();
         CurrentMoney = StartMoney;
         CurrentHappiness = StartHappiness;
         CurrentPower = StartPower;
         CurrentStability = StartStability;
         MaxTurn = _MaxTurn;
+
+        CurrentTurn = 0;
         
         Card[] cards = Resources.LoadAll<Card>("FixEvent");
         CardsInDeck.AddRange(cards);
@@ -208,6 +212,8 @@ public class GameManager : MonoBehaviour
     private void DisplayCard(Card card)
     {
         CurrentDisplayCard = card;
+        
+        _cardBook.AddCardToCollection(CurrentDisplayCard);
         _history.Record("currentDisplayCard : " + CurrentDisplayCard.cardName);
 
         GameObject cardObject = Instantiate(cardFoundation, cardParent.transform, false); // Change true to false
@@ -234,6 +240,8 @@ public class GameManager : MonoBehaviour
     private void NextDisplayCard(Card card)
     {
         CurrentDisplayCard = card;
+        
+        _cardBook.AddCardToCollection(CurrentDisplayCard);
         _history.Record("currentDisplayCard : " + CurrentDisplayCard.cardName);
 
         GameObject cardObject = Instantiate(cardFoundation, cardParent.transform, false); // Change true to false

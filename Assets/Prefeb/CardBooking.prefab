@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2737221507016326502}
   - component: {fileID: 1597167308987818461}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TitleCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,3 +225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b94fa408ff000c94fb5f10b6cee26809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardData: {fileID: 0}
+  titleCard: {fileID: 1597167308987818461}
+  imageCard: {fileID: 0}
