@@ -7,39 +7,69 @@ public class SettingManager : MonoBehaviour
 {
     [SerializeField] private GameObject SettingPanel;
     [SerializeField] private GameObject Devlog;
-    [SerializeField] private GameObject volune; 
+    [SerializeField] private GameObject volune;
     [SerializeField] private GameObject AduioManager;
-    // Start is called before the first frame update
+    [SerializeField] private Slider volunmbar;
+    
     void Start()
     {
-       
+        LoadSettings();
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        if (Devlog.GetComponent<Toggle>().isOn)
+     
+    }
+
+    void LoadSettings()
+    {
+        if (Devlog != null)
         {
-            GameManager.ShowDevLog = true;
+            bool showDevLog = PlayerPrefs.GetInt("ShowDevLog", 0) == 1;
+            Devlog.GetComponent<Toggle>().isOn = showDevLog;
+            GameManager.ShowDevLog = showDevLog;
         }
-        else
+        if (volune != null)
         {
-            GameManager.ShowDevLog = false;
+            bool audioManagerActive = PlayerPrefs.GetInt("AudioManagerActive", 1) == 1;
+            volune.GetComponent<Toggle>().isOn = audioManagerActive;
+            AduioManager.SetActive(audioManagerActive);
         }
-        if (volune.GetComponent<Toggle>().isOn)
+        if (volunmbar != null)
         {
-            AduioManager.SetActive(true);
+            float savedVolume = PlayerPrefs.GetFloat("Volume", 1f);
+            volunmbar.value = savedVolume;
+            AduioManager.GetComponent<AudioSource>().volume = volunmbar.value;
         }
-        else
+    }
+    
+
+    public void SaveSettings()
+    {
+        if (Devlog != null)
         {
-            AduioManager.SetActive(false);
+            PlayerPrefs.SetInt("ShowDevLog", Devlog.GetComponent<Toggle>().isOn ? 1 : 0);
         }
+        if (volune != null)
+        {
+            PlayerPrefs.SetInt("AudioManagerActive", volune.GetComponent<Toggle>().isOn ? 1 : 0);
+        }
+        if (volunmbar != null)
+        {
+            PlayerPrefs.SetFloat("Volume", volunmbar.value);
+        }
+
+        PlayerPrefs.Save();
+        LoadSettings(); 
     }
 
     public void closePanel()
     {
         SettingPanel.SetActive(false);
+        SaveSettings();
+        LoadSettings();
     }
+
     public void OpenPanel()
     {
         SettingPanel.SetActive(true);
