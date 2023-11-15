@@ -22,6 +22,8 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
 
     public static float timeToLockCard = 1.8f;
     
+    private bool ChoiceSelectCalled = false;
+    
     public event Action cardMoved;
 
     public void OnDrag(PointerEventData eventData)
@@ -62,12 +64,12 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
         {
             if (transform.localPosition.x > _initialPosition.x)
             {
-                FindObjectOfType<GameManager>().RightChoiceSelect();
+                
                 _swipeLeft = false;
             }
             else
             {
-                FindObjectOfType<GameManager>().LeftChoiceSelect();
+                
                 _swipeLeft = true;
             }
             currenState = StateCard.CardMove;
@@ -75,7 +77,6 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
     }
     private void MoveCard()
     {
-     
         if (time < 0.2f)
         {
             time += Time.deltaTime;
@@ -85,12 +86,24 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
                 transform.localPosition = new Vector3(Mathf.SmoothStep(transform.localPosition.x,
                     transform.localPosition.x - Screen.width, time), transform.localPosition.y, 0);
                 GetComponent<Image>().color = Color.Lerp(Color.white, Color.red, Mathf.SmoothStep(1, 0, 4 * time));
+                
+                if (!ChoiceSelectCalled) // Check if RightChoiceSelect was not called before
+                {
+                    FindObjectOfType<GameManager>().LeftChoiceSelect();
+                    ChoiceSelectCalled = true; // Set the flag to true after calling
+                }
             }
             else
             {
                 transform.localPosition = new Vector3(Mathf.SmoothStep(transform.localPosition.x,
                     transform.localPosition.x + Screen.width, time), transform.localPosition.y, 0);
                 GetComponent<Image>().color = Color.Lerp(Color.white, Color.green, Mathf.SmoothStep(1, 0, 4 * time));
+                
+                if (!ChoiceSelectCalled) // Check if RightChoiceSelect was not called before
+                {
+                    FindObjectOfType<GameManager>().RightChoiceSelect();
+                    ChoiceSelectCalled = true; // Set the flag to true after calling
+                }
             }
             //  GetComponent<Image>().color = new Color(1, 1, 1, Mathf.SmoothStep(1, 0, 4 * time));
         }
@@ -98,6 +111,7 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
         {
             cardMoved?.Invoke();
             Destroy(gameObject);
+            ChoiceSelectCalled = false;
         }
 
     }
@@ -119,6 +133,10 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
             transform.localRotation = initialRotation;
             currenState = StateCard.None;
         }
+    }
+    private void ExcuteOutcome(bool swipleft)
+    {
+        
     }
 
     private void Update()
@@ -172,23 +190,25 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
         switch (currenState)
         {
             case StateCard.None:
-
                 break;
             case StateCard.CardMove:
                 MoveCard();
-
                 break;
             case StateCard.ReturnCard:
                 ReturnCardToPosition();
                 break;
+            case StateCard.ExcuteOutcome:
+                break;
         }
 
     }
+    
 
     private enum StateCard
     {
         None,
         CardMove,
+        ExcuteOutcome,
         ReturnCard
     }
 }
