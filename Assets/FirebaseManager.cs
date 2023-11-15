@@ -6,7 +6,7 @@ using Proyecto26;
 using SimpleJSON;
 using System.Linq;
 
-public class FirebaseRankingManager : MonoBehaviour
+public class FirebaseManager : MonoBehaviour
 {
     public const string url = "https://ratopiadata-default-rtdb.asia-southeast1.firebasedatabase.app/";
 

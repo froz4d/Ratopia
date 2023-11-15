@@ -331,7 +331,15 @@ public class GameManager : MonoBehaviour
         if (chainEvent != null && excuteTurn != 0)
         {
             CardsHoldOn newcard = new CardsHoldOn(chainEvent,excuteTurn);
-            _cardHoldOn.Insert(_cardHoldOn.Count-1,newcard);
+            if (_cardHoldOn.Count > 0)
+            {
+                _cardHoldOn.Insert(_cardHoldOn.Count-1,newcard);
+            }
+            else
+            {
+                _cardHoldOn.Insert(0,newcard);
+            }
+            
             _history.DevRecord("Add "+ newcard.Card.cardName + " To CardHoldOn and will Excute In " + newcard.TurnLeftToExcute);
         }
 

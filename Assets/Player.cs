@@ -5,6 +5,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Player
 {
+    //ต้องใส่ การ์ดที่เจอแล้ว กับ Achivment?
     public string PlayerName;
     public Sprite PlayerProfile;
     public int PlayerScore;

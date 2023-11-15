@@ -3688,6 +3688,9 @@ MonoBehaviour:
     - PlayerName: choen
       PlayerProfile: {fileID: 0}
       PlayerScore: 5
+    - PlayerName: kuy
+      PlayerProfile: {fileID: 0}
+      PlayerScore: 70
 --- !u!4 &603845557
 Transform:
   m_ObjectHideFlags: 0
