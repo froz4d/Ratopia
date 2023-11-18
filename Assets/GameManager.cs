@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -187,8 +188,6 @@ public class GameManager : MonoBehaviour
 
     public void EndTurn()
     {
-        _history.Record("End "+ CurrentTurn + "Turn");
-     //   Debug.LogWarning("EndTurn" + CardsInDeck.Count);
         //ลดการ์ดที่มีอยู่
         if (_cardHoldOn.Count >= 0)
         {
@@ -201,10 +200,24 @@ public class GameManager : MonoBehaviour
         //สุ่มการ์ดใหม่
         RandomCardInDeckToHoldOn(RandomCardPerTurn);
         CheckCondition();
+        if (CurrentTurn != 0)
+        {
+            _history.Record("End "+ CurrentTurn + "Turn");
+            CollectRemainingResourceData();
+        }
         
-        StartTurn();
+        //Show Transition Result
         
+
         //ใส่ กรณี End LastTurn
+        if (CurrentTurn == MaxTurn)
+        {
+            EndLastTurn();
+        }
+        else
+        {
+            StartTurn();
+        }
     }
 
     #region Display
@@ -363,7 +376,7 @@ public class GameManager : MonoBehaviour
             }
             int randomIndex = random.Next(0, CardsInDeck.Count-1);
             
-            Debug.Log("random number : " + randomIndex);
+           // Debug.Log("random number : " + randomIndex);
 
             //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
             CardsHoldOn newcard = new CardsHoldOn(CardsInDeck[randomIndex]);
@@ -475,14 +488,80 @@ public class GameManager : MonoBehaviour
 
     #region ConditionEvent&Ending
 
+    [Header("ConditionEvent & Ending")]
+    public int conditionTrigger = -1;
+
+    private int conditionTriggerCount = 0;
+
+    public int endingVictoryCondition;
+
+    private List<int> _remainingHappinessInEndTurn = new List<int>();
+    private List<int> _remainingMoneyInEndTurn = new List<int>();
+    private List<int> _remainingPowerInEndTurn = new List<int>();
+    private List<int> _remainingStabilityInEndTurn = new List<int>();
     private void CheckCondition()
     {
         //ถ้า ถึงเท่านี้ๆ ให้ขึ้นเตือนก่อน ถ้าเทิร์นต่อไปยังอยู่อีกให้สุ่ม Event ร้ายมา
+        if (CurrentHappiness <= conditionTrigger)
+        {
+            
+        }
+
+        if (CurrentMoney <= conditionTrigger)
+        {
+            
+        }
+
+        if (CurrentPower <= conditionTrigger)
+        {
+            
+        }
+
+        if (CurrentStability <= conditionTrigger)
+        {
+            
+        }
+        
+        //ถ้า ติดลบ Condition มากเกินไปหลายเทินจะเกิด Event จบเกมล้มเหลว
+        if (conditionTriggerCount > 3)
+        {
+            //show Ending Defeat
+        }
     }
 
     private void EndLastTurn()
     {
         //Show Ending Result ทั้งหมด
+        double averageHappiness = _remainingHappinessInEndTurn.Average();
+        double averageMoney = _remainingMoneyInEndTurn.Average();
+        double averagePower = _remainingPowerInEndTurn.Average();
+        double averageStability = _remainingStabilityInEndTurn.Average();
+        
+        //Show DefaultEnding
+
+        if (averageHappiness >= endingVictoryCondition)
+        {
+            //ending Happiness
+        }
+        if (averagePower >= endingVictoryCondition)
+        {
+            //ending Power
+        }
+        if (averageMoney >= endingVictoryCondition)
+        {
+            //ending Money
+        }
+        if (averageStability >= endingVictoryCondition)
+        {
+            //ending Stability
+        }
+    }
+    private void CollectRemainingResourceData()
+    {
+        _remainingHappinessInEndTurn.Add(CurrentHappiness);
+        _remainingMoneyInEndTurn.Add(CurrentMoney);
+        _remainingPowerInEndTurn.Add(CurrentPower);
+        _remainingStabilityInEndTurn.Add(CurrentStability);
     }
 
     #endregion
