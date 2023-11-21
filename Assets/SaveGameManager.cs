@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.IO;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class GameData
@@ -9,8 +10,10 @@ public class GameData
     public int currentHappiness;
     public int currentPower;
     public int currentStability;
-    // Add other relevant data...
+   
+  
 }
+
 
 public class SaveGameManager : MonoBehaviour
 {
@@ -22,10 +25,9 @@ public class SaveGameManager : MonoBehaviour
             currentMoney = GameManager.CurrentMoney,
             currentHappiness = GameManager.CurrentHappiness,
             currentPower = GameManager.CurrentPower,
-            currentStability = GameManager.CurrentStability,
+
             // Set other relevant data...
         };
-
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/gameData.json", json);
     }
