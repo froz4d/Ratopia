@@ -10,8 +10,10 @@ public class GameData
     public int currentHappiness;
     public int currentPower;
     public int currentStability;
-   
-  
+    public List<Card> cardsInDeck;
+    public List<GameManager.CardsHoldOn> cardHoldOn;
+    public Card CurrentDisplayCard;
+
 }
 
 
@@ -25,9 +27,13 @@ public class SaveGameManager : MonoBehaviour
             currentMoney = GameManager.CurrentMoney,
             currentHappiness = GameManager.CurrentHappiness,
             currentPower = GameManager.CurrentPower,
+            currentStability = GameManager.CurrentStability,
+            cardsInDeck = GameManager.CardsInDeck,
+            cardHoldOn = GameManager._cardHoldOn,
+            CurrentDisplayCard = GameManager.CurrentDisplayCard,
 
-            // Set other relevant data...
         };
+
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/gameData.json", json);
     }
@@ -45,12 +51,14 @@ public class SaveGameManager : MonoBehaviour
             GameManager.CurrentHappiness = data.currentHappiness;
             GameManager.CurrentPower = data.currentPower;
             GameManager.CurrentStability = data.currentStability;
-
-            // Set other relevant data...
+            GameManager.CurrentDisplayCard = data.CurrentDisplayCard;
+            GameManager.CardsInDeck = data.cardsInDeck;
         }
         else
         {
             Debug.LogWarning("No saved game data found.");
         }
     }
+
+ 
 }

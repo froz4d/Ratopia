@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
 
     public static List<Card> CardsInDeck = new List<Card>(); //ChainEvent ไม่อยู่ใน Deck
 
-    private class CardsHoldOn
+    public class CardsHoldOn
     {
         public int TurnLeftToExcute; //0 = display
         public Card Card;
@@ -70,10 +70,11 @@ public class GameManager : MonoBehaviour
             TurnLeftToExcute = turn;
         }
     }
-    private static List<CardsHoldOn> _cardHoldOn = new List<CardsHoldOn>(); //ChainEvent หรือการ์ดที่จะโผล่ตามมา int = จำนวนเทิร์น
+
+    public static List<CardsHoldOn> _cardHoldOn = new List<CardsHoldOn>(); //ChainEvent หรือการ์ดที่จะโผล่ตามมา int = จำนวนเทิร์น
     
     private static Queue<Card> _displayCard = new Queue<Card>(); //Q ของ การ์ดที่จะ Show ใน Turn นั้น
-    private static Card CurrentDisplayCard;
+    public static Card CurrentDisplayCard;
     
     
     [SerializeField] private GameObject cardFoundation;
@@ -131,25 +132,15 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
-        instance = this;
         _history = FindObjectOfType<History>();
         _cardBook = FindObjectOfType<CardBook>();
-        CurrentMoney = StartMoney;
-        CurrentHappiness = StartHappiness;
-        CurrentPower = StartPower;
-        CurrentStability = StartStability;
-        MaxTurn = _MaxTurn;
 
-
-        CurrentTurn = 0;
+        NewGame();
         
-        Card[] cards = Resources.LoadAll<Card>("FixEvent");
-        CardsInDeck.AddRange(cards);
-        
-        Debug.Log(CardsInDeck.Count);
+ //       Debug.Log(CardsInDeck.Count);
         
         //////////////Test/////////////////////
-        EndTurn();
+        //EndTurn();
         //////////////Test/////////////////////
         ///
         /// แม่งเอ้ยน่าเขียน Finite state Machine
@@ -493,31 +484,79 @@ public class GameManager : MonoBehaviour
     #region SaveAndLoad
     public void NewGame()
     {
-        CurrentTurn = 0;
         CurrentMoney = StartMoney;
         CurrentHappiness = StartHappiness;
         CurrentPower = StartPower;
         CurrentStability = StartStability;
+        MaxTurn = _MaxTurn;
+        CurrentTurn = 0;
         
-
+        Card[] cards = Resources.LoadAll<Card>("FixEvent");
+        CardsInDeck.AddRange(cards);
+        RandomCardInDeckToHoldOn(RandomCardPerTurn);
+        DeleteAllChildren();
         StartTurn();
+       
     }
     public void ContinueGame()
     {
         SaveGameManager.LoadGame();
         Debug.LogWarning("load");
-        StartCoroutine(UpdateResource());
-      //  StartTurn();
+        CardsHoldOn newcard = new CardsHoldOn(CurrentDisplayCard,0);
+        _cardHoldOn.Insert(0,newcard);
+      //  StartCoroutine(UpdateResource());
+
+        //  StartTurn();
+        DeleteAllChildren();
+      LoadStartTurn();
     }
+    
+    private void LoadStartTurn()
+    {
+      
+        _history.Record("LoadStartTurn" + CurrentTurn);
 
+        //_history.Record("StartTurn : " + CurrentTurn + " / " + MaxTurn);
+        //foreach checkCard Turn = 0 ให้ display Card
+        if (_cardHoldOn.Count > 0)
+        {
+            for (int i = _cardHoldOn.Count - 1; i >= 0; i--)
+            {
+                if (_cardHoldOn[i].TurnLeftToExcute == 0)
+                {
+                    _history.DevRecord("CardHoldOn For DeckCard ReadyToExecute: " + _cardHoldOn[i].Card.cardName);
+                    _displayCard.Enqueue(_cardHoldOn[i].Card);
+                    _cardHoldOn.RemoveAt(i);
+                }
+            }
+        }
+
+        if (_displayCard.Count > 0)
+        { 
+            DisplayCard(_displayCard.Dequeue());
+            //   NextDisplayCard(_displayCard.Dequeue());
+        }
+        
+        _history.DevRecord("Have CardsIn Deck Left : " + CardsInDeck.Count);
+        
+        StartCoroutine(UpdateResource());
+    }
+    public void DeleteAllChildren()
+    {
+        // Iterate through all child GameObjects
+        foreach (Transform child in cardParent.transform)
+        {
+            // Destroy each child GameObject
+            Destroy(child.gameObject);
+        }
+    }
    
-
     public void SaveAndQuit()
     {
         SaveGameManager.SaveGame();
         Debug.LogWarning("save");
     }
-
+    
     #endregion
 
    
