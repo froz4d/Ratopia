@@ -21,6 +21,15 @@ public class MenuManager : MonoBehaviour
     {
         
     }
+    public void NewGame()
+    {
+        SaveGameManager.LoadGame();
+    }
+    public void ContinueGame()
+    {
+        
+    }
+
     public void closeSettingPanel()
     {
         SettingPanel.SetActive(false);

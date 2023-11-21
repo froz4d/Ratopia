@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 {
     #region Setting & Current Status
 
+    private static GameManager instance;
     private static History _history;
     private static CardBook _cardBook;
 
@@ -127,9 +128,10 @@ public class GameManager : MonoBehaviour
     
 
     #endregion
-
+    
     void Start()
     {
+        instance = this;
         _history = FindObjectOfType<History>();
         _cardBook = FindObjectOfType<CardBook>();
         CurrentMoney = StartMoney;
@@ -137,6 +139,7 @@ public class GameManager : MonoBehaviour
         CurrentPower = StartPower;
         CurrentStability = StartStability;
         MaxTurn = _MaxTurn;
+
 
         CurrentTurn = 0;
         
@@ -486,4 +489,36 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
+    
+    #region SaveAndLoad
+    public void NewGame()
+    {
+        CurrentTurn = 0;
+        CurrentMoney = StartMoney;
+        CurrentHappiness = StartHappiness;
+        CurrentPower = StartPower;
+        CurrentStability = StartStability;
+        
+
+        StartTurn();
+    }
+    public void ContinueGame()
+    {
+        SaveGameManager.LoadGame();
+        Debug.LogWarning("load");
+        StartCoroutine(UpdateResource());
+      //  StartTurn();
+    }
+
+   
+
+    public void SaveAndQuit()
+    {
+        SaveGameManager.SaveGame();
+        Debug.LogWarning("save");
+    }
+
+    #endregion
+
+   
 }
