@@ -1,10 +1,11 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 
 public class GameManager : MonoBehaviour
@@ -136,13 +137,7 @@ public class GameManager : MonoBehaviour
         _cardBook = FindObjectOfType<CardBook>();
 
         NewGame();
-        
- //       Debug.Log(CardsInDeck.Count);
-        
-        //////////////Test/////////////////////
-        //EndTurn();
-        //////////////Test/////////////////////
-        ///
+
         /// แม่งเอ้ยน่าเขียน Finite state Machine
         /// แต่ขก ค่อย Optimize ล้ะกานนนนนนนนนนนนนนนนนนนนน
         ///
@@ -345,8 +340,9 @@ public class GameManager : MonoBehaviour
 
     private void RandomCardInDeckToHoldOn(int numberCardToRandom)
     {
+      
         //Random In Range มา ใน CardInDesk
-        Random random = new Random();
+   
 
         for (int i = 0; i < numberCardToRandom; i++)
         {
@@ -355,8 +351,9 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Warning!! Card In Desk Is Out");
                 break;
             }
-            int randomIndex = random.Next(0, CardsInDeck.Count-1);
-            
+
+               int randomIndex = Random.Range(0, CardsInDeck.Count - 1);
+
             Debug.Log("random number : " + randomIndex);
 
             //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
@@ -448,8 +445,8 @@ public class GameManager : MonoBehaviour
 
     private void CalculatePossibility(List<Card.PossibleChainCard> Cards)
     {
-        Random random = new Random();
-        int randomNumber = random.Next(1, 101);
+        
+        int randomNumber = Random.Range(1, 101);
         
         int previousPossibleOutcome = 0;
         foreach (var VARIABLE in Cards)
@@ -465,6 +462,7 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
+        
     }
 
     #region ConditionEvent&Ending
