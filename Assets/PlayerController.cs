@@ -21,9 +21,10 @@ public class PlayerController : MonoBehaviour
     private float resetTimer = 0.0f; 
     
     private Vector2 touchOffset;
-
+    
     private void Awake()
     {
+        int water = Random.Range(0, 100);
         touchPressAction = _playerInput.actions["Touchpress"];
         touchPositionAction = _playerInput.actions["TouchPosition"];
         touchmaMap = _playerInput.actions.FindActionMap("TouchSwapLR");

@@ -25,6 +25,12 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
     private bool ChoiceSelectCalled = false;
     
     public event Action cardMoved;
+    private ChoiceDisplay CD;
+
+    private void Start()
+    {
+        CD = FindObjectOfType<ChoiceDisplay>();
+    }
 
     public void OnDrag(PointerEventData eventData)
     {
@@ -141,7 +147,7 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
 
     private void Update()
     {
-        if (!FindObjectOfType<ChoiceDisplay>().choiceHoldOn)
+        if (!CD.choiceHoldOn)
         {
             if (transform.localPosition.x > Rightinfo.x && transform.localPosition.x > leftinfo.x)
             {
@@ -149,11 +155,11 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
                 // Debug.LogWarning("Show info Right");
                 GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.gray, Time.deltaTime);
 
-                FindObjectOfType<ChoiceDisplay>().ShowChoiceRight(GetComponent<CardFoundation>().cardData);
+                CD.ShowChoiceRight(GetComponent<CardFoundation>().cardData);
 
                 if (cardHoldOnTime >= timeToLockCard)
                 {
-                    FindObjectOfType<ChoiceDisplay>().LockCardHoldOn();
+                    CD.LockCardHoldOn();
                 }
             }
             else if (transform.localPosition.x < leftinfo.x && transform.localPosition.x < Rightinfo.x)
@@ -162,11 +168,11 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
                 //  Debug.LogWarning("Show info Left");
                 GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.gray, Time.deltaTime);
 
-                FindObjectOfType<ChoiceDisplay>().ShowChoiceLeft(GetComponent<CardFoundation>().cardData);
+                CD.ShowChoiceLeft(GetComponent<CardFoundation>().cardData);
 
                 if (cardHoldOnTime >= timeToLockCard)
                 {
-                    FindObjectOfType<ChoiceDisplay>().LockCardHoldOn();
+                   CD.LockCardHoldOn();
                 }
             }
             else
@@ -175,9 +181,9 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
                 cardHoldOnTime = 0f;
                 GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.white, Time.deltaTime);
 
-                if (!FindObjectOfType<ChoiceDisplay>().choiceHoldOn)
+                if (!CD.choiceHoldOn)
                 {
-                    FindObjectOfType<ChoiceDisplay>().Close();
+                    CD.Close();
                 }
             }
         }
