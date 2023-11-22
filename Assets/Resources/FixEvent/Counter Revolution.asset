@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 361d8e23158228a41828d93716eeaeae, type: 3}
+  m_Name: Counter Revolution
+  m_EditorClassIdentifier: 
+  cardName: Counter Revolution
+  cardImage: {fileID: 21300000, guid: a0bf4c17ff9eb8a4ab622db2599d4157, type: 3}
+  description: Raskin Furrywhisker, a conniving individual with a strong inclination
+    for manipulation, had clandestinely exerted influence over certain generals and
+    authorities, persuading them to turn against you. As a result, a secret plan
+    was set in motion, leading to the establishment of a provisional government that
+    aimed to oppose your rightful position of power. They formalized their intentions
+    by signing an agreement, and their first order of business was to initiate a
+    motion of no-confidence against you, the prime minister. The conference took
+    place discreetly within the confines of a luxurious indoor tennis court. Their
+    objective was not only to challenge your authority but also to forcefully exile
+    you from our beloved country. This treacherous scheme was devised to undermine
+    your influence and destabilize your rule, posing a significant threat to your
+    leadership and the stability of our nation as a whole.
+  paragraph: 'Raskin Furrywhisker, a cunning individual with a penchant for manipulation,
+    had clandestinely influenced certain generals and authorities to turn against
+    you. This devious plot resulted in the formation of a provisional government
+    aimed at opposing your rightful position of power. Their objective was not only
+    to challenge your authority but also to forcibly exile you from our country. '
+  leftTitle: Seize the tennis court
+  leftParagraph: 
+  leftMoney: -2
+  leftHappiness: -3
+  leftPower: 1
+  leftStability: 2
+  leftPossibleChainCards:
+  - ChainCard: {fileID: 11400000, guid: 3f0eea884d3c368479a3d3aa049dce7b, type: 2}
+    possibleOutcome: 95
+    excuteChainIn: 1
+  - ChainCard: {fileID: 11400000, guid: 9d2e3ab96e201f9408aaedc5d0149f9a, type: 2}
+    possibleOutcome: 5
+    excuteChainIn: 0
+  rightTitle: Rally the peaceful protest
+  rightParagraph: 
+  rightMoney: -2
+  rightHappiness: 2
+  rightPower: 0
+  rightStability: 0
+  rightPossibleChainCards: []

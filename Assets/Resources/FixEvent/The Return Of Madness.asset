@@ -46,7 +46,4 @@ MonoBehaviour:
   rightHappiness: 3
   rightPower: -3
   rightStability: 0
-  rightPossibleChainCards:
-  - ChainCard: {fileID: 0}
-    possibleOutcome: 8
-    excuteChainIn: 0
+  rightPossibleChainCards: []

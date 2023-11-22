@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 361d8e23158228a41828d93716eeaeae, type: 3}
+  m_Name: patriot or traitor
+  m_EditorClassIdentifier: 
+  cardName: Patriot or traitor
+  cardImage: {fileID: 0}
+  description: The provisional governments, formed by courageous and determined rats
+    who had long harbored the dream of justice and freedom, declared themselves as
+    the legitimate representatives of a new state within Cheeseburg.Unless Their
+    collective aim was to challenge the regime's oppressive rule and replace it with
+    a more just and equitable system, resorted to using ordinary citizens as cover
+    or human shields to protect themselves.
+  paragraph: The provisional governments boldly proclaimed themselves as legitimate
+    entities to challenge the regime's authority and rally the supportor to join
+    their rank wtih their armed citizen of cheeseburg
+  leftTitle: arrange pace conference
+  leftParagraph: 
+  leftMoney: 2
+  leftHappiness: 1
+  leftPower: -3
+  leftStability: 0
+  leftPossibleChainCards:
+  - ChainCard: {fileID: 0}
+    possibleOutcome: 0
+    excuteChainIn: 0
+  rightTitle: traitor must die
+  rightParagraph: 
+  rightMoney: -2
+  rightHappiness: 3
+  rightPower: 3
+  rightStability: 2
+  rightPossibleChainCards: []

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efb9b58b54ce81a49b3945fa81fb1174, type: 3}
+  m_Name: Natural Cause
+  m_EditorClassIdentifier: 
+  cardName: Natural Cause
+  cardImage: {fileID: 21300000, guid: 838d17dcbe6c3b2449381426f3201e8f, type: 3}
+  description: In the darkness of his prison cell, Raskin Furrywhisker succumbed
+    to despair and the relentless pressure he faced. On a fateful night, the news
+    of his suicide sent shockwaves throughout Cheeseburg. His death marked a tragic
+    loss for those who had rallied behind him in the hopes of change and reform.The
+    circumstances of Raskin Furrywhisker's death raised questions about the regime's
+    tactics and the ethical implications of its actions.
+  paragraph: Raskin Furrywhisker's imprisonment and the subsequent announcement of
+    his tragic death as a suicide due to stress and despair
+  Paragraph: Unfortunately
+  Description: 
+  Money: -1
+  Happiness: -3
+  Power: 1
+  Stability: 0
+  possibleChainCards: []
