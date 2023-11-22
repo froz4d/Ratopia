@@ -1,17 +1,18 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 
 public class GameManager : MonoBehaviour
 {
     #region Setting & Current Status
 
+    private static GameManager instance;
     private static History _history;
     private static CardBook _cardBook;
 
@@ -55,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     public static List<Card> CardsInDeck = new List<Card>(); //ChainEvent ไม่อยู่ใน Deck
 
-    private class CardsHoldOn
+    public class CardsHoldOn
     {
         public int TurnLeftToExcute; //0 = display
         public Card Card;
@@ -70,10 +71,11 @@ public class GameManager : MonoBehaviour
             TurnLeftToExcute = turn;
         }
     }
-    private static List<CardsHoldOn> _cardHoldOn = new List<CardsHoldOn>(); //ChainEvent หรือการ์ดที่จะโผล่ตามมา int = จำนวนเทิร์น
+
+    public static List<CardsHoldOn> _cardHoldOn = new List<CardsHoldOn>(); //ChainEvent หรือการ์ดที่จะโผล่ตามมา int = จำนวนเทิร์น
     
     private static Queue<Card> _displayCard = new Queue<Card>(); //Q ของ การ์ดที่จะ Show ใน Turn นั้น
-    private static Card CurrentDisplayCard;
+    public static Card CurrentDisplayCard;
     
     
     [SerializeField] private GameObject cardFoundation;
@@ -128,28 +130,14 @@ public class GameManager : MonoBehaviour
     
 
     #endregion
-
+    
     void Start()
     {
         _history = FindObjectOfType<History>();
         _cardBook = FindObjectOfType<CardBook>();
-        CurrentMoney = StartMoney;
-        CurrentHappiness = StartHappiness;
-        CurrentPower = StartPower;
-        CurrentStability = StartStability;
-        MaxTurn = _MaxTurn;
 
-        CurrentTurn = 0;
-        
-        Card[] cards = Resources.LoadAll<Card>("FixEvent");
-        CardsInDeck.AddRange(cards);
-        
-        Debug.Log(CardsInDeck.Count);
-        
-        //////////////Test/////////////////////
-        EndTurn();
-        //////////////Test/////////////////////
-        ///
+        NewGame();
+
         /// แม่งเอ้ยน่าเขียน Finite state Machine
         /// แต่ขก ค่อย Optimize ล้ะกานนนนนนนนนนนนนนนนนนนนน
         ///
@@ -188,6 +176,8 @@ public class GameManager : MonoBehaviour
 
     public void EndTurn()
     {
+        _history.Record("End "+ CurrentTurn + "Turn");
+     //   Debug.LogWarning("EndTurn" + CardsInDeck.Count);
         //ลดการ์ดที่มีอยู่
         if (_cardHoldOn.Count >= 0)
         {
@@ -200,24 +190,10 @@ public class GameManager : MonoBehaviour
         //สุ่มการ์ดใหม่
         RandomCardInDeckToHoldOn(RandomCardPerTurn);
         CheckCondition();
-        if (CurrentTurn != 0)
-        {
-            _history.Record("End "+ CurrentTurn + "Turn");
-            CollectRemainingResourceData();
-        }
         
-        //Show Transition Result
+        StartTurn();
         
-
         //ใส่ กรณี End LastTurn
-        if (CurrentTurn == MaxTurn)
-        {
-            EndLastTurn();
-        }
-        else
-        {
-            StartTurn();
-        }
     }
 
     #region Display
@@ -364,8 +340,9 @@ public class GameManager : MonoBehaviour
 
     private void RandomCardInDeckToHoldOn(int numberCardToRandom)
     {
+      
         //Random In Range มา ใน CardInDesk
-        Random random = new Random();
+   
 
         for (int i = 0; i < numberCardToRandom; i++)
         {
@@ -374,9 +351,10 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Warning!! Card In Desk Is Out");
                 break;
             }
-            int randomIndex = random.Next(0, CardsInDeck.Count-1);
-            
-           // Debug.Log("random number : " + randomIndex);
+
+               int randomIndex = Random.Range(0, CardsInDeck.Count - 1);
+
+            Debug.Log("random number : " + randomIndex);
 
             //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
             CardsHoldOn newcard = new CardsHoldOn(CardsInDeck[randomIndex]);
@@ -467,8 +445,8 @@ public class GameManager : MonoBehaviour
 
     private void CalculatePossibility(List<Card.PossibleChainCard> Cards)
     {
-        Random random = new Random();
-        int randomNumber = random.Next(1, 101);
+        
+        int randomNumber = Random.Range(1, 101);
         
         int previousPossibleOutcome = 0;
         foreach (var VARIABLE in Cards)
@@ -484,85 +462,100 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
+        
     }
 
     #region ConditionEvent&Ending
 
-    [Header("ConditionEvent & Ending")]
-    public int conditionTrigger = -1;
-
-    private int conditionTriggerCount = 0;
-
-    public int endingVictoryCondition;
-
-    private List<int> _remainingHappinessInEndTurn = new List<int>();
-    private List<int> _remainingMoneyInEndTurn = new List<int>();
-    private List<int> _remainingPowerInEndTurn = new List<int>();
-    private List<int> _remainingStabilityInEndTurn = new List<int>();
     private void CheckCondition()
     {
         //ถ้า ถึงเท่านี้ๆ ให้ขึ้นเตือนก่อน ถ้าเทิร์นต่อไปยังอยู่อีกให้สุ่ม Event ร้ายมา
-        if (CurrentHappiness <= conditionTrigger)
-        {
-            
-        }
-
-        if (CurrentMoney <= conditionTrigger)
-        {
-            
-        }
-
-        if (CurrentPower <= conditionTrigger)
-        {
-            
-        }
-
-        if (CurrentStability <= conditionTrigger)
-        {
-            
-        }
-        
-        //ถ้า ติดลบ Condition มากเกินไปหลายเทินจะเกิด Event จบเกมล้มเหลว
-        if (conditionTriggerCount > 3)
-        {
-            //show Ending Defeat
-        }
     }
 
     private void EndLastTurn()
     {
         //Show Ending Result ทั้งหมด
-        double averageHappiness = _remainingHappinessInEndTurn.Average();
-        double averageMoney = _remainingMoneyInEndTurn.Average();
-        double averagePower = _remainingPowerInEndTurn.Average();
-        double averageStability = _remainingStabilityInEndTurn.Average();
-        
-        //Show DefaultEnding
-
-        if (averageHappiness >= endingVictoryCondition)
-        {
-            //ending Happiness
-        }
-        if (averagePower >= endingVictoryCondition)
-        {
-            //ending Power
-        }
-        if (averageMoney >= endingVictoryCondition)
-        {
-            //ending Money
-        }
-        if (averageStability >= endingVictoryCondition)
-        {
-            //ending Stability
-        }
-    }
-    private void CollectRemainingResourceData()
-    {
-        _remainingHappinessInEndTurn.Add(CurrentHappiness);
-        _remainingMoneyInEndTurn.Add(CurrentMoney);
-        _remainingPowerInEndTurn.Add(CurrentPower);
-        _remainingStabilityInEndTurn.Add(CurrentStability);
     }
 
     #endregion
+    
+    #region SaveAndLoad
+    public void NewGame()
+    {
+        CurrentMoney = StartMoney;
+        CurrentHappiness = StartHappiness;
+        CurrentPower = StartPower;
+        CurrentStability = StartStability;
+        MaxTurn = _MaxTurn;
+        CurrentTurn = 0;
+        
+        Card[] cards = Resources.LoadAll<Card>("FixEvent");
+        CardsInDeck.AddRange(cards);
+        RandomCardInDeckToHoldOn(RandomCardPerTurn);
+        DeleteAllChildren();
+        StartTurn();
+       
+    }
+    public void ContinueGame()
+    {
+        SaveGameManager.LoadGame();
+        Debug.LogWarning("load");
+        CardsHoldOn newcard = new CardsHoldOn(CurrentDisplayCard,0);
+        _cardHoldOn.Insert(0,newcard);
+      //  StartCoroutine(UpdateResource());
+
+        //  StartTurn();
+        DeleteAllChildren();
+      LoadStartTurn();
+    }
+    
+    private void LoadStartTurn()
+    {
+      
+        _history.Record("LoadStartTurn" + CurrentTurn);
+
+        //_history.Record("StartTurn : " + CurrentTurn + " / " + MaxTurn);
+        //foreach checkCard Turn = 0 ให้ display Card
+        if (_cardHoldOn.Count > 0)
+        {
+            for (int i = _cardHoldOn.Count - 1; i >= 0; i--)
+            {
+                if (_cardHoldOn[i].TurnLeftToExcute == 0)
+                {
+                    _history.DevRecord("CardHoldOn For DeckCard ReadyToExecute: " + _cardHoldOn[i].Card.cardName);
+                    _displayCard.Enqueue(_cardHoldOn[i].Card);
+                    _cardHoldOn.RemoveAt(i);
+                }
+            }
+        }
+
+        if (_displayCard.Count > 0)
+        { 
+            DisplayCard(_displayCard.Dequeue());
+            //   NextDisplayCard(_displayCard.Dequeue());
+        }
+        
+        _history.DevRecord("Have CardsIn Deck Left : " + CardsInDeck.Count);
+        
+        StartCoroutine(UpdateResource());
+    }
+    public void DeleteAllChildren()
+    {
+        // Iterate through all child GameObjects
+        foreach (Transform child in cardParent.transform)
+        {
+            // Destroy each child GameObject
+            Destroy(child.gameObject);
+        }
+    }
+   
+    public void SaveAndQuit()
+    {
+        SaveGameManager.SaveGame();
+        Debug.LogWarning("save");
+    }
+    
+    #endregion
+
+   
 }
