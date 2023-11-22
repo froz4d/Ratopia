@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UI;
+using Slider = UnityEngine.UI.Slider;
 
 
 public class GameManager : MonoBehaviour
@@ -12,7 +14,12 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     private static History _history;
     private static CardBook _cardBook;
-
+    public Slider SliderStartMoney;
+    public Slider SliderStartHappiness;
+    public Slider SliderStartPower;
+    public Slider SliderStartStability;
+    public Slider SliderMaxTurn;
+    public Slider SliderRandomCardPerTurn;
     //ไว้โชว์ Devlog
     public static bool ShowDevLog = true;
     
@@ -495,16 +502,16 @@ public class GameManager : MonoBehaviour
     #region SaveAndLoad
     public void NewGame()
     {
-        CurrentMoney = StartMoney;
-        CurrentHappiness = StartHappiness;
-        CurrentPower = StartPower;
-        CurrentStability = StartStability;
-        MaxTurn = _MaxTurn;
+        CurrentMoney = (int) SliderStartMoney.value;
+        CurrentHappiness = (int) SliderStartHappiness.value;
+        CurrentPower = (int) SliderStartPower.value;
+        CurrentStability = (int) SliderStartStability.value;
+        MaxTurn = (int) SliderMaxTurn.value;
         CurrentTurn = 0;
         
         Card[] cards = Resources.LoadAll<Card>("FixEvent");
         CardsInDeck.AddRange(cards);
-        RandomCardInDeckToHoldOn(RandomCardPerTurn);
+        RandomCardInDeckToHoldOn((int) SliderRandomCardPerTurn.value);
         DeleteAllChildren();
         StartTurn();
        
