@@ -1,11 +1,8 @@
-
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Random = UnityEngine.Random;
 
 
 public class GameManager : MonoBehaviour
@@ -25,7 +22,7 @@ public class GameManager : MonoBehaviour
     public static int CurrentMoney
     {
         get { return _currentMoney; }
-        set { _currentMoney = Math.Max(-10, Math.Min(10, value)); }
+        set { _currentMoney = Clamp(value, -10, 10); }
     }
 
     private static int _currentMoney;
@@ -33,7 +30,7 @@ public class GameManager : MonoBehaviour
     public static int CurrentHappiness
     {
         get { return _currentHappiness; }
-        set { _currentHappiness = Math.Max(-10, Math.Min(10, value)); }
+        set { _currentHappiness = Clamp(value, -10, 10); }
     }
 
     private static int _currentHappiness;
@@ -41,7 +38,7 @@ public class GameManager : MonoBehaviour
     public static int CurrentPower
     {
         get { return _currentPower; }
-        set { _currentPower = Math.Max(-10, Math.Min(10, value)); }
+        set { _currentPower = Clamp(value, -10, 10); }
     }
 
     private static int _currentPower;
@@ -49,10 +46,26 @@ public class GameManager : MonoBehaviour
     public static int CurrentStability
     {
         get { return _currentStability; }
-        set { _currentStability = Math.Max(-10, Math.Min(10, value)); }
+        set { _currentStability = Clamp(value, -10, 10); }
     }
 
     private static int _currentStability;
+    
+    private static int Clamp(int value, int min, int max)
+    {
+        if (value < min)
+        {
+            return min;
+        }
+        else if (value > max)
+        {
+            return max;
+        }
+        else
+        {
+            return value;
+        }
+    }
 
     public static List<Card> CardsInDeck = new List<Card>(); //ChainEvent ไม่อยู่ใน Deck
 

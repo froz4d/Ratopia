@@ -6,6 +6,7 @@ public class MainManuManager : MonoBehaviour
 {
     [SerializeField] private GameObject SettingGamePanel;
     [SerializeField] private GameObject MainManuManagerPanel;
+   // [SerializeField] private GameObject SettingMainMenuPanelPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,4 +40,6 @@ public class MainManuManager : MonoBehaviour
     {
         MainManuManagerPanel.SetActive(true);
     }
+
+
 }
