@@ -220,6 +220,7 @@ public class GameManager : MonoBehaviour
 
     private void DisplayCard(Card card)
     {
+        
         CurrentDisplayCard = card;
         
         _cardBook.AddCardToCollection(CurrentDisplayCard);
@@ -362,7 +363,6 @@ public class GameManager : MonoBehaviour
     {
       
         //Random In Range มา ใน CardInDesk
-   
 
         for (int i = 0; i < numberCardToRandom; i++)
         {
@@ -471,6 +471,12 @@ public class GameManager : MonoBehaviour
         int previousPossibleOutcome = 0;
         foreach (var VARIABLE in Cards)
         {
+            if (VARIABLE.PossibleOutcome == 100)
+            {
+                AddCardsHoldOn(VARIABLE.ChainCard,VARIABLE.ExcuteChainCardIn);
+                continue;
+            }
+            
             if (randomNumber > VARIABLE.PossibleOutcome+previousPossibleOutcome)
             {
                 previousPossibleOutcome += VARIABLE.PossibleOutcome;
@@ -479,7 +485,8 @@ public class GameManager : MonoBehaviour
             else
             {
                 AddCardsHoldOn(VARIABLE.ChainCard,VARIABLE.ExcuteChainCardIn);
-                break;
+
+                    break;
             }
         }
         
@@ -502,6 +509,10 @@ public class GameManager : MonoBehaviour
     #region SaveAndLoad
     public void NewGame()
     {
+        CardsInDeck.Clear();
+        _cardHoldOn.Clear();
+        _displayCard.Clear();
+        
         CurrentMoney = (int) SliderStartMoney.value;
         CurrentHappiness = (int) SliderStartHappiness.value;
         CurrentPower = (int) SliderStartPower.value;

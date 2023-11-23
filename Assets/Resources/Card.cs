@@ -23,7 +23,7 @@ public abstract class Card : ScriptableObject
         //ใส่เกินได้ใน Inspector เดี่ยวมันปรับให้เอง
         //can be null
         public Card ChainCard;
-        [SerializeField][Tooltip("0-100, if 'sum' of all event more then 100 it will ignore all event")]
+        [SerializeField][Tooltip("0-100, if 'sum' of all event more then 100 it will ignore all event , 100 is posible for sure")]
         private int possibleOutcome;
         public int  PossibleOutcome
         {
