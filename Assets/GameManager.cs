@@ -361,7 +361,8 @@ public class GameManager : MonoBehaviour
 
     private void RandomCardInDeckToHoldOn(int numberCardToRandom)
     {
-      
+       /* CardsHoldOn newcard = new CardsHoldOn(CardsInDeck[numberCardToRandom]);
+        _cardHoldOn.Add(newcard);*/
         //Random In Range มา ใน CardInDesk
 
         for (int i = 0; i < numberCardToRandom; i++)

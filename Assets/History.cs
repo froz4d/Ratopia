@@ -42,13 +42,12 @@ public class History : MonoBehaviour
     public void Record(string LastAction)
     {
         HistoryLog.Add(new LogEntry(LastAction,false));
-        RefreshRecord();
+        
     }
 
     public void DevRecord(string LastAction)
     {
         HistoryLog.Add(new LogEntry(LastAction,true));
-        RefreshRecord();
         //ต้องมาใส่ history
     }
 
@@ -91,5 +90,6 @@ public class History : MonoBehaviour
     private void ToggleValueChanged(bool isOn)
     {
         targetObject.SetActive(isOn);
+        RefreshRecord();
     }
 }

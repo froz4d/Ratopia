@@ -153,7 +153,7 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
             {
                 cardHoldOnTime += Time.deltaTime;
                 // Debug.LogWarning("Show info Right");
-                GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.gray, Time.deltaTime);
+               // GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.gray, Time.deltaTime);
 
                 CD.ShowChoiceRight(GetComponent<CardFoundation>().cardData);
 
@@ -166,7 +166,7 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
             {
                 cardHoldOnTime += Time.deltaTime;
                 //  Debug.LogWarning("Show info Left");
-                GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.gray, Time.deltaTime);
+              //  GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.gray, Time.deltaTime);
 
                 CD.ShowChoiceLeft(GetComponent<CardFoundation>().cardData);
 
@@ -179,7 +179,7 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
             {
                 //กลับมาที่เดิม
                 cardHoldOnTime = 0f;
-                GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.white, Time.deltaTime);
+               // GetComponent<Image>().color = Color.Lerp(GetComponent<Image>().color, Color.white, Time.deltaTime);
 
                 if (!CD.choiceHoldOn)
                 {
