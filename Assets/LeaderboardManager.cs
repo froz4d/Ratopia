@@ -16,7 +16,7 @@ public class LeaderboardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayersData = FindObjectOfType<FirebaseManager>().ranking.PlayersData;
+        PlayersData = FindObjectOfType<FirebaseManager>().savingCardCollectionData.PlayersData;
         CreateLeaderboard();
     }
 

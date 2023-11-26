@@ -14,12 +14,12 @@ public class FirebaseManager : MonoBehaviour
     
 
     [System.Serializable]
-    public class Ranking
+    public class SavingCardCollectionData
     {
         public List<Player> PlayersData = new List<Player>();
     }
 
-    public Ranking ranking;
+    public SavingCardCollectionData savingCardCollectionData;
 
     public void CalRankScore()
     {
@@ -27,8 +27,8 @@ public class FirebaseManager : MonoBehaviour
         
         List<Player> sortingPlayer = new List<Player>();
 
-        sortingPlayer = ranking.PlayersData.OrderByDescending(player => player.PlayerScore).ToList();
-        ranking.PlayersData = sortingPlayer;
+        sortingPlayer = savingCardCollectionData.PlayersData.OrderByDescending(player => player.PlayerScore).ToList();
+        savingCardCollectionData.PlayersData = sortingPlayer;
         
         PushPlayerData();
     }
@@ -55,7 +55,7 @@ public class FirebaseManager : MonoBehaviour
     public void PushPlayerData()
     {
         string urlData = $"{url}/PlayerData.json?auth={secret}";
-        RestClient.Put<Ranking>(urlData, ranking).Then(testData =>
+        RestClient.Put<SavingCardCollectionData>(urlData, savingCardCollectionData).Then(testData =>
         {
             //Debug.Log("Upload Data Complete");
         }).Catch(error =>
