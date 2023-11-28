@@ -116,7 +116,8 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
         else
         {
             cardMoved?.Invoke();
-            Invoke("destroycard",0.01f);
+            Destroy(gameObject);
+            ChoiceSelectCalled = false;
          
         }
 
@@ -141,11 +142,7 @@ public class NewCardController : MonoBehaviour, IDragHandler, IBeginDragHandler,
         }
     }
 
-    void destroycard()
-    {
-        Destroy(gameObject);
-        ChoiceSelectCalled = false;
-    }
+
     private void ExcuteOutcome(bool swipleft)
     {
         
