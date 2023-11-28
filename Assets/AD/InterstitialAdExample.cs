@@ -5,6 +5,7 @@ public class InterstitialAdExample : MonoBehaviour, IUnityAdsLoadListener, IUnit
 {
     [SerializeField] string _androidAdUnitId = "Interstitial_Android";
     [SerializeField] string _iOsAdUnitId = "Interstitial_iOS";
+    public static bool isPaid;
     string _adUnitId;
 
     void Awake()
@@ -18,17 +19,24 @@ public class InterstitialAdExample : MonoBehaviour, IUnityAdsLoadListener, IUnit
     // Load content to the Ad Unit:
     public void LoadAd()
     {
-        // IMPORTANT! Only load content AFTER initialization (in this example, initialization is handled in a different script).
-        Debug.Log("Loading Ad: " + _adUnitId);
-        Advertisement.Load(_adUnitId, this);
+        if (!isPaid)
+        {
+            // IMPORTANT! Only load content AFTER initialization (in this example, initialization is handled in a different script).
+            Debug.Log("Loading Ad: " + _adUnitId);
+            Advertisement.Load(_adUnitId, this);       
+        }
+     
     }
 
     // Show the loaded content in the Ad Unit:
     public void ShowAd()
     {
-        // Note that if the ad content wasn't previously loaded, this method will fail
-        Debug.Log("Showing Ad: " + _adUnitId);
-        Advertisement.Show(_adUnitId, this);
+        if (!isPaid)
+        {
+            // Note that if the ad content wasn't previously loaded, this method will fail
+            Debug.Log("Showing Ad: " + _adUnitId);
+            Advertisement.Show(_adUnitId, this);
+        }
     }
 
     // Implement Load Listener and Show Listener interface methods: 
