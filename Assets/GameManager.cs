@@ -196,6 +196,7 @@ public class GameManager : MonoBehaviour
 
     public void EndTurn()
     {
+        TranManager.current.OpenTranPanelWithFade();
         _history.Record("End "+ CurrentTurn + "Turn");
      //   Debug.LogWarning("EndTurn" + CardsInDeck.Count);
         //ลดการ์ดที่มีอยู่
