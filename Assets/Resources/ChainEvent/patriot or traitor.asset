@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: patriot or traitor
   m_EditorClassIdentifier: 
   cardName: Patriot or traitor
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 21300000, guid: b2a500f834377e14e98b9824a4f4ad74, type: 3}
   description: The provisional governments, formed by courageous and determined rats
     who had long harbored the dream of justice and freedom, declared themselves as
     the legitimate representatives of a new state within Cheeseburg.Unless Their

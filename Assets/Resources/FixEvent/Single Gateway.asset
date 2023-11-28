@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Single Gateway
   m_EditorClassIdentifier: 
   cardName: Single Gateway
-  cardImage: {fileID: 21300000, guid: 8ec0ab5aa8d8b444a984352b8bb1418a, type: 3}
+  cardImage: {fileID: 21300000, guid: b2a500f834377e14e98b9824a4f4ad74, type: 3}
   description: Our Government has initiated a new project and has brought together
     a team of professionals to discuss and plan the direction of this project. The
     objective is to thoroughly analyze the pros and cons of this project and determine

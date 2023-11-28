@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Seeking Help
   m_EditorClassIdentifier: 
   cardName: Seeking Help
-  cardImage: {fileID: 21300000, guid: 8ec0ab5aa8d8b444a984352b8bb1418a, type: 3}
+  cardImage: {fileID: 21300000, guid: b2a500f834377e14e98b9824a4f4ad74, type: 3}
   description: Description
   paragraph: 
+  leftTitle: 
   leftParagraph: 
-  leftDescription: 
   leftMoney: -5
   leftHappiness: 1
   leftPower: 2
@@ -26,8 +26,8 @@ MonoBehaviour:
   - ChainCard: {fileID: 11400000, guid: 4b78bdbcb7bad1d4684e854f76d00462, type: 2}
     possibleOutcome: 50
     excuteChainIn: 0
+  rightTitle: 
   rightParagraph: 
-  rightDescription: 
   rightMoney: 0
   rightHappiness: 0
   rightPower: 0
