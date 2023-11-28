@@ -186,7 +186,7 @@ public class GameManager : MonoBehaviour
         if (_displayCard.Count > 0)
         { 
             DisplayCard(_displayCard.Dequeue());
-         //   NextDisplayCard(_displayCard.Dequeue());
+          //  NextDisplayCard(_displayCard.Dequeue());
         }
         
         _history.DevRecord("Have CardsIn Deck Left : " + CardsInDeck.Count);
@@ -526,7 +526,7 @@ public class GameManager : MonoBehaviour
         RandomCardInDeckToHoldOn((int) SliderRandomCardPerTurn.value);
         DeleteAllChildren();
         StartTurn();
-       
+    
     }
     public void ContinueGame()
     {

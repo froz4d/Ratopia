@@ -25,10 +25,12 @@ public class NextCard : MonoBehaviour
             float step = Mathf.SmoothStep(0.8f, 1, Mathf.Abs(distanceMoce) / Screen.width / 2);
             transform.localScale = new Vector3(step, step, step);
         }
+
     }
 
     void CardMoveFont()
     {
+        transform.localScale = new Vector3(1, 1, 1);
         gameObject.AddComponent<NewCardController>();
         Destroy(this);
     }
