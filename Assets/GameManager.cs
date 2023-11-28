@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -195,25 +196,32 @@ public class GameManager : MonoBehaviour
 
     public void EndTurn()
     {
-        TranManager.current.OpenTranPanelWithFade();
-        _history.Record("End "+ CurrentTurn + "Turn");
-     //   Debug.LogWarning("EndTurn" + CardsInDeck.Count);
-        //ลดการ์ดที่มีอยู่
-        if (_cardHoldOn.Count >= 0)
+        if (CurrentTurn != MaxTurn)
         {
-            foreach (var VARIABLE in _cardHoldOn)
+            TranManager.current.OpenTranPanelWithFade();
+            _history.Record("End "+ CurrentTurn + "Turn");
+            //   Debug.LogWarning("EndTurn" + CardsInDeck.Count);
+            //ลดการ์ดที่มีอยู่
+            if (_cardHoldOn.Count >= 0)
             {
-                VARIABLE.TurnLeftToExcute -= 1;
+                foreach (var VARIABLE in _cardHoldOn)
+                {
+                    VARIABLE.TurnLeftToExcute -= 1;
+                }
             }
-        }
 
-        //สุ่มการ์ดใหม่
-        RandomCardInDeckToHoldOn(RandomCardPerTurn);
-        CheckCondition();
+            //สุ่มการ์ดใหม่
+            RandomCardInDeckToHoldOn(RandomCardPerTurn);
+            CheckCondition();
+            CollectRemainingResourceData();
+            StartTurn();
+        }
+        else
+        {
+            CollectRemainingResourceData();
+            CheckEndLastTurn();
+        }
         
-        StartTurn();
-        
-        //ใส่ กรณี End LastTurn
     }
 
     #region Display
@@ -505,57 +513,102 @@ public class GameManager : MonoBehaviour
     #region ConditionEvent&Ending
 
     [Header("ConditionCrisis")]
+    private int crisisTriggerCount = 0;
+    private List<int> _remainingHappinessInEndTurn = new List<int>();
+    private List<int> _remainingMoneyInEndTurn = new List<int>();
+    private List<int> _remainingPowerInEndTurn = new List<int>();
+    private List<int> _remainingStabilityInEndTurn = new List<int>();
+    
     public int criticalValue;
+    public int crisisTrigger;
     public List<Card> crisisHappiness = new List<Card>();
     public List<Card> crisisMoney = new List<Card>();
     public List<Card> crisisPower = new List<Card>();
     public List<Card> crisisStability = new List<Card>();
+
+    public int EndingPointCondition;
     
     private void CheckCondition()
     {
         //ถ้า ถึงเท่านี้ๆ ให้ขึ้นเตือนก่อน ถ้าเทิร์นต่อไปยังอยู่อีกให้สุ่ม Event ร้ายมา
-        if (CurrentHappiness <= criticalValue)
+        if (CurrentHappiness <= criticalValue || CurrentMoney <= criticalValue || CurrentPower <= criticalValue || CurrentStability <= criticalValue)
         {
-            int randomIndex = Random.Range(0, crisisHappiness.Count);
-
-            //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
-            CardsHoldOn newcard = new CardsHoldOn(crisisHappiness[randomIndex]);
-            _cardHoldOn.Add(newcard);
-            _history.DevRecord("add newCard For CrisisHappiness : " + newcard.Card.cardName);
+            crisisTriggerCount++;
+        }
+        else
+        {
+            crisisTriggerCount = 0;
         }
 
-        if (CurrentMoney <= criticalValue)
+        if (crisisTriggerCount >= crisisTrigger)
         {
-            int randomIndex = Random.Range(0, crisisMoney.Count);
-
-            //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
-            CardsHoldOn newcard = new CardsHoldOn(crisisMoney[randomIndex]);
-            _cardHoldOn.Add(newcard);
-            _history.DevRecord("add newCard For CrisisMoney : " + newcard.Card.cardName);
+            if (CurrentHappiness <= criticalValue)
+            {
+                AddCrisisEvent(crisisHappiness);
+            }
+            if (CurrentMoney <= criticalValue)
+            {
+                AddCrisisEvent(crisisMoney);
+            }
+            if (CurrentPower <= criticalValue)
+            {
+                AddCrisisEvent(crisisPower);
+            }
+            if (CurrentStability <= criticalValue)
+            {
+                AddCrisisEvent(crisisStability);
+            }
         }
-        if (CurrentPower <= criticalValue)
-        {
-            int randomIndex = Random.Range(0, crisisPower.Count);
-
-            //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
-            CardsHoldOn newcard = new CardsHoldOn(crisisPower[randomIndex]);
-            _cardHoldOn.Add(newcard);
-            _history.DevRecord("add newCard For CrisisPower : " + newcard.Card.cardName);
-        }
-        if (CurrentStability <= criticalValue)
-        {
-            int randomIndex = Random.Range(0, crisisStability.Count);
-
-            //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
-            CardsHoldOn newcard = new CardsHoldOn(crisisStability[randomIndex]);
-            _cardHoldOn.Add(newcard);
-            _history.DevRecord("add newCard For CrisisStability : " + newcard.Card.cardName);
-        }
+        
     }
 
-    private void EndLastTurn()
+    private void AddCrisisEvent(List<Card> listEvent)
     {
+        int randomIndex = Random.Range(0, listEvent.Count);
+
+        //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
+        CardsHoldOn newcard = new CardsHoldOn(listEvent[randomIndex]);
+        _cardHoldOn.Add(newcard);
+        _history.DevRecord("add newCard For Crisis : " + newcard.Card.cardName);
+    }
+
+    private void CheckEndLastTurn()
+    {
+        double averageHappiness = _remainingHappinessInEndTurn.Average();
+        double averageMoney = _remainingMoneyInEndTurn.Average();
+        double averagePower = _remainingPowerInEndTurn.Average();
+        double averageStability = _remainingStabilityInEndTurn.Average();
         //Show Ending Result ทั้งหมด
+
+        if (averageHappiness >= EndingPointCondition)
+        {
+            
+        }
+        else if (averagePower >= EndingPointCondition)
+        {
+            
+        }
+        else if (averageMoney >= EndingPointCondition)
+        {
+            
+        }
+        else if (averageStability >= EndingPointCondition)
+        {
+            
+        }
+        else
+        {
+            //default Win
+        }
+    }
+    
+    private void CollectRemainingResourceData()
+    {
+        _remainingHappinessInEndTurn.Add(CurrentHappiness);
+        _remainingMoneyInEndTurn.Add(CurrentMoney);
+        _remainingPowerInEndTurn.Add(CurrentPower);
+        _remainingStabilityInEndTurn.Add(CurrentStability);
+        
     }
 
     #endregion
