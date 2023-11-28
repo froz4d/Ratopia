@@ -309,7 +309,7 @@ public class GameManager : MonoBehaviour
         StabilityText.text = CurrentStability.ToString();
         HappinessText.text = CurrentHappiness.ToString();
         
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         
         TurnText.color = Color.black;
         moneyText.color = Color.black;
