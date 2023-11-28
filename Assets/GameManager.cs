@@ -191,7 +191,6 @@ public class GameManager : MonoBehaviour
         
         _history.DevRecord("Have CardsIn Deck Left : " + CardsInDeck.Count);
         
-        StartCoroutine(UpdateResource());
     }
 
     public void EndTurn()
@@ -296,14 +295,41 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    private IEnumerator UpdateResource()
+    private IEnumerator UpdateResource(int money,int happy,int power,int stability)
     {
-        TurnText.color = Color.red;
-        moneyText.color = Color.red;
-        PowerText.color = Color.red;
-        StabilityText.color = Color.red;
-        HappinessText.color = Color.red;
-        
+        if (money >= 0)
+        {
+            moneyText.color = Color.green;
+        }
+        else if (money < 0)
+        {
+            moneyText.color = Color.red;
+        }
+        if (power >= 0)
+        {
+            PowerText.color = Color.green;
+        }
+        else if (power < 0)
+        {
+            PowerText.color = Color.red;
+        }
+        if (stability >= 0)
+        {
+            StabilityText.color = Color.green;
+        }
+        else if (stability < 0)
+        {
+            StabilityText.color = Color.red;
+        }
+        if (happy >= 0)
+        {
+            HappinessText.color = Color.green;
+        }
+        else if (happy < 0)
+        {
+            HappinessText.color = Color.red;
+        }
+
         TurnText.text = CurrentTurn.ToString();
         moneyText.text = CurrentMoney.ToString();
         PowerText.text = CurrentPower.ToString();
@@ -320,9 +346,8 @@ public class GameManager : MonoBehaviour
     }
     
 
-    private static void UpdateResource(int money, int happy, int power, int stability)
+    private static void UpdateResource(int money, int happy, int power, int stability,string sample)
     {
-
         _history.Record($"UpdateResourceFor : {CurrentMoney} : {CurrentHappiness} : {CurrentPower} : {CurrentStability}");
         //รับค่าเป็น +-
         CurrentMoney += money;
@@ -417,16 +442,16 @@ public class GameManager : MonoBehaviour
         {
             DefaultCard ThisCard = CurrentDisplayCard as DefaultCard;
             //Update Resource ทันที
-            UpdateResource(ThisCard.leftMoney,ThisCard.leftHappiness,ThisCard.leftPower,ThisCard.leftStability);
-            StartCoroutine(UpdateResource());
+            UpdateResource(ThisCard.leftMoney,ThisCard.leftHappiness,ThisCard.leftPower,ThisCard.leftStability,"simple");
+            StartCoroutine(UpdateResource(ThisCard.leftMoney,ThisCard.leftHappiness,ThisCard.leftPower,ThisCard.leftStability));
             //คำนวน Possible Event
            CalculatePossibility(ThisCard.leftPossibleChainCards);
         }
         else
         {
             NotifyCard ThisCard = CurrentDisplayCard as NotifyCard;
-            UpdateResource(ThisCard.Money,ThisCard.Happiness,ThisCard.Power,ThisCard.Stability);
-            StartCoroutine(UpdateResource());
+            UpdateResource(ThisCard.Money,ThisCard.Happiness,ThisCard.Power,ThisCard.Stability,"simple");
+            StartCoroutine(UpdateResource(ThisCard.Money,ThisCard.Happiness,ThisCard.Power,ThisCard.Stability));
             //คำนวน Possible Event
             CalculatePossibility(ThisCard.possibleChainCards);
         }
@@ -444,8 +469,8 @@ public class GameManager : MonoBehaviour
         {
             DefaultCard ThisCard = CurrentDisplayCard as DefaultCard;
             //Update Resource ทันที
-            UpdateResource(ThisCard.rightMoney,ThisCard.rightHappiness,ThisCard.rightPower,ThisCard.rightStability);
-            StartCoroutine(UpdateResource());
+            UpdateResource(ThisCard.rightMoney,ThisCard.rightHappiness,ThisCard.rightPower,ThisCard.rightStability,"simple");
+            StartCoroutine(UpdateResource(ThisCard.rightMoney,ThisCard.rightHappiness,ThisCard.rightPower,ThisCard.rightStability));
 
             //คำนวน Possible Event
             CalculatePossibility(ThisCard.rightPossibleChainCards);
@@ -453,8 +478,8 @@ public class GameManager : MonoBehaviour
         else
         {
             NotifyCard ThisCard = CurrentDisplayCard as NotifyCard;
-            UpdateResource(ThisCard.Money,ThisCard.Happiness,ThisCard.Power,ThisCard.Stability);
-            StartCoroutine(UpdateResource());
+            UpdateResource(ThisCard.Money,ThisCard.Happiness,ThisCard.Power,ThisCard.Stability,"simple");
+            StartCoroutine(UpdateResource(ThisCard.Money,ThisCard.Happiness,ThisCard.Power,ThisCard.Stability));
             //คำนวน Possible Event
             CalculatePossibility(ThisCard.possibleChainCards);
         }
@@ -496,9 +521,65 @@ public class GameManager : MonoBehaviour
 
     #region ConditionEvent&Ending
 
+    [Header("ConditionCrisis")]
+    public int criticalValue;
+    public List<Card> crisisHappiness = new List<Card>();
+    public List<Card> crisisMoney = new List<Card>();
+    public List<Card> crisisPower = new List<Card>();
+    public List<Card> crisisStability = new List<Card>();
+    
     private void CheckCondition()
     {
         //ถ้า ถึงเท่านี้ๆ ให้ขึ้นเตือนก่อน ถ้าเทิร์นต่อไปยังอยู่อีกให้สุ่ม Event ร้ายมา
+        if (CurrentHappiness == criticalValue)
+        {
+            int randomIndex = Random.Range(0, crisisHappiness.Count);
+
+            //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
+            CardsHoldOn newcard = new CardsHoldOn(crisisHappiness[randomIndex]);
+            _cardHoldOn.Add(newcard);
+            _history.DevRecord("add newCard For CrisisHappiness : " + newcard.Card.cardName);
+
+            //อย่าลืม Remove ใน List ออก
+            CardsInDeck.RemoveAt(randomIndex);
+        }
+
+        if (CurrentMoney == criticalValue)
+        {
+            int randomIndex = Random.Range(0, crisisMoney.Count);
+
+            //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
+            CardsHoldOn newcard = new CardsHoldOn(crisisMoney[randomIndex]);
+            _cardHoldOn.Add(newcard);
+            _history.DevRecord("add newCard For CrisisHappiness : " + newcard.Card.cardName);
+
+            //อย่าลืม Remove ใน List ออก
+            CardsInDeck.RemoveAt(randomIndex);
+        }
+        if (CurrentPower == criticalValue)
+        {
+            int randomIndex = Random.Range(0, crisisPower.Count);
+
+            //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
+            CardsHoldOn newcard = new CardsHoldOn(crisisPower[randomIndex]);
+            _cardHoldOn.Add(newcard);
+            _history.DevRecord("add newCard For CrisisHappiness : " + newcard.Card.cardName);
+
+            //อย่าลืม Remove ใน List ออก
+            CardsInDeck.RemoveAt(randomIndex);
+        }
+        if (CurrentStability == criticalValue)
+        {
+            int randomIndex = Random.Range(0, crisisStability.Count);
+
+            //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
+            CardsHoldOn newcard = new CardsHoldOn(crisisStability[randomIndex]);
+            _cardHoldOn.Add(newcard);
+            _history.DevRecord("add newCard For CrisisHappiness : " + newcard.Card.cardName);
+
+            //อย่าลืม Remove ใน List ออก
+            CardsInDeck.RemoveAt(randomIndex);
+        }
     }
 
     private void EndLastTurn()
@@ -514,7 +595,7 @@ public class GameManager : MonoBehaviour
         CardsInDeck.Clear();
         _cardHoldOn.Clear();
         _displayCard.Clear();
-        
+
         CurrentMoney = (int) SliderStartMoney.value;
         CurrentHappiness = (int) SliderStartHappiness.value;
         CurrentPower = (int) SliderStartPower.value;
@@ -570,7 +651,6 @@ public class GameManager : MonoBehaviour
         
         _history.DevRecord("Have CardsIn Deck Left : " + CardsInDeck.Count);
         
-        StartCoroutine(UpdateResource());
     }
     public void DeleteAllChildren()
     {

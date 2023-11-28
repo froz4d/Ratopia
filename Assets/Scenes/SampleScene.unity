@@ -14076,7 +14076,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1241346271
@@ -16156,6 +16156,15 @@ MonoBehaviour:
   PowerText: {fileID: 1655211840}
   StabilityText: {fileID: 1990786723}
   TurnText: {fileID: 1563224622}
+  criticalValue: -1
+  crisisHappiness:
+  - {fileID: 11400000, guid: 484c08c1fa77f624a8ac8520289de0bc, type: 2}
+  crisisMoney:
+  - {fileID: 11400000, guid: 59e0c22c29fa0064bb4d983acc3eea86, type: 2}
+  crisisPower:
+  - {fileID: 11400000, guid: 5ca2fc76dc26d3846819cf82cc78ccb8, type: 2}
+  crisisStability:
+  - {fileID: 11400000, guid: 357a760dc9cda9a4ea71a4ec78279be3, type: 2}
 --- !u!4 &1491184520
 Transform:
   m_ObjectHideFlags: 0

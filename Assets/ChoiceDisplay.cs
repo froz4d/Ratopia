@@ -36,18 +36,141 @@ public class ChoiceDisplay : MonoBehaviour
             choiceCard.alignment = TextAlignmentOptions.Baseline;
             cardChoiceParagraph.alignment = TextAlignmentOptions.Baseline;
             
-            plusMoney.text = defaultCard.leftMoney.ToString();
+            plusHappy.color = Color.red;
+            plusMoney.color = Color.red;
+            plusPower.color = Color.red;
+            plusStability.color = Color.red;
+            sumHappy.color = Color.red;
+            sumMoney.color = Color.red;
+            sumPower.color = Color.red;
+            sumStability.color = Color.red;
+
+                plusMoney.text = defaultCard.leftMoney.ToString();
             plusHappy.text = defaultCard.leftHappiness.ToString();
             plusPower.text = defaultCard.leftPower.ToString();
             plusStability.text = defaultCard.leftStability.ToString();
 
+            if (defaultCard.leftHappiness > 0)
+            {
+                plusHappy.color = Color.green;
+                sumHappy.color = Color.green;
+            }
+            else if (defaultCard.leftHappiness == 0)
+            {
+                plusHappy.color = Color.white;
+                sumHappy.color = Color.white;
+            }
+            
+            if (defaultCard.leftMoney > 0)
+            {
+                plusMoney.color = Color.green;
+                sumMoney.color = Color.green;
+            }
+            else if (defaultCard.leftMoney == 0)
+            {
+                plusMoney.color = Color.white;
+                sumMoney.color = Color.white;
+            }
+            
+            if (defaultCard.leftPower > 0)
+            {
+                plusPower.color = Color.green;
+                sumPower.color = Color.green;
+            }
+            else if (defaultCard.leftPower == 0)
+            {
+                plusPower.color = Color.white;
+                sumPower.color = Color.white;
+            }
+            
+            if (defaultCard.leftStability > 0)
+            {
+                plusStability.color = Color.green;
+                sumStability.color = Color.green;
+            }
+            else if (defaultCard.leftStability == 0)
+            {
+                plusStability.color = Color.white;
+                sumStability.color = Color.white;
+            }
+            
             sumMoney.text = (GameManager.CurrentMoney + defaultCard.leftMoney).ToString();
             sumHappy.text = (GameManager.CurrentHappiness + defaultCard.leftHappiness).ToString();
             sumPower.text = (GameManager.CurrentPower + defaultCard.leftPower).ToString();
             sumStability.text = (GameManager.CurrentStability + defaultCard.leftStability).ToString();
         }
-        
-        
+        else if(inputCard is NotifyCard)
+        {
+            NotifyCard notifyCard = (NotifyCard)inputCard;
+            choiceCard.text = notifyCard.cardName;
+            cardChoiceParagraph.text = notifyCard.Paragraph;
+            
+            choiceCard.alignment = TextAlignmentOptions.Baseline;
+            cardChoiceParagraph.alignment = TextAlignmentOptions.Baseline;
+            
+            plusHappy.color = Color.red;
+            plusMoney.color = Color.red;
+            plusPower.color = Color.red;
+            plusStability.color = Color.red;
+            sumHappy.color = Color.red;
+            sumMoney.color = Color.red;
+            sumPower.color = Color.red;
+            sumStability.color = Color.red;
+
+            plusMoney.text = notifyCard.Money.ToString();
+            plusHappy.text = notifyCard.Happiness.ToString();
+            plusPower.text = notifyCard.Power.ToString();
+            plusStability.text = notifyCard.Stability.ToString();
+            
+            if (notifyCard.Happiness > 0)
+            {
+                plusHappy.color = Color.green;
+                sumHappy.color = Color.green;
+            }
+            else if (notifyCard.Happiness == 0)
+            {
+                plusHappy.color = Color.white;
+                sumHappy.color = Color.white;
+            }
+            
+            if (notifyCard.Money > 0)
+            {
+                plusMoney.color = Color.green;
+                sumMoney.color = Color.green;
+            }
+            else if (notifyCard.Money == 0)
+            {
+                plusMoney.color = Color.white;
+                sumMoney.color = Color.white;
+            }
+            
+            if (notifyCard.Power > 0)
+            {
+                plusPower.color = Color.green;
+                sumPower.color = Color.green;
+            }
+            else if (notifyCard.Power == 0)
+            {
+                plusPower.color = Color.white;
+                sumPower.color = Color.white;
+            }
+            
+            if (notifyCard.Stability > 0)
+            {
+                plusStability.color = Color.green;
+                sumStability.color = Color.green;
+            }
+            else if (notifyCard.Stability == 0)
+            {
+                plusStability.color = Color.white;
+                sumStability.color = Color.white;
+            }
+            
+            sumMoney.text = (GameManager.CurrentMoney + notifyCard.Money).ToString();
+            sumHappy.text = (GameManager.CurrentHappiness + notifyCard.Happiness).ToString();
+            sumPower.text = (GameManager.CurrentPower + notifyCard.Power).ToString();
+            sumStability.text = (GameManager.CurrentStability + notifyCard.Stability).ToString();
+        }
     }
     public void ShowChoiceRight(Card inputCard)
     {
@@ -61,17 +184,141 @@ public class ChoiceDisplay : MonoBehaviour
             choiceCard.alignment = TextAlignmentOptions.Capline;
             cardChoiceParagraph.alignment = TextAlignmentOptions.Capline;
 
+            plusHappy.color = Color.red;
+            plusMoney.color = Color.red;
+            plusPower.color = Color.red;
+            plusStability.color = Color.red;
+            sumHappy.color = Color.red;
+            sumMoney.color = Color.red;
+            sumPower.color = Color.red;
+            sumStability.color = Color.red;
+            
             plusMoney.text = defaultCard.rightMoney.ToString();
             plusHappy.text = defaultCard.rightHappiness.ToString();
             plusPower.text = defaultCard.rightPower.ToString();
             plusStability.text = defaultCard.rightStability.ToString();
+            
+            if (defaultCard.rightHappiness > 0)
+            {
+                plusHappy.color = Color.green;
+                sumHappy.color = Color.green;
+            }
+            else if (defaultCard.rightHappiness == 0)
+            {
+                plusHappy.color = Color.white;
+                sumHappy.color = Color.white;
+            }
+            
+            if (defaultCard.rightMoney > 0)
+            {
+                plusMoney.color = Color.green;
+                sumMoney.color = Color.green;
+            }
+            else if (defaultCard.rightMoney == 0)
+            {
+                plusMoney.color = Color.white;
+                sumMoney.color = Color.white;
+            }
+            
+            if (defaultCard.rightPower > 0)
+            {
+                plusPower.color = Color.green;
+                sumPower.color = Color.green;
+            }
+            else if (defaultCard.rightPower == 0)
+            {
+                plusPower.color = Color.white;
+                sumPower.color = Color.white;
+            }
+            
+            if (defaultCard.rightStability > 0)
+            {
+                plusStability.color = Color.green;
+                sumStability.color = Color.green;
+            }
+            else if (defaultCard.rightStability == 0)
+            {
+                plusStability.color = Color.white;
+                sumStability.color = Color.white;
+            }
             
             sumMoney.text = (GameManager.CurrentMoney + defaultCard.rightMoney).ToString();
             sumHappy.text = (GameManager.CurrentHappiness + defaultCard.rightHappiness).ToString();
             sumPower.text = (GameManager.CurrentPower + defaultCard.rightPower).ToString();
             sumStability.text = (GameManager.CurrentStability + defaultCard.rightStability).ToString();
         }
-        
+        else if(inputCard is NotifyCard)
+        {
+            NotifyCard notifyCard = (NotifyCard)inputCard;
+            choiceCard.text = notifyCard.cardName;
+            cardChoiceParagraph.text = notifyCard.Paragraph;
+            
+            choiceCard.alignment = TextAlignmentOptions.Baseline;
+            cardChoiceParagraph.alignment = TextAlignmentOptions.Baseline;
+            
+            plusHappy.color = Color.red;
+            plusMoney.color = Color.red;
+            plusPower.color = Color.red;
+            plusStability.color = Color.red;
+            sumHappy.color = Color.red;
+            sumMoney.color = Color.red;
+            sumPower.color = Color.red;
+            sumStability.color = Color.red;
+
+            plusMoney.text = notifyCard.Money.ToString();
+            plusHappy.text = notifyCard.Happiness.ToString();
+            plusPower.text = notifyCard.Power.ToString();
+            plusStability.text = notifyCard.Stability.ToString();
+            
+            if (notifyCard.Happiness > 0)
+            {
+                plusHappy.color = Color.green;
+                sumHappy.color = Color.green;
+            }
+            else if (notifyCard.Happiness == 0)
+            {
+                plusHappy.color = Color.white;
+                sumHappy.color = Color.white;
+            }
+            
+            if (notifyCard.Money > 0)
+            {
+                plusMoney.color = Color.green;
+                sumMoney.color = Color.green;
+            }
+            else if (notifyCard.Money == 0)
+            {
+                plusMoney.color = Color.white;
+                sumMoney.color = Color.white;
+            }
+            
+            if (notifyCard.Power > 0)
+            {
+                plusPower.color = Color.green;
+                sumPower.color = Color.green;
+            }
+            else if (notifyCard.Power == 0)
+            {
+                plusPower.color = Color.white;
+                sumPower.color = Color.white;
+            }
+            
+            if (notifyCard.Stability > 0)
+            {
+                plusStability.color = Color.green;
+                sumStability.color = Color.green;
+            }
+            else if (notifyCard.Stability == 0)
+            {
+                plusStability.color = Color.white;
+                sumStability.color = Color.white;
+            }
+            
+            sumMoney.text = (GameManager.CurrentMoney + notifyCard.Money).ToString();
+            sumHappy.text = (GameManager.CurrentHappiness + notifyCard.Happiness).ToString();
+            sumPower.text = (GameManager.CurrentPower + notifyCard.Power).ToString();
+            sumStability.text = (GameManager.CurrentStability + notifyCard.Stability).ToString();
+        }
         
     }
 
