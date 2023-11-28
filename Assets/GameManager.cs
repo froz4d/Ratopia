@@ -275,23 +275,6 @@ public class GameManager : MonoBehaviour
         cardObjectRect.anchorMax = cardFoundaRect.anchorMax;
         
     }
-    
-    //Display ถ้าเป็นNotifyCard ให้โชว์เหมือนกัน
-    
-    public static void DisplayLeftChoice()
-    {
-        Debug.Log("กำลังโชว์ฝั่งซ้าย");
-    }
-    
-    public static void DisplayRightChoice()
-    {
-        Debug.Log("กำลังโชว์ฝั่งขวา");
-    }
-
-    public static void DisplayCloseAllDetail()
-    {
-        Debug.Log("ปิด display หมด");
-    }
 
     #endregion
 
@@ -531,7 +514,7 @@ public class GameManager : MonoBehaviour
     private void CheckCondition()
     {
         //ถ้า ถึงเท่านี้ๆ ให้ขึ้นเตือนก่อน ถ้าเทิร์นต่อไปยังอยู่อีกให้สุ่ม Event ร้ายมา
-        if (CurrentHappiness == criticalValue)
+        if (CurrentHappiness <= criticalValue)
         {
             int randomIndex = Random.Range(0, crisisHappiness.Count);
 
@@ -539,46 +522,34 @@ public class GameManager : MonoBehaviour
             CardsHoldOn newcard = new CardsHoldOn(crisisHappiness[randomIndex]);
             _cardHoldOn.Add(newcard);
             _history.DevRecord("add newCard For CrisisHappiness : " + newcard.Card.cardName);
-
-            //อย่าลืม Remove ใน List ออก
-            CardsInDeck.RemoveAt(randomIndex);
         }
 
-        if (CurrentMoney == criticalValue)
+        if (CurrentMoney <= criticalValue)
         {
             int randomIndex = Random.Range(0, crisisMoney.Count);
 
             //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
             CardsHoldOn newcard = new CardsHoldOn(crisisMoney[randomIndex]);
             _cardHoldOn.Add(newcard);
-            _history.DevRecord("add newCard For CrisisHappiness : " + newcard.Card.cardName);
-
-            //อย่าลืม Remove ใน List ออก
-            CardsInDeck.RemoveAt(randomIndex);
+            _history.DevRecord("add newCard For CrisisMoney : " + newcard.Card.cardName);
         }
-        if (CurrentPower == criticalValue)
+        if (CurrentPower <= criticalValue)
         {
             int randomIndex = Random.Range(0, crisisPower.Count);
 
             //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
             CardsHoldOn newcard = new CardsHoldOn(crisisPower[randomIndex]);
             _cardHoldOn.Add(newcard);
-            _history.DevRecord("add newCard For CrisisHappiness : " + newcard.Card.cardName);
-
-            //อย่าลืม Remove ใน List ออก
-            CardsInDeck.RemoveAt(randomIndex);
+            _history.DevRecord("add newCard For CrisisPower : " + newcard.Card.cardName);
         }
-        if (CurrentStability == criticalValue)
+        if (CurrentStability <= criticalValue)
         {
             int randomIndex = Random.Range(0, crisisStability.Count);
 
             //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
             CardsHoldOn newcard = new CardsHoldOn(crisisStability[randomIndex]);
             _cardHoldOn.Add(newcard);
-            _history.DevRecord("add newCard For CrisisHappiness : " + newcard.Card.cardName);
-
-            //อย่าลืม Remove ใน List ออก
-            CardsInDeck.RemoveAt(randomIndex);
+            _history.DevRecord("add newCard For CrisisStability : " + newcard.Card.cardName);
         }
     }
 
