@@ -23,12 +23,16 @@ public class CardBook : MonoBehaviour
 
     public void AddCardToCollection(Card inputCard)
     {
-        if (!_cardCollection.Contains(inputCard))
+        if (!(inputCard is NotifyCard))
         {
-            _cardCollection.Add(inputCard);
+            if (!_cardCollection.Contains(inputCard))
+            {
+                _cardCollection.Add(inputCard);
+            }
+        
+            RefreshCollection();
         }
         
-        RefreshCollection();
     }
 
     public void RefreshCollection()

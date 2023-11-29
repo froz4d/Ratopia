@@ -18,8 +18,20 @@ public class FirebaseManager : MonoBehaviour
     {
         public List<Player> PlayersData = new List<Player>();
     }
+    
+    [System.Serializable]
+    public class SavingFeedbackData
+    {
+        public List<FeedbackData> FeedbackDatas = new List<FeedbackData>();
+
+        public SavingFeedbackData(FeedbackData feed)
+        {
+            FeedbackDatas.Add(feed);
+        }
+    }
 
     public SavingCardCollectionData savingCardCollectionData;
+    public SavingFeedbackData savingFeedbackData;
 
     public void CalRankScore()
     {
@@ -32,25 +44,30 @@ public class FirebaseManager : MonoBehaviour
         
         PushPlayerData();
     }
+    
 
     private void Start()
     {
+        GetPlayerData();
         PushPlayerData();
         CalRankScore();
     }
 
-    #region test
-    public class TestData
+    public void PushFeedbackData(FeedbackData newFeedback)
     {
-        public int num = 75;
-        public string name = "fucker";
+        //savingFeedbackData.FeedbackDatas.Add(newFeedback);
+        string urlData = $"{url}/SavingFeedbackData.json?auth={secret}";
+        // Check if existingData is null or create a new instance if it doesn't exist yet
+
+        RestClient.Post<SavingFeedbackData>(urlData, newFeedback).Then(response =>
+        {
+            Debug.Log("Data added successfully to Firebase");
+            //savingFeedbackData.FeedbackDatas.Clear();
+        }).Catch(putError =>
+        {
+            Debug.Log("Error while adding data to Firebase: " + putError);
+        });
     }
-
-    public TestData testData = new TestData();
-    
-
-    #endregion
-    
 
     public void PushPlayerData()
     {
@@ -62,7 +79,6 @@ public class FirebaseManager : MonoBehaviour
         {
             Debug.Log("error on server?");
         });
-
     }
 
     private int testnum = 0;
@@ -72,15 +88,7 @@ public class FirebaseManager : MonoBehaviour
 
         RestClient.Get(urlData).Then(response =>
         {
-            //Debug.Log(response.Text);
-
-            #region test
-
-            JSONNode jsonNode = JSONNode.Parse(response.Text);
-            testnum = jsonNode["num"];
-            //Debug.Log(testnum);
-
-            #endregion
+            
 
         }).Catch(error =>
         {
