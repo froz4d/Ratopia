@@ -13,6 +13,10 @@ public class GameData
     public List<Card> cardsInDeck;
     public List<GameManager.CardsHoldOn> cardHoldOn;
     public Card CurrentDisplayCard;
+    public List<int> remainingHappinessInEndTurn;
+    public List<int> remainingMoneyInEndTurn;
+    public List<int> remainingPowerInEndTurn;
+    public List<int> remainingStabilityInEndTurn;
 
 }
 
@@ -31,6 +35,11 @@ public class SaveGameManager : MonoBehaviour
             cardsInDeck = GameManager.CardsInDeck,
             cardHoldOn = GameManager._cardHoldOn,
             CurrentDisplayCard = GameManager.CurrentDisplayCard,
+            remainingHappinessInEndTurn = GameManager._remainingHappinessInEndTurn,
+            remainingMoneyInEndTurn = GameManager._remainingMoneyInEndTurn,
+            remainingPowerInEndTurn = GameManager._remainingPowerInEndTurn,
+            remainingStabilityInEndTurn = GameManager._remainingStabilityInEndTurn
+         
 
         };
 
@@ -53,6 +62,10 @@ public class SaveGameManager : MonoBehaviour
             GameManager.CurrentStability = data.currentStability;
             GameManager.CurrentDisplayCard = data.CurrentDisplayCard;
             GameManager.CardsInDeck = data.cardsInDeck;
+            GameManager._remainingHappinessInEndTurn = data.remainingHappinessInEndTurn;
+            GameManager._remainingMoneyInEndTurn = data.remainingMoneyInEndTurn;
+            GameManager._remainingPowerInEndTurn = data.remainingPowerInEndTurn;
+            GameManager._remainingStabilityInEndTurn = data.remainingStabilityInEndTurn;
         }
         else
         {
