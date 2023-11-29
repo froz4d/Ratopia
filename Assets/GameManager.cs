@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
@@ -191,7 +192,7 @@ public class GameManager : MonoBehaviour
         }
         
         _history.DevRecord("Have CardsIn Deck Left : " + CardsInDeck.Count);
-        
+        StartCoroutine(UpdateResource(0, 0, 0, 0));
     }
 
     public void EndTurn()
@@ -390,7 +391,7 @@ public class GameManager : MonoBehaviour
                 break;
             }
 
-               int randomIndex = Random.Range(0, CardsInDeck.Count - 1);
+            int randomIndex = Random.Range(0, CardsInDeck.Count - 1);
 
             Debug.Log("random number : " + randomIndex);
 
@@ -436,7 +437,11 @@ public class GameManager : MonoBehaviour
             UpdateResource(ThisCard.leftMoney,ThisCard.leftHappiness,ThisCard.leftPower,ThisCard.leftStability,"simple");
             StartCoroutine(UpdateResource(ThisCard.leftMoney,ThisCard.leftHappiness,ThisCard.leftPower,ThisCard.leftStability));
             //คำนวน Possible Event
-           CalculatePossibility(ThisCard.leftPossibleChainCards);
+            if (ThisCard.leftPossibleChainCards != null)
+            {
+                CalculatePossibility(ThisCard.leftPossibleChainCards);
+            }
+           
         }
         else
         {
@@ -444,7 +449,10 @@ public class GameManager : MonoBehaviour
             UpdateResource(ThisCard.Money,ThisCard.Happiness,ThisCard.Power,ThisCard.Stability,"simple");
             StartCoroutine(UpdateResource(ThisCard.Money,ThisCard.Happiness,ThisCard.Power,ThisCard.Stability));
             //คำนวน Possible Event
-            CalculatePossibility(ThisCard.possibleChainCards);
+            if (ThisCard.possibleChainCards != null)
+            {
+                CalculatePossibility(ThisCard.possibleChainCards);
+            }
         }
         if(_cardHoldOn.Count >= 0)
         {
@@ -464,7 +472,11 @@ public class GameManager : MonoBehaviour
             StartCoroutine(UpdateResource(ThisCard.rightMoney,ThisCard.rightHappiness,ThisCard.rightPower,ThisCard.rightStability));
 
             //คำนวน Possible Event
-            CalculatePossibility(ThisCard.rightPossibleChainCards);
+            if (ThisCard.rightPossibleChainCards != null)
+            {
+                CalculatePossibility(ThisCard.rightPossibleChainCards);
+            }
+            
         }
         else
         {
@@ -472,7 +484,10 @@ public class GameManager : MonoBehaviour
             UpdateResource(ThisCard.Money,ThisCard.Happiness,ThisCard.Power,ThisCard.Stability,"simple");
             StartCoroutine(UpdateResource(ThisCard.Money,ThisCard.Happiness,ThisCard.Power,ThisCard.Stability));
             //คำนวน Possible Event
-            CalculatePossibility(ThisCard.possibleChainCards);
+            if (ThisCard.possibleChainCards != null)
+            {
+                CalculatePossibility(ThisCard.possibleChainCards);
+            }
         }
         if(_cardHoldOn.Count >= 0)
         {
@@ -509,16 +524,38 @@ public class GameManager : MonoBehaviour
         }
         
     }
+    private Card GenerateNewCard()
+    {
+        NotifyCard card = ScriptableObject.CreateInstance<NotifyCard>();
+        int money = Random.Range(0, 4);
+        int happy = Random.Range(0, 4);
+        int power = Random.Range(0, 4);
+        int stabi = Random.Range(0, 4);
+        
+        card.setDefault();
+        card.setValue(money,happy,power,stabi);
+
+        return card;
+    }
+
+    private void AddGenCardInToDesk(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            CardsInDeck.Add(GenerateNewCard());
+        }
+    }
+    
 
     #region ConditionEvent&Ending
 
-    [Header("ConditionCrisis")]
+    
     private int crisisTriggerCount = 0;
     private List<int> _remainingHappinessInEndTurn = new List<int>();
     private List<int> _remainingMoneyInEndTurn = new List<int>();
     private List<int> _remainingPowerInEndTurn = new List<int>();
     private List<int> _remainingStabilityInEndTurn = new List<int>();
-    
+    [Header("ConditionCrisis")]
     public int criticalValue;
     public int crisisTrigger;
     public List<Card> crisisHappiness = new List<Card>();
@@ -601,7 +638,7 @@ public class GameManager : MonoBehaviour
             //default Win
         }
     }
-    
+
     private void CollectRemainingResourceData()
     {
         _remainingHappinessInEndTurn.Add(CurrentHappiness);
@@ -629,6 +666,7 @@ public class GameManager : MonoBehaviour
         
         Card[] cards = Resources.LoadAll<Card>("FixEvent");
         CardsInDeck.AddRange(cards);
+        AddGenCardInToDesk((MaxTurn*RandomCardPerTurn)-CardsInDeck.Count);
         RandomCardInDeckToHoldOn((int) SliderRandomCardPerTurn.value);
         DeleteAllChildren();
         StartTurn();
@@ -674,7 +712,7 @@ public class GameManager : MonoBehaviour
         }
         
         _history.DevRecord("Have CardsIn Deck Left : " + CardsInDeck.Count);
-        
+        StartCoroutine(UpdateResource(0, 0, 0, 0));
     }
     public void DeleteAllChildren()
     {
