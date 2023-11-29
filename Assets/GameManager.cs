@@ -229,7 +229,6 @@ public class GameManager : MonoBehaviour
 
     private void DisplayCard(Card card)
     {
-        
         CurrentDisplayCard = card;
         
         _cardBook.AddCardToCollection(CurrentDisplayCard);
@@ -254,6 +253,8 @@ public class GameManager : MonoBehaviour
         cardObjectRect.pivot = cardFoundaRect.pivot;
         cardObjectRect.anchorMin = cardFoundaRect.anchorMin;
         cardObjectRect.anchorMax = cardFoundaRect.anchorMax;
+        
+        cardFoundationScript.HideTilePanel();
     }
     
     private void NextDisplayCard(Card card)
@@ -283,6 +284,7 @@ public class GameManager : MonoBehaviour
         cardObjectRect.anchorMin = cardFoundaRect.anchorMin;
         cardObjectRect.anchorMax = cardFoundaRect.anchorMax;
         
+        cardFoundationScript.HideTilePanel();
     }
 
     #endregion
@@ -563,6 +565,12 @@ public class GameManager : MonoBehaviour
     public List<Card> crisisPower = new List<Card>();
     public List<Card> crisisStability = new List<Card>();
 
+    public Card HappyEnd;
+    public Card MoneyEnd;
+    public Card PowerEnd;
+    public Card StabilityEnd;
+    public Card DefaultEnd;
+
     public int EndingPointCondition;
     
     private void CheckCondition()
@@ -616,6 +624,7 @@ public class GameManager : MonoBehaviour
         double averagePower = _remainingPowerInEndTurn.Average();
         double averageStability = _remainingStabilityInEndTurn.Average();
         //Show Ending Result ทั้งหมด
+        
 
         if (averageHappiness >= EndingPointCondition)
         {
@@ -637,6 +646,8 @@ public class GameManager : MonoBehaviour
         {
             //default Win
         }
+        
+        
     }
 
     private void CollectRemainingResourceData()
