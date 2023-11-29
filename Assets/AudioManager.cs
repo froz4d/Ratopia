@@ -18,10 +18,7 @@ public class AudioManager : MonoBehaviour
         }
 
         // Play random track from the playlist
-        PlayRandomTrack();
-
-        // Play the background music
-        audioSource.Play();
+        PlayRandomTrack(); 
     }
 
     void PlayRandomTrack()
