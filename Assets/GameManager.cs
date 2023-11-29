@@ -553,10 +553,10 @@ public class GameManager : MonoBehaviour
 
     
     private int crisisTriggerCount = 0;
-    private List<int> _remainingHappinessInEndTurn = new List<int>();
-    private List<int> _remainingMoneyInEndTurn = new List<int>();
-    private List<int> _remainingPowerInEndTurn = new List<int>();
-    private List<int> _remainingStabilityInEndTurn = new List<int>();
+    public static List<int> _remainingHappinessInEndTurn = new List<int>();
+    public static List<int> _remainingMoneyInEndTurn = new List<int>();
+    public static List<int> _remainingPowerInEndTurn = new List<int>();
+    public static List<int> _remainingStabilityInEndTurn = new List<int>();
     [Header("ConditionCrisis")]
     public int criticalValue;
     public int crisisTrigger;
