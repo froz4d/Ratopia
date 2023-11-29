@@ -527,10 +527,10 @@ public class GameManager : MonoBehaviour
     private Card GenerateNewCard()
     {
         NotifyCard card = ScriptableObject.CreateInstance<NotifyCard>();
-        int money = Random.Range(0, 4);
-        int happy = Random.Range(0, 4);
-        int power = Random.Range(0, 4);
-        int stabi = Random.Range(0, 4);
+        int money = Random.Range(0, 3);
+        int happy = Random.Range(0, 3);
+        int power = Random.Range(0, 3);
+        int stabi = Random.Range(0, 3);
         
         card.setDefault();
         card.setValue(money,happy,power,stabi);
