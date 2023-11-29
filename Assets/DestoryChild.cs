@@ -30,7 +30,7 @@ public class DestoryChild : MonoBehaviour
         else
         {
             mainmenu.SetActive(true);
-            
+            endingpanel.SetActive(false);
         }
     }
 }
