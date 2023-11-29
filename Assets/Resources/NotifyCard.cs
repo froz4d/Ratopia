@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "New CardInfo", menuName = "Card/NewNotifyCard")]
 public class NotifyCard : Card
@@ -25,6 +26,8 @@ public class NotifyCard : Card
 
     public void setDefault()
     {
+        cardImage = Resources.Load<Sprite>("CardForGen/ForGen");
+        
         int randomNumber = Random.Range(0, 8);
         if(randomNumber == 0)
         {

@@ -157,6 +157,8 @@ public class GameManager : MonoBehaviour
     {
         _history = FindObjectOfType<History>();
         _cardBook = FindObjectOfType<CardBook>();
+        
+        EndingPanel.SetActive(false);
 
         NewGame();
 
@@ -565,6 +567,7 @@ public class GameManager : MonoBehaviour
     public List<Card> crisisPower = new List<Card>();
     public List<Card> crisisStability = new List<Card>();
 
+    public Transform EndingParentShow;
     public Card HappyEnd;
     public Card MoneyEnd;
     public Card PowerEnd;
@@ -617,6 +620,7 @@ public class GameManager : MonoBehaviour
         _history.DevRecord("add newCard For Crisis : " + newcard.Card.cardName);
     }
 
+    public GameObject EndingPanel;
     private void CheckEndLastTurn()
     {
         double averageHappiness = _remainingHappinessInEndTurn.Average();
@@ -624,27 +628,27 @@ public class GameManager : MonoBehaviour
         double averagePower = _remainingPowerInEndTurn.Average();
         double averageStability = _remainingStabilityInEndTurn.Average();
         //Show Ending Result ทั้งหมด
-        
+        EndingPanel.SetActive(true);
 
         if (averageHappiness >= EndingPointCondition)
         {
-            
+            Instantiate(HappyEnd, EndingParentShow);
         }
         else if (averagePower >= EndingPointCondition)
         {
-            
+            Instantiate(PowerEnd, EndingParentShow);
         }
         else if (averageMoney >= EndingPointCondition)
         {
-            
+            Instantiate(MoneyEnd, EndingParentShow);
         }
         else if (averageStability >= EndingPointCondition)
         {
-            
+            Instantiate(StabilityEnd, EndingParentShow);
         }
         else
         {
-            //default Win
+            Instantiate(DefaultEnd, EndingParentShow);
         }
         
         
@@ -682,6 +686,7 @@ public class GameManager : MonoBehaviour
         DeleteAllChildren();
         StartTurn();
     
+        EndingPanel.SetActive(false);
     }
     public void ContinueGame()
     {
