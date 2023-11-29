@@ -18,7 +18,7 @@ public class AudioManager : MonoBehaviour
         }
 
         // Play random track from the playlist
-        PlayRandomTrack(); 
+        PlayRandomTrack();
     }
 
     void PlayRandomTrack()

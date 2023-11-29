@@ -256,7 +256,7 @@ public class GameManager : MonoBehaviour
         cardObjectRect.anchorMin = cardFoundaRect.anchorMin;
         cardObjectRect.anchorMax = cardFoundaRect.anchorMax;
         
-        cardFoundationScript.HideTilePanel();
+        cardFoundationScript.HidecardPanel();
     }
     
     private void NextDisplayCard(Card card)
@@ -285,8 +285,8 @@ public class GameManager : MonoBehaviour
         cardObjectRect.pivot = cardFoundaRect.pivot;
         cardObjectRect.anchorMin = cardFoundaRect.anchorMin;
         cardObjectRect.anchorMax = cardFoundaRect.anchorMax;
-        
-        cardFoundationScript.HideTilePanel();
+
+        cardFoundationScript.HidecardPanel();
     }
 
     #endregion

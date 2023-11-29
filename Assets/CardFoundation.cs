@@ -43,6 +43,14 @@ public class CardFoundation : MonoBehaviour
             VARIABLE.SetActive(false);
         }
     }
+    public void HidecardPanel()
+    {
+        GameObject[] uiPanels = GameObject.FindGameObjectsWithTag("cardPanel");
+        foreach (var VARIABLE in uiPanels)
+        {
+            VARIABLE.SetActive(false);
+        }
+    }
 
     public void ShowTilePanel()
     {
