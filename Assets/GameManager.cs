@@ -397,7 +397,7 @@ public class GameManager : MonoBehaviour
 
             int randomIndex = Random.Range(0, CardsInDeck.Count - 1);
 
-            Debug.Log("random number : " + randomIndex);
+         //   Debug.Log("random number : " + randomIndex);
 
             //จากนั้นเรียก ใส่ใน CardHoldOn แล้วเอาเข้า list _CardHoldOn
             CardsHoldOn newcard = new CardsHoldOn(CardsInDeck[randomIndex]);
@@ -415,15 +415,15 @@ public class GameManager : MonoBehaviour
         if (_displayCard.Count == 0)
         {
             CurrentDisplayCard = null;
-            Debug.LogWarning(_displayCard.Count);
-            Debug.Log("End Turn");
+         //   Debug.LogWarning(_displayCard.Count);
+        //    Debug.Log("End Turn");
             EndTurn();
         }
         //ไว้ใช้ตอนเลือกเสร็จแล้ว
         else
         {
-            Debug.LogWarning(CurrentDisplayCard);
-            Debug.LogWarning(_displayCard.Count);
+        //    Debug.LogWarning(CurrentDisplayCard);
+        //   Debug.LogWarning(_displayCard.Count);
             NextDisplayCard(_displayCard.Dequeue());
         }
 
@@ -685,6 +685,10 @@ public class GameManager : MonoBehaviour
         CurrentStability = (int) SliderStartStability.value;
         MaxTurn = (int) SliderMaxTurn.value;
         CurrentTurn = 0;
+        _remainingHappinessInEndTurn.Clear();
+        _remainingMoneyInEndTurn.Clear();
+        _remainingPowerInEndTurn.Clear();
+        _remainingStabilityInEndTurn.Clear();
         
         Card[] cards = Resources.LoadAll<Card>("FixEvent");
         CardsInDeck.AddRange(cards);
@@ -698,7 +702,7 @@ public class GameManager : MonoBehaviour
     public void ContinueGame()
     {
         SaveGameManager.LoadGame();
-        Debug.LogWarning("load");
+     //   Debug.LogWarning("load");
         CardsHoldOn newcard = new CardsHoldOn(CurrentDisplayCard,0);
         _cardHoldOn.Insert(0,newcard);
       //  StartCoroutine(UpdateResource());
@@ -750,7 +754,7 @@ public class GameManager : MonoBehaviour
     public void SaveAndQuit()
     {
         SaveGameManager.SaveGame();
-        Debug.LogWarning("save");
+      //  Debug.LogWarning("save");
     }
     
     #endregion

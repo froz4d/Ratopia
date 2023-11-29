@@ -61,11 +61,11 @@ public class FirebaseManager : MonoBehaviour
 
         RestClient.Post<SavingFeedbackData>(urlData, newFeedback).Then(response =>
         {
-            Debug.Log("Data added successfully to Firebase");
+          //  Debug.Log("Data added successfully to Firebase");
             //savingFeedbackData.FeedbackDatas.Clear();
         }).Catch(putError =>
         {
-            Debug.Log("Error while adding data to Firebase: " + putError);
+          //  Debug.Log("Error while adding data to Firebase: " + putError);
         });
     }
 
@@ -77,7 +77,7 @@ public class FirebaseManager : MonoBehaviour
             //Debug.Log("Upload Data Complete");
         }).Catch(error =>
         {
-            Debug.Log("error on server?");
+           // Debug.Log("error on server?");
         });
     }
 
@@ -92,7 +92,7 @@ public class FirebaseManager : MonoBehaviour
 
         }).Catch(error =>
         {
-            Debug.Log("Error can't get data");
+         //   Debug.Log("Error can't get data");
         });
     }
 }
