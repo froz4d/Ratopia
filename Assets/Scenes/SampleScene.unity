@@ -12809,7 +12809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loadBannerButton: {fileID: 971671907}
-  _showBannerButton: {fileID: 682338839}
+  _showBannerButton: {fileID: 0}
   _hideBannerButton: {fileID: 385557775}
   _bannerPosition: 4
   _androidAdUnitId: Banner_Android
@@ -25145,7 +25145,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -160}
+  m_AnchoredPosition: {x: 0, y: -160.00024}
   m_SizeDelta: {x: -80, y: -480}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1908855153
@@ -25738,7 +25738,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: -181}
+  m_AnchoredPosition: {x: 0, y: -181.00024}
   m_SizeDelta: {x: 1820, y: 300}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1943905464
@@ -26239,7 +26239,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 217}
+  m_AnchoredPosition: {x: 0, y: 217.00024}
   m_SizeDelta: {x: 1820, y: 300}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1983032537
@@ -28955,7 +28955,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -108}
+  m_AnchoredPosition: {x: 0, y: -108.00012}
   m_SizeDelta: {x: 0, y: -800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8203904249622738638

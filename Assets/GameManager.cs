@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 using Slider = UnityEngine.UI.Slider;
 
 
@@ -152,7 +154,13 @@ public class GameManager : MonoBehaviour
     
 
     #endregion
-    
+
+    private void Awake()
+    {
+        Screen.SetResolution(576  ,1184,false);
+        Screen.fullScreen = false;
+    }
+
     void Start()
     {
         _history = FindObjectOfType<History>();
