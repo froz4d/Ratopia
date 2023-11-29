@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361d8e23158228a41828d93716eeaeae, type: 3}
   m_Name: Welcome To The Banana Field
   m_EditorClassIdentifier: 
-  cardName: Welcome To The Banana Field
+  cardName: "\u0E22\u0E34\u0E19\u0E14\u0E35\u0E15\u0E49\u0E2D\u0E19\u0E23\u0E31\u0E1A\u0E2A\u0E39\u0E48\u0E17\u0E38\u0E48\u0E07\u0E01\u0E25\u0E49\u0E27\u0E22\u0E01\u0E25\u0E49\u0E27\u0E22"
   cardImage: {fileID: 21300000, guid: 36cc28122c5f33a44b899f36786b507f, type: 3}
   description: The Banana famine has caused immense chaos in the Banana republic,
     as the scarcity of bananas has led to a division within the nation. The two factions,
