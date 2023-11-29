@@ -7,6 +7,7 @@ TagManager:
   - card
   - CurrentPlayCard
   - UIpanel
+  - cardPanel
   layers:
   - Default
   - TransparentFX
