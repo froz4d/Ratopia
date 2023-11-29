@@ -632,26 +632,33 @@ public class GameManager : MonoBehaviour
 
         if (averageHappiness >= EndingPointCondition)
         {
-            Instantiate(HappyEnd, EndingParentShow);
+            Instantiate(cardFoundation, EndingParentShow);
+            cardFoundation.GetComponent<CardFoundation>().ShowCardDisplay(HappyEnd);
+            _cardBook.AddCardToCollection(HappyEnd);
         }
-        else if (averagePower >= EndingPointCondition)
+        if (averagePower >= EndingPointCondition)
         {
-            Instantiate(PowerEnd, EndingParentShow);
+            Instantiate(cardFoundation, EndingParentShow);
+            cardFoundation.GetComponent<CardFoundation>().ShowCardDisplay(PowerEnd);
+            _cardBook.AddCardToCollection(PowerEnd);
         }
-        else if (averageMoney >= EndingPointCondition)
+        if (averageMoney >= EndingPointCondition)
         {
-            Instantiate(MoneyEnd, EndingParentShow);
+            Instantiate(cardFoundation, EndingParentShow);
+            cardFoundation.GetComponent<CardFoundation>().ShowCardDisplay(MoneyEnd);
+            _cardBook.AddCardToCollection(MoneyEnd);
         }
-        else if (averageStability >= EndingPointCondition)
+        if (averageStability >= EndingPointCondition)
         {
-            Instantiate(StabilityEnd, EndingParentShow);
-        }
-        else
-        {
-            Instantiate(DefaultEnd, EndingParentShow);
+            Instantiate(cardFoundation, EndingParentShow);
+            cardFoundation.GetComponent<CardFoundation>().ShowCardDisplay(StabilityEnd);
+            _cardBook.AddCardToCollection(StabilityEnd);
         }
         
-        
+        Instantiate(cardFoundation, EndingParentShow);
+        cardFoundation.GetComponent<CardFoundation>().ShowCardDisplay(DefaultEnd);
+        _cardBook.AddCardToCollection(DefaultEnd);
+
     }
 
     private void CollectRemainingResourceData()
